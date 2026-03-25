@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yousafzainasir9.github.io/FAANG-Interview-Book/sitemap.xml
