@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Trie and union-find FAANG problems — implement trie, word search, connected components, with C# solutions.">
+  <meta name="keywords" content="trie, union-find, FAANG interview, word search, connected components, C#">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat11-trie-union-find.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat11-trie-union-find.html">
+  <meta property="og:title" content="Trie & Union-Find | FAANG Interview Book">
+  <meta property="og:description" content="Trie and union-find FAANG problems — implement trie, word search, connected components, with C# solutions.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat11-trie-union-find.html">
+  <meta name="twitter:title" content="Trie & Union-Find | FAANG Interview Book">
+  <meta name="twitter:description" content="Trie and union-find FAANG problems — implement trie, word search, connected components, with C# solutions.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Trie & Union-Find | FAANG Interview Book",
+  "description": "Trie and union-find FAANG problems \u2014 implement trie, word search, connected components, with C# solutions.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/cat11-trie-union-find.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+  <title>Trie & Union-Find | FAANG Interview Book</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* SHARED CSS TEMPLATE - Copy this into each chapter HTML file's <style> tag */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    :root{
+      --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+      --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+      --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+      --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+      --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+      --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+      --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+      --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+    }
+    body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+    nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+    .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+    .nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+    .nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+    .nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+    .nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+    .wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+    .hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+    .eyebrow-line{width:28px;height:2px;background:var(--acc)}
+    .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+    .hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+    .hero h1 em{font-style:normal;color:var(--acc)}
+    .hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+    .stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content}
+    .stat{padding:14px 26px;border-right:1px solid var(--rule)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+    .stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+    .toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+    .toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+    .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+    .toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+    .toc-grid a:hover{color:var(--acc)}
+    .toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+    .section{padding-top:72px}
+    .sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+    .sec-line{flex:1;height:1px;background:var(--rule)}
+    .section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+    .section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+    .section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+    .section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+    .algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+    .algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+    .algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+    .algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+    .algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+    .algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+    .algo-body{padding:28px 32px}
+    .cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+    .cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+    .cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+    .cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+    .steps{margin-bottom:26px}
+    .step{display:flex}
+    .step-left{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0}
+    .step-num{width:28px;height:28px;border-radius:50%;background:var(--acc-l);border:1.5px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0}
+    .step-vline{width:1.5px;flex:1;background:var(--rule);margin:4px 0}
+    .step:last-child .step-vline{display:none}
+    .step-body{padding:3px 0 22px 14px;font-size:14px;color:var(--ink2);line-height:1.68}
+    .step-body strong{color:var(--ink);font-weight:600}
+    code.il{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 7px;border-radius:4px;color:var(--acc)}
+    .code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+    .code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+    .copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+    .copy-btn:hover{color:#d4d0c8}
+    pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+    .kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+    .callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+    .callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+    .callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+    .callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+    .callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+    .callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+    .callout strong{color:inherit;font-weight:600}
+    .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+    .b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+    .b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+    .b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+    .b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+    .b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+    .tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--rule);margin-bottom:26px}
+    table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+    thead tr{background:var(--bg2)}
+    th{text-align:left;padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule)}
+    td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+    td:first-child{font-weight:600;color:var(--ink)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--bg)}
+    .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+    .vs-box{border-radius:10px;padding:18px 20px;border:1px solid}
+    .vs-box.good{background:var(--green-l);border-color:var(--green-b)}
+    .vs-box.bad{background:var(--red-l);border-color:var(--red-b)}
+    .vs-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+    .vs-box.good .vs-title{color:var(--green)}.vs-box.bad .vs-title{color:var(--red)}
+    .vs-item{font-size:13px;color:var(--ink2);padding:4px 0;display:flex;gap:8px;line-height:1.5}
+    .vs-item::before{content:'—';color:var(--ink4);flex-shrink:0}
+    .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+    .proof-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px 22px}
+    .proof-title{font-size:15px;font-weight:700;margin-bottom:8px}
+    .proof-body{font-size:13.5px;color:var(--ink2);line-height:1.7}
+    .proof-note{margin-top:12px;font-size:12px;color:var(--ink3)}
+    .proof-note strong{color:var(--ink2)}
+    .tips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
+    .tip-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+    .tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc)}
+    .tip-card.g::before{background:var(--green)}.tip-card.b::before{background:var(--blue)}.tip-card.a::before{background:var(--amber)}
+    .tip-n{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-bottom:8px}
+    .tip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+    .tip-body{font-size:13px;color:var(--ink2);line-height:1.65}
+    footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+    .footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+    footer p{font-size:13px;color:var(--ink3)}
+    footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+    .fade{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .fade.in{opacity:1;transform:none}
+    @media(max-width:700px){
+      .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+      .vs,.proof-grid,.tips{grid-template-columns:1fr}
+      .toc-grid{grid-template-columns:1fr}
+      .stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid var(--rule)}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        FAANG Interview <span class="pill">Book</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">Chapter 11</div>
+      </div>
+      <h1>Trie & <em>Union-Find</em></h1>
+      <p class="hero-sub">Master prefix trees and disjoint sets. Learn to implement Trie for autocomplete, word search, and pattern matching. Master Union-Find for connectivity, cycle detection, and graph problems. 10 essential problems with full C# solutions.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-n">10</div>
+          <div class="stat-l">Problems</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">~1400</div>
+          <div class="stat-l">Lines of Code</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">O(n)</div>
+          <div class="stat-l">Space</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toc">
+      <div class="toc-head">Problems in this chapter</div>
+      <div class="toc-grid">
+        <a href="#p1"><span class="toc-n">1</span> Implement Trie</a>
+        <a href="#p2"><span class="toc-n">2</span> Add & Search Words</a>
+        <a href="#p3"><span class="toc-n">3</span> Word Search II</a>
+        <a href="#p4"><span class="toc-n">4</span> Replace Words</a>
+        <a href="#p5"><span class="toc-n">5</span> Number of Provinces</a>
+        <a href="#p6"><span class="toc-n">6</span> Redundant Connection</a>
+        <a href="#p7"><span class="toc-n">7</span> Accounts Merge</a>
+        <a href="#p8"><span class="toc-n">8</span> Longest Word in Dictionary</a>
+        <a href="#p9"><span class="toc-n">9</span> Most Stones Removed</a>
+        <a href="#p10"><span class="toc-n">10</span> Swim in Rising Water</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-tag">
+        <span class="sec-num">INTRO</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Foundations: Trie & Union-Find</h2>
+      <p class="lead">Two powerful data structures for string processing and graph connectivity. Master both to unlock a category of FAANG problems.</p>
+
+      <h3>Trie (Prefix Tree)</h3>
+      <p>A tree structure optimized for prefix-based lookups. Each node represents a character; paths from root spell words. Insert is O(m) where m is word length. Search is O(m). Space is O(alphabet × depth).</p>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="kw">class</span> <span class="ty">TrieNode</span>
+{
+    <span class="kw">public</span> <span class="ty">Dictionary</span>&lt;<span class="ty">char</span>, <span class="ty">TrieNode</span>&gt; children = <span class="kw">new</span>();
+    <span class="kw">public</span> <span class="ty">bool</span> isWord = <span class="kw">false</span>;
+}
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="ty">Trie</span>
+{
+    <span class="kw">private</span> <span class="ty">TrieNode</span> root = <span class="kw">new</span>();
+
+    <span class="kw">public</span> <span class="ty">void</span> <span class="fn">Insert</span>(<span class="ty">string</span> word)
+    {
+        <span class="ty">var</span> node = root;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c))
+                node.children[c] = <span class="kw">new</span> <span class="ty">TrieNode</span>();
+            node = node.children[c];
+        }
+        node.isWord = <span class="kw">true</span>;
+    }
+
+    <span class="kw">public</span> <span class="ty">bool</span> <span class="fn">Search</span>(<span class="ty">string</span> word)
+    {
+        <span class="ty">var</span> node = root;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c)) <span class="kw">return</span> <span class="kw">false</span>;
+            node = node.children[c];
+        }
+        <span class="kw">return</span> node.isWord;
+    }
+
+    <span class="kw">public</span> <span class="ty">bool</span> <span class="fn">StartsWith</span>(<span class="ty">string</span> prefix)
+    {
+        <span class="ty">var</span> node = root;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> prefix)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c)) <span class="kw">return</span> <span class="kw">false</span>;
+            node = node.children[c];
+        }
+        <span class="kw">return</span> <span class="kw">true</span>;
+    }
+}</pre>
+      </div>
+
+      <h3>Union-Find (Disjoint Set Union)</h3>
+      <p>Tracks connected components efficiently. <code class="il">Union(a, b)</code> merges sets; <code class="il">Find(x)</code> returns representative. With path compression and union by rank: nearly O(1) per operation. Critical for cycle detection and connectivity.</p>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="kw">class</span> <span class="ty">UnionFind</span>
+{
+    <span class="kw">private</span> <span class="ty">int</span>[] parent, rank;
+
+    <span class="kw">public</span> <span class="fn">UnionFind</span>(<span class="ty">int</span> n)
+    {
+        parent = <span class="kw">new</span> <span class="ty">int</span>[n];
+        rank = <span class="kw">new</span> <span class="ty">int</span>[n];
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; n; i++) parent[i] = i;
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">Find</span>(<span class="ty">int</span> x)
+    {
+        <span class="kw">if</span> (parent[x] != x)
+            parent[x] = <span class="fn">Find</span>(parent[x]); <span class="cm">// Path compression</span>
+        <span class="kw">return</span> parent[x];
+    }
+
+    <span class="kw">public</span> <span class="ty">bool</span> <span class="fn">Union</span>(<span class="ty">int</span> x, <span class="ty">int</span> y)
+    {
+        <span class="ty">int</span> px = <span class="fn">Find</span>(x), py = <span class="fn">Find</span>(y);
+        <span class="kw">if</span> (px == py) <span class="kw">return</span> <span class="kw">false</span>;
+
+        <span class="cm">// Union by rank</span>
+        <span class="kw">if</span> (rank[px] &lt; rank[py]) (px, py) = (py, px);
+        parent[py] = px;
+        <span class="kw">if</span> (rank[px] == rank[py]) rank[px]++;
+        <span class="kw">return</span> <span class="kw">true</span>;
+    }
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">★</div>
+        <div><strong>When to use:</strong> Trie excels at prefix queries and autocomplete. Union-Find shines in connectivity, grouping, and cycle detection. Choose based on problem structure.</div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 1 -->
+    <div class="algo" id="p1">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Implement Trie (Prefix Tree)</div>
+          <div class="algo-desc">Implement a trie with <code class="il">Insert(word)</code>, <code class="il">Search(word)</code>, and <code class="il">StartsWith(prefix)</code> operations.</div>
+          <div class="algo-tags">
+            <span class="badge b-orange">Medium</span>
+            <span class="badge b-green">Google</span>
+            <span class="badge b-green">Amazon</span>
+            <span class="badge b-green">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">1</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(m)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(alphabet × m)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Create root node pointing to character children.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Insert: traverse/create path, mark end as word.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">Search: traverse path, return if exists and isWord.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">class</span> <span class="ty">Trie</span>
+{
+    <span class="kw">private</span> <span class="kw">class</span> <span class="ty">TrieNode</span>
+    {
+        <span class="kw">public</span> <span class="ty">Dictionary</span>&lt;<span class="ty">char</span>, <span class="ty">TrieNode</span>&gt; children = <span class="kw">new</span>();
+        <span class="kw">public</span> <span class="ty">bool</span> isWord = <span class="kw">false</span>;
+    }
+
+    <span class="kw">private</span> <span class="ty">TrieNode</span> root = <span class="kw">new</span>();
+
+    <span class="kw">public</span> <span class="ty">void</span> <span class="fn">Insert</span>(<span class="ty">string</span> word)
+    {
+        <span class="ty">var</span> node = root;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c))
+                node.children[c] = <span class="kw">new</span> <span class="ty">TrieNode</span>();
+            node = node.children[c];
+        }
+        node.isWord = <span class="kw">true</span>;
+    }
+
+    <span class="kw">public</span> <span class="ty">bool</span> <span class="fn">Search</span>(<span class="ty">string</span> word)
+    {
+        <span class="ty">var</span> node = root;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c))
+                <span class="kw">return</span> <span class="kw">false</span>;
+            node = node.children[c];
+        }
+        <span class="kw">return</span> node.isWord;
+    }
+
+    <span class="kw">public</span> <span class="ty">bool</span> <span class="fn">StartsWith</span>(<span class="ty">string</span> prefix)
+    {
+        <span class="ty">var</span> node = root;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> prefix)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c))
+                <span class="kw">return</span> <span class="kw">false</span>;
+            node = node.children[c];
+        }
+        <span class="kw">return</span> <span class="kw">true</span>;
+    }
+}
+
+<span class="cm">// Example: Insert "apple", search "app" returns false, startsWith "app" returns true</span></pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Insert/search in O(m) regardless of trie size</div>
+            <div class="vs-item">Memory efficient for many words with common prefixes</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Empty string: handle as valid prefix but not word</div>
+            <div class="vs-item">Case sensitivity: decide upfront (usually lowercase)</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Tries are asked by Google, Meta, Amazon. Combine with DFS for word search (Problem 3). Always optimize with isWord flag instead of checking length.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 2 -->
+    <div class="algo" id="p2">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Design Add and Search Words</div>
+          <div class="algo-desc">Implement <code class="il">addWord(word)</code> and <code class="il">search(pattern)</code>. Pattern may contain '.' matching any letter.</div>
+          <div class="algo-tags">
+            <span class="badge b-orange">Medium</span>
+            <span class="badge b-green">Meta</span>
+            <span class="badge b-blue">Apple</span>
+          </div>
+        </div>
+        <div class="algo-idx">2</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(26^m)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(alphabet × n)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Store words in trie with isWord flag.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Use DFS for search: '.' explores all children.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">Backtrack to find matching complete paths.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">class</span> <span class="ty">WordDictionary</span>
+{
+    <span class="kw">private</span> <span class="kw">class</span> <span class="ty">Node</span>
+    {
+        <span class="kw">public</span> <span class="ty">Dictionary</span>&lt;<span class="ty">char</span>, <span class="ty">Node</span>&gt; children = <span class="kw">new</span>();
+        <span class="kw">public</span> <span class="ty">bool</span> isWord = <span class="kw">false</span>;
+    }
+
+    <span class="kw">private</span> <span class="ty">Node</span> root = <span class="kw">new</span>();
+
+    <span class="kw">public</span> <span class="ty">void</span> <span class="fn">AddWord</span>(<span class="ty">string</span> word)
+    {
+        <span class="ty">var</span> node = root;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c))
+                node.children[c] = <span class="kw">new</span> <span class="ty">Node</span>();
+            node = node.children[c];
+        }
+        node.isWord = <span class="kw">true</span>;
+    }
+
+    <span class="kw">public</span> <span class="ty">bool</span> <span class="fn">Search</span>(<span class="ty">string</span> word)
+    {
+        <span class="kw">return</span> <span class="fn">DFS</span>(word, <span class="num">0</span>, root);
+    }
+
+    <span class="kw">private</span> <span class="ty">bool</span> <span class="fn">DFS</span>(<span class="ty">string</span> word, <span class="ty">int</span> idx, <span class="ty">Node</span> node)
+    {
+        <span class="kw">if</span> (idx == word.<span class="prop">Length</span>)
+            <span class="kw">return</span> node.isWord;
+
+        <span class="ty">char</span> c = word[idx];
+        <span class="kw">if</span> (c == <span class="str">'.'</span>)
+        {
+            <span class="kw">foreach</span> (<span class="ty">var</span> child <span class="kw">in</span> node.children.<span class="prop">Values</span>)
+                <span class="kw">if</span> (<span class="fn">DFS</span>(word, idx + <span class="num">1</span>, child))
+                    <span class="kw">return</span> <span class="kw">true</span>;
+            <span class="kw">return</span> <span class="kw">false</span>;
+        }
+
+        <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c))
+            <span class="kw">return</span> <span class="kw">false</span>;
+        <span class="kw">return</span> <span class="fn">DFS</span>(word, idx + <span class="num">1</span>, node.children[c]);
+    }
+}</pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Add is O(m), search is O(26^m) worst case (all dots)</div>
+            <div class="vs-item">DFS naturally handles wildcard recursion</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Pattern all dots on large trie = exponential time</div>
+            <div class="vs-item">Must verify isWord at end, not just path existence</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Asked by Meta. Pattern matching with wildcards is common in autocomplete filtering. Optimize by memoizing search results if same patterns repeat.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 3 -->
+    <div class="algo" id="p3">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Word Search II</div>
+          <div class="algo-desc">Given a grid and list of words, return all words found in grid (can traverse adjacent cells, each cell used once per word).</div>
+          <div class="algo-tags">
+            <span class="badge b-red">Hard</span>
+            <span class="badge b-green">Google</span>
+            <span class="badge b-green">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">3</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n×m×4^l)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(k×l)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Build trie from all words for efficient prefix checking.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">DFS from each cell: follow trie paths in grid.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">Add found words to result, mark as visited to avoid duplicates.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">IList</span>&lt;<span class="ty">string</span>&gt; <span class="fn">FindWords</span>(<span class="ty">char</span>[][] board, <span class="ty">string</span>[] words)
+{
+    <span class="kw">var</span> trie = <span class="kw">new</span> <span class="ty">TrieNode</span>();
+    <span class="kw">foreach</span> (<span class="ty">var</span> word <span class="kw">in</span> words)
+    {
+        <span class="ty">var</span> node = trie;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c))
+                node.children[c] = <span class="kw">new</span> <span class="ty">TrieNode</span>();
+            node = node.children[c];
+        }
+        node.word = word;
+    }
+
+    <span class="ty">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">string</span>&gt;();
+    <span class="ty">int</span> rows = board.<span class="prop">Length</span>, cols = board[<span class="num">0</span>].<span class="prop">Length</span>;
+
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; rows; i++)
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; cols; j++)
+            <span class="fn">DFS</span>(board, i, j, trie, result);
+
+    <span class="kw">return</span> result;
+}
+
+<span class="kw">private</span> <span class="ty">void</span> <span class="fn">DFS</span>(<span class="ty">char</span>[][] board, <span class="ty">int</span> r, <span class="ty">int</span> c, <span class="ty">TrieNode</span> node, <span class="ty">List</span>&lt;<span class="ty">string</span>&gt; result)
+{
+    <span class="ty">char</span> ch = board[r][c];
+    <span class="kw">if</span> (ch == <span class="str">'#'</span> || !node.children.<span class="fn">ContainsKey</span>(ch))
+        <span class="kw">return</span>;
+
+    node = node.children[ch];
+    <span class="kw">if</span> (node.word != <span class="kw">null</span>)
+    {
+        result.<span class="fn">Add</span>(node.word);
+        node.word = <span class="kw">null</span>; <span class="cm">// Avoid duplicates</span>
+    }
+
+    board[r][c] = <span class="str">'#'</span>;
+    <span class="kw">foreach</span> (<span class="ty">var</span> (dr, dc) <span class="kw">in</span> <span class="kw">new</span>[] { (<span class="num">-1</span>, <span class="num">0</span>), (<span class="num">1</span>, <span class="num">0</span>), (<span class="num">0</span>, <span class="num">-1</span>), (<span class="num">0</span>, <span class="num">1</span>) })
+    {
+        <span class="ty">int</span> nr = r + dr, nc = c + dc;
+        <span class="kw">if</span> (nr >= <span class="num">0</span> && nr &lt; board.<span class="prop">Length</span> && nc >= <span class="num">0</span> && nc &lt; board[<span class="num">0</span>].<span class="prop">Length</span>)
+            <span class="fn">DFS</span>(board, nr, nc, node, result);
+    }
+    board[r][c] = ch;
+}</pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Trie prunes impossible branches early</div>
+            <div class="vs-item">Backtracking marks visited with #, restores after</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Mark word as null to avoid adding duplicate results</div>
+            <div class="vs-item">Board mutation: restore state after DFS</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Hard problem—Google, Amazon love it. Key insight: trie avoids checking entire word list per cell. Set word=null instead of deleting from trie for efficiency.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 4 -->
+    <div class="algo" id="p4">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Replace Words</div>
+          <div class="algo-desc">Given dictionary and sentence, replace each word with shortest matching prefix from dictionary.</div>
+          <div class="algo-tags">
+            <span class="badge b-orange">Medium</span>
+            <span class="badge b-green">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">4</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n×m)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(d)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Build trie from dictionary prefixes.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">For each word, traverse trie greedily finding shortest match.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">Replace or keep original based on match.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">string</span> <span class="fn">ReplaceWords</span>(<span class="ty">IList</span>&lt;<span class="ty">string</span>&gt; dictionary, <span class="ty">string</span> sentence)
+{
+    <span class="kw">var</span> trie = <span class="kw">new</span> <span class="ty">TrieNode</span>();
+    <span class="kw">foreach</span> (<span class="ty">var</span> word <span class="kw">in</span> dictionary)
+    {
+        <span class="ty">var</span> node = trie;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c))
+                node.children[c] = <span class="kw">new</span> <span class="ty">TrieNode</span>();
+            node = node.children[c];
+        }
+        node.isWord = <span class="kw">true</span>;
+    }
+
+    <span class="ty">var</span> words = sentence.<span class="fn">Split</span>(<span class="str">' '</span>);
+    <span class="ty">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">string</span>&gt;();
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> word <span class="kw">in</span> words)
+    {
+        <span class="ty">var</span> prefix = <span class="fn">FindPrefix</span>(word, trie);
+        result.<span class="fn">Add</span>(prefix ?? word);
+    }
+
+    <span class="kw">return</span> <span class="ty">string</span>.<span class="fn">Join</span>(<span class="str">" "</span>, result);
+}
+
+<span class="kw">private</span> <span class="ty">string</span> <span class="fn">FindPrefix</span>(<span class="ty">string</span> word, <span class="ty">TrieNode</span> trie)
+{
+    <span class="ty">var</span> node = trie;
+    <span class="ty">var</span> prefix = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+    {
+        <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c) || node.isWord)
+            <span class="kw">break</span>;
+        prefix.<span class="fn">Append</span>(c);
+        node = node.children[c];
+    }
+
+    <span class="kw">return</span> node.isWord ? prefix.<span class="fn">ToString</span>() : <span class="kw">null</span>;
+}</pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Single pass per word yields shortest prefix</div>
+            <div class="vs-item">Trie lookup is O(prefix length), fast and efficient</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Break when word found (isWord=true) or child missing</div>
+            <div class="vs-item">Return original word if no prefix found</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Amazon asks this. Classic trie application—don't overthink. Stop at first word found, not longest; greedy works.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 5 -->
+    <div class="algo" id="p5">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Number of Provinces</div>
+          <div class="algo-desc">Given adjacency matrix of cities, return number of provinces (groups of directly/indirectly connected cities).</div>
+          <div class="algo-tags">
+            <span class="badge b-orange">Medium</span>
+            <span class="badge b-green">Amazon</span>
+            <span class="badge b-green">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">5</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n²α(n))</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Initialize Union-Find with n cities, each its own set.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">For each edge (i,j), union sets containing i and j.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">Count unique roots—each root is one province.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span> <span class="fn">FindCircleNum</span>(<span class="ty">int</span>[][] isConnected)
+{
+    <span class="ty">int</span> n = isConnected.<span class="prop">Length</span>;
+    <span class="ty">var</span> uf = <span class="kw">new</span> <span class="ty">UnionFind</span>(n);
+
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; n; i++)
+        <span class="kw">for</span> (<span class="ty">int</span> j = i + <span class="num">1</span>; j &lt; n; j++)
+            <span class="kw">if</span> (isConnected[i][j] == <span class="num">1</span>)
+                uf.<span class="fn">Union</span>(i, j);
+
+    <span class="ty">var</span> roots = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="ty">int</span>&gt;();
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; n; i++)
+        roots.<span class="fn">Add</span>(uf.<span class="fn">Find</span>(i));
+
+    <span class="kw">return</span> roots.<span class="prop">Count</span>;
+}</pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Union-Find is nearly O(1) per operation with optimizations</div>
+            <div class="vs-item">Handles cycles naturally—no explicit cycle tracking</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Single city (n=1) has 1 province</div>
+            <div class="vs-item">isConnected[i][i] is always 1 but ignored</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Union-Find shines here—simple and elegant. Amazon, Meta love connectivity problems. Path compression + rank make it near-linear.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 6 -->
+    <div class="algo" id="p6">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Redundant Connection</div>
+          <div class="algo-desc">In a tree with one redundant edge, find and return the edge that creates a cycle.</div>
+          <div class="algo-tags">
+            <span class="badge b-orange">Medium</span>
+            <span class="badge b-green">Google</span>
+            <span class="badge b-blue">Apple</span>
+          </div>
+        </div>
+        <div class="algo-idx">6</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(nα(n))</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Process edges in order, union their endpoints.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">If endpoints already in same set, that edge is redundant.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">Return first redundant edge found (array order).</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span>[] <span class="fn">FindRedundantConnection</span>(<span class="ty">int</span>[][] edges)
+{
+    <span class="ty">int</span> n = edges.<span class="prop">Length</span>;
+    <span class="ty">var</span> uf = <span class="kw">new</span> <span class="ty">UnionFind</span>(n + <span class="num">1</span>);
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> edge <span class="kw">in</span> edges)
+    {
+        <span class="ty">int</span> u = edge[<span class="num">0</span>], v = edge[<span class="num">1</span>];
+        <span class="kw">if</span> (!uf.<span class="fn">Union</span>(u, v))
+            <span class="kw">return</span> edge; <span class="cm">// Cycle detected</span>
+    }
+
+    <span class="kw">return</span> <span class="kw">new</span> <span class="ty">int</span>[] { };
+}</pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Detects cycle on first occurrence (linear time)</div>
+            <div class="vs-item">No need to build graph structure</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Union must return false for existing connections</div>
+            <div class="vs-item">1-indexed nodes: UnionFind size = n+1</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Google favorite for testing Union-Find understanding. If problem asks "find the edge," Union-Find is the signal. Much faster than DFS/BFS cycle detection.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 7 -->
+    <div class="algo" id="p7">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Accounts Merge</div>
+          <div class="algo-desc">Given list of accounts with names and emails, merge accounts with common emails. Return grouped merged accounts sorted.</div>
+          <div class="algo-tags">
+            <span class="badge b-orange">Medium</span>
+            <span class="badge b-green">Amazon</span>
+            <span class="badge b-green">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">7</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n×m×log m)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n×m)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Map each email to account index; union all emails in same account.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Group emails by root account; build result list per root.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">Sort emails alphabetically within each merged account.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">IList</span>&lt;<span class="ty">IList</span>&lt;<span class="ty">string</span>&gt;&gt; <span class="fn">AccountsMerge</span>(<span class="ty">IList</span>&lt;<span class="ty">IList</span>&lt;<span class="ty">string</span>&gt;&gt; accounts)
+{
+    <span class="ty">int</span> n = accounts.<span class="prop">Count</span>;
+    <span class="ty">var</span> uf = <span class="kw">new</span> <span class="ty">UnionFind</span>(n);
+    <span class="ty">var</span> emailToAccount = <span class="kw">new</span> <span class="ty">Dictionary</span>&lt;<span class="ty">string</span>, <span class="ty">int</span>&gt;();
+
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; n; i++)
+    {
+        <span class="kw">foreach</span> (<span class="ty">var</span> email <span class="kw">in</span> accounts[i].<span class="fn">Skip</span>(<span class="num">1</span>))
+        {
+            <span class="kw">if</span> (emailToAccount.<span class="fn">ContainsKey</span>(email))
+                uf.<span class="fn">Union</span>(i, emailToAccount[email]);
+            <span class="kw">else</span>
+                emailToAccount[email] = i;
+        }
+    }
+
+    <span class="ty">var</span> emailsByRoot = <span class="kw">new</span> <span class="ty">Dictionary</span>&lt;<span class="ty">int</span>, <span class="ty">List</span>&lt;<span class="ty">string</span>&gt;&gt;();
+    <span class="kw">foreach</span> (<span class="ty">var</span> (email, accountIdx) <span class="kw">in</span> emailToAccount)
+    {
+        <span class="ty">int</span> root = uf.<span class="fn">Find</span>(accountIdx);
+        <span class="kw">if</span> (!emailsByRoot.<span class="fn">ContainsKey</span>(root))
+            emailsByRoot[root] = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">string</span>&gt;();
+        emailsByRoot[root].<span class="fn">Add</span>(email);
+    }
+
+    <span class="ty">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="ty">string</span>&gt;&gt;();
+    <span class="kw">foreach</span> (<span class="ty">var</span> (root, emails) <span class="kw">in</span> emailsByRoot)
+    {
+        emails.<span class="fn">Sort</span>();
+        <span class="ty">var</span> merged = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">string</span>&gt; { accounts[root][<span class="num">0</span>] };
+        merged.<span class="fn">AddRange</span>(emails);
+        result.<span class="fn">Add</span>(merged);
+    }
+
+    <span class="kw">return</span> result;
+}</pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Union-Find elegantly groups accounts by email overlap</div>
+            <div class="vs-item">Sorting emails is O(m log m) per account—acceptable</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Skip first element (name) when iterating emails</div>
+            <div class="vs-item">Account name always from original (first email's account root)</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Amazon, Meta love this. Classic Union-Find + hash map pattern. Key: email → account mapping + union, then group by root.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 8 -->
+    <div class="algo" id="p8">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Longest Word in Dictionary</div>
+          <div class="algo-desc">Given dictionary of words, return longest word formed by concatenating other dictionary words (can reuse).</div>
+          <div class="algo-tags">
+            <span class="badge b-orange">Medium</span>
+            <span class="badge b-blue">Apple</span>
+          </div>
+        </div>
+        <div class="algo-idx">8</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n×m²)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n×m)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Build trie from all dictionary words.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">For each word, BFS to check if all prefixes exist in trie.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">Track longest valid word (longest first, then lexicographic).</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">string</span> <span class="fn">LongestWord</span>(<span class="ty">string</span>[] words)
+{
+    <span class="ty">var</span> trie = <span class="kw">new</span> <span class="ty">TrieNode</span>();
+    <span class="kw">foreach</span> (<span class="ty">var</span> word <span class="kw">in</span> words)
+    {
+        <span class="ty">var</span> node = trie;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+        {
+            <span class="kw">if</span> (!node.children.<span class="fn">ContainsKey</span>(c))
+                node.children[c] = <span class="kw">new</span> <span class="ty">TrieNode</span>();
+            node = node.children[c];
+        }
+        node.isWord = <span class="kw">true</span>;
+    }
+
+    <span class="ty">Array</span>.<span class="fn">Sort</span>(words, (a, b) =&gt; b.<span class="prop">Length</span> != a.<span class="prop">Length</span> ?
+        b.<span class="prop">Length</span>.<span class="fn">CompareTo</span>(a.<span class="prop">Length</span>) : a.<span class="fn">CompareTo</span>(b));
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> word <span class="kw">in</span> words)
+    {
+        <span class="ty">var</span> node = trie;
+        <span class="ty">bool</span> valid = <span class="kw">true</span>;
+        <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> word)
+        {
+            node = node.children[c];
+            <span class="kw">if</span> (!node.isWord)
+            {
+                valid = <span class="kw">false</span>;
+                <span class="kw">break</span>;
+            }
+        }
+        <span class="kw">if</span> (valid) <span class="kw">return</span> word;
+    }
+
+    <span class="kw">return</span> <span class="str">""</span>;
+}</pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Sort by length descending first—exit early on first valid</div>
+            <div class="vs-item">Lexicographic tie-break built into sort</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Check each prefix is a word (isWord), not just exists</div>
+            <div class="vs-item">Empty result: return "" if no valid word</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Apple, Google ask this. Sorting trick: descending length + lexicographic. Trie lookup confirms all prefixes are valid words.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 9 -->
+    <div class="algo" id="p9">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Most Stones Removed from Grid</div>
+          <div class="algo-desc">In a 2D grid, stones sharing row or column form a connected component. Return max stones removable (all but one per component).</div>
+          <div class="algo-tags">
+            <span class="badge b-red">Hard</span>
+            <span class="badge b-green">Amazon</span>
+            <span class="badge b-green">Google</span>
+          </div>
+        </div>
+        <div class="algo-idx">9</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n×α(n))</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Create nodes for each row and column (offset to avoid collision).</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">For each stone at (r,c), union row-node with column-node.</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">Stones removed = total stones - number of components.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span> <span class="fn">RemoveStones</span>(<span class="ty">int</span>[][] stones)
+{
+    <span class="ty">int</span> n = stones.<span class="prop">Length</span>;
+    <span class="ty">var</span> uf = <span class="kw">new</span> <span class="ty">UnionFind</span>(<span class="num">20001</span>); <span class="cm">// 10000 rows + 10000 cols offset</span>
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> stone <span class="kw">in</span> stones)
+    {
+        <span class="ty">int</span> row = stone[<span class="num">0</span>], col = stone[<span class="num">1</span>] + <span class="num">10000</span>;
+        uf.<span class="fn">Union</span>(row, col); <span class="cm">// Stones in same row/col connected</span>
+    }
+
+    <span class="ty">var</span> roots = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="ty">int</span>&gt;();
+    <span class="kw">foreach</span> (<span class="ty">var</span> stone <span class="kw">in</span> stones)
+        roots.<span class="fn">Add</span>(uf.<span class="fn">Find</span>(stone[<span class="num">0</span>])); <span class="cm">// Find root via row</span>
+
+    <span class="kw">return</span> n - roots.<span class="prop">Count</span>; <span class="cm">// Remove all but root</span>
+}</pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Linear time—each stone processed once</div>
+            <div class="vs-item">Elegant: union rows and columns, not stones directly</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Offset column indices to avoid collision with rows</div>
+            <div class="vs-item">Count components (unique roots), not stones</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Hard but elegant solution—Amazon, Google ask. Key insight: union rows and columns, not stone pairs. Stones = components, removable = stones - components.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 10 -->
+    <div class="algo" id="p10">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Swim in Rising Water</div>
+          <div class="algo-desc">Grid where cell (i,j) has elevation grid[i][j]. Water rises by time. Find minimum time to swim from top-left to bottom-right.</div>
+          <div class="algo-tags">
+            <span class="badge b-red">Hard</span>
+            <span class="badge b-green">Google</span>
+            <span class="badge b-green">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">10</div>
+      </div>
+      <div class="algo-body">
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n²α(n))</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n²)</div>
+          </div>
+        </div>
+
+        <h3>Approach</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">1</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Process cells in ascending elevation order (sort grid values).</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">2</div>
+              <div class="step-vline"></div>
+            </div>
+            <div class="step-body">Union cell with neighbors already processed (lower elevation).</div>
+          </div>
+          <div class="step">
+            <div class="step-left">
+              <div class="step-num">3</div>
+            </div>
+            <div class="step-body">When start and end connected, return current elevation (time).</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span> <span class="fn">SwimInWater</span>(<span class="ty">int</span>[][] grid)
+{
+    <span class="ty">int</span> n = grid.<span class="prop">Length</span>;
+    <span class="ty">var</span> uf = <span class="kw">new</span> <span class="ty">UnionFind</span>(n * n);
+
+    <span class="kw">var</span> cells = <span class="kw">new</span> <span class="ty">List</span>&lt;(<span class="ty">int</span>, <span class="ty">int</span>, <span class="ty">int</span>)&gt;(); <span class="cm">// (elevation, row, col)</span>
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; n; i++)
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; n; j++)
+            cells.<span class="fn">Add</span>((grid[i][j], i, j));
+
+    cells.<span class="fn">Sort</span>();
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> (elev, r, c) <span class="kw">in</span> cells)
+    {
+        <span class="ty">foreach</span> (<span class="ty">var</span> (dr, dc) <span class="kw">in</span> <span class="kw">new</span>[] { (<span class="num">-1</span>, <span class="num">0</span>), (<span class="num">1</span>, <span class="num">0</span>), (<span class="num">0</span>, <span class="num">-1</span>), (<span class="num">0</span>, <span class="num">1</span>) })
+        {
+            <span class="ty">int</span> nr = r + dr, nc = c + dc;
+            <span class="kw">if</span> (nr >= <span class="num">0</span> && nr &lt; n && nc >= <span class="num">0</span> && nc &lt; n && grid[nr][nc] &lt;= elev)
+                uf.<span class="fn">Union</span>(r * n + c, nr * n + nc);
+        }
+
+        <span class="kw">if</span> (uf.<span class="fn">Find</span>(<span class="num">0</span>) == uf.<span class="fn">Find</span>(n * n - <span class="num">1</span>))
+            <span class="kw">return</span> elev;
+    }
+
+    <span class="kw">return</span> <span class="num">0</span>;
+}</pre>
+        </div>
+
+        <h3>Complexity & Edge Cases</h3>
+        <div class="vs">
+          <div class="vs-box good">
+            <div class="vs-title">✓ Strong</div>
+            <div class="vs-item">Binary search alternative would be O(n² log max(grid))</div>
+            <div class="vs-item">Union-Find approach is cleaner and faster</div>
+          </div>
+          <div class="vs-box bad">
+            <div class="vs-title">⚠ Watch out</div>
+            <div class="vs-item">Only union with neighbors having lower elevation (already processed)</div>
+            <div class="vs-item">Start (0,0) and end (n-1,n-1) map to indices 0 and n²-1</div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div><strong>FAANG tip:</strong> Hard problem—Google, Meta favor Union-Find solution over binary search + Dijkstra. Process cells by elevation ascending, union as water rises. Returns on first connectivity.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p>FAANG Interview Prep Book | Trie & Union-Find Mastery</p>
+      <p>All code examples in C# with syntax highlighting. Focus on clarity and FAANG-level optimization.</p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const codeBlock = btn.closest('.code-block').querySelector('pre');
+      const text = codeBlock.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.innerText;
+        btn.innerText = 'Copied!';
+        setTimeout(() => btn.innerText = original, 2000);
+      });
+    }
+
+    // Fade-in animation on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.algo, .section').forEach(el => {
+      el.classList.add('fade');
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

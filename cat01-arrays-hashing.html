@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Arrays and hashing problems for FAANG interviews — Two Sum, Group Anagrams, Top K Frequent, with C# solutions and patterns.">
+  <meta name="keywords" content="arrays, hashing, FAANG interview, Two Sum, Group Anagrams, C#, hash map problems">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat01-arrays-hashing.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat01-arrays-hashing.html">
+  <meta property="og:title" content="Arrays & Hashing | FAANG Interview Book">
+  <meta property="og:description" content="Arrays and hashing problems for FAANG interviews — Two Sum, Group Anagrams, Top K Frequent, with C# solutions and patterns.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat01-arrays-hashing.html">
+  <meta name="twitter:title" content="Arrays & Hashing | FAANG Interview Book">
+  <meta name="twitter:description" content="Arrays and hashing problems for FAANG interviews — Two Sum, Group Anagrams, Top K Frequent, with C# solutions and patterns.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Arrays & Hashing | FAANG Interview Book",
+  "description": "Arrays and hashing problems for FAANG interviews \u2014 Two Sum, Group Anagrams, Top K Frequent, with C# solutions and patterns.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/cat01-arrays-hashing.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+  <title>Arrays & Hashing | FAANG Interview Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* SHARED CSS TEMPLATE */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    :root{
+      --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+      --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+      --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+      --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+      --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+      --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+      --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+      --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+    }
+    body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+    nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+    .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+    .nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+    .nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+    .nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+    .nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+    .wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+    .hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+    .eyebrow-line{width:28px;height:2px;background:var(--acc)}
+    .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+    .hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+    .hero h1 em{font-style:normal;color:var(--acc)}
+    .hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+    .stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content}
+    .stat{padding:14px 26px;border-right:1px solid var(--rule)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+    .stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+    .toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+    .toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+    .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+    .toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+    .toc-grid a:hover{color:var(--acc)}
+    .toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+    .section{padding-top:72px}
+    .sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+    .sec-line{flex:1;height:1px;background:var(--rule)}
+    .section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+    .section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+    .section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+    .section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+    .algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+    .algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+    .algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+    .algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+    .algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+    .algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+    .algo-body{padding:28px 32px}
+    .cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+    .cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+    .cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+    .cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+    .steps{margin-bottom:26px}
+    .step{display:flex}
+    .step-left{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0}
+    .step-num{width:28px;height:28px;border-radius:50%;background:var(--acc-l);border:1.5px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0}
+    .step-vline{width:1.5px;flex:1;background:var(--rule);margin:4px 0}
+    .step:last-child .step-vline{display:none}
+    .step-body{padding:3px 0 22px 14px;font-size:14px;color:var(--ink2);line-height:1.68}
+    .step-body strong{color:var(--ink);font-weight:600}
+    code.il{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 7px;border-radius:4px;color:var(--acc)}
+    .code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+    .code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+    .copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+    .copy-btn:hover{color:#d4d0c8}
+    pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+    .kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+    .callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+    .callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+    .callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+    .callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+    .callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+    .callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+    .callout strong{color:inherit;font-weight:600}
+    .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+    .b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+    .b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+    .b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+    .b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+    .b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+    .tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--rule);margin-bottom:26px}
+    table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+    thead tr{background:var(--bg2)}
+    th{text-align:left;padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule)}
+    td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+    td:first-child{font-weight:600;color:var(--ink)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--bg)}
+    .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+    .vs-box{border-radius:10px;padding:18px 20px;border:1px solid}
+    .vs-box.good{background:var(--green-l);border-color:var(--green-b)}
+    .vs-box.bad{background:var(--red-l);border-color:var(--red-b)}
+    .vs-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+    .vs-box.good .vs-title{color:var(--green)}.vs-box.bad .vs-title{color:var(--red)}
+    .vs-item{font-size:13px;color:var(--ink2);padding:4px 0;display:flex;gap:8px;line-height:1.5}
+    .vs-item::before{content:'—';color:var(--ink4);flex-shrink:0}
+    footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+    .footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+    footer p{font-size:13px;color:var(--ink3)}
+    footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+    @media(max-width:700px){
+      .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+      .vs{grid-template-columns:1fr}
+      .toc-grid{grid-template-columns:1fr}
+      .stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid var(--rule)}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <span style="color:var(--acc)">◇</span> FAANG <span class="pill">Interview</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">← Index</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Category 01</span>
+      </div>
+      <h1>Arrays <em>&</em> Hashing</h1>
+      <p class="hero-sub">Master the most fundamental data structures in technical interviews. Learn 15 essential problems covering hash tables, collision resolution, prefix sums, and two-pointer techniques—all in C#.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-n">15</div>
+          <div class="stat-l">Problems</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">5–60m</div>
+          <div class="stat-l">Difficulty</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">FAANG</div>
+          <div class="stat-l">Frequency</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="toc">
+      <div class="toc-head">Quick Navigation</div>
+      <div class="toc-grid">
+        <a href="#prob-01"><span class="toc-n">01</span> Two Sum</a>
+        <a href="#prob-02"><span class="toc-n">02</span> Contains Duplicate</a>
+        <a href="#prob-03"><span class="toc-n">03</span> Valid Anagram</a>
+        <a href="#prob-04"><span class="toc-n">04</span> Group Anagrams</a>
+        <a href="#prob-05"><span class="toc-n">05</span> Top K Frequent</a>
+        <a href="#prob-06"><span class="toc-n">06</span> Product Except Self</a>
+        <a href="#prob-07"><span class="toc-n">07</span> Longest Consecutive</a>
+        <a href="#prob-08"><span class="toc-n">08</span> Encode Decode Strings</a>
+        <a href="#prob-09"><span class="toc-n">09</span> Subarray Sum Equals K</a>
+        <a href="#prob-10"><span class="toc-n">10</span> Maximum Subarray</a>
+        <a href="#prob-11"><span class="toc-n">11</span> Merge Sorted Array</a>
+        <a href="#prob-12"><span class="toc-n">12</span> Move Zeroes</a>
+        <a href="#prob-13"><span class="toc-n">13</span> Next Permutation</a>
+        <a href="#prob-14"><span class="toc-n">14</span> First Missing Positive</a>
+        <a href="#prob-15"><span class="toc-n">15</span> Trapping Rain Water</a>
+      </div>
+    </section>
+
+    <!-- THEORY SECTION -->
+    <section class="section">
+      <div class="sec-tag">
+        <span class="sec-num">00</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Fundamentals: Arrays & Hash Tables in C#</h2>
+      <p class="lead">Arrays and hash-based data structures are the foundation of efficient problem-solving. Understand their tradeoffs.</p>
+
+      <h3>Core Data Structures</h3>
+      <p><strong>Array (T[])</strong>: Fixed-size, contiguous memory. O(1) access by index, O(n) insertion/deletion.</p>
+      <p><strong>List&lt;T&gt;</strong>: Dynamic array wrapper. O(1) amortized append, O(n) insertion in middle.</p>
+      <p><strong>Dictionary&lt;K,V&gt;</strong>: Hash table. O(1) avg insertion/lookup, O(n) worst-case (rare). Unordered.</p>
+      <p><strong>HashSet&lt;T&gt;</strong>: Unique values only. O(1) avg add/contains, perfect for membership queries.</p>
+
+      <div class="callout info">
+        <span class="callout-icon">💡</span>
+        <div><strong>Hash Collision:</strong> When two distinct keys hash to the same bucket, C# uses chaining (LinkedList). This is rare in practice with good hash functions. Worst case O(n) if all keys collide, but with n items in a dictionary sized for ~0.75 load factor, expect O(1).</div>
+      </div>
+
+      <h3>Time Complexity Reference</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Array</th>
+              <th>List&lt;T&gt;</th>
+              <th>Dictionary&lt;K,V&gt;</th>
+              <th>HashSet&lt;T&gt;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Access by index</td>
+              <td>O(1)</td>
+              <td>O(1)</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>Insert/Delete at end</td>
+              <td>—</td>
+              <td>O(1) amortized</td>
+              <td>O(1) avg</td>
+              <td>O(1) avg</td>
+            </tr>
+            <tr>
+              <td>Insert/Delete in middle</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
+              <td>O(1)</td>
+              <td>O(1)</td>
+            </tr>
+            <tr>
+              <td>Search</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
+              <td>O(1) avg</td>
+              <td>O(1) avg</td>
+            </tr>
+            <tr>
+              <td>Space</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Key Patterns to Master</h3>
+      <p><strong>1. Hash Map Counting:</strong> Store frequency maps to detect duplicates, anagrams, or patterns.</p>
+      <p><strong>2. Two Pointer:</strong> Use two indices moving from opposite ends (or same direction at different speeds) to avoid nested loops.</p>
+      <p><strong>3. Prefix/Suffix:</strong> Build arrays of cumulative values to reduce time complexity from O(n²) to O(n).</p>
+      <p><strong>4. Cyclic Sort:</strong> Place each element in its "correct" position (e.g., 1 at index 0, 2 at index 1) to detect missing/duplicates.</p>
+      <p><strong>5. Sorting by Custom Key:</strong> Use LINQ OrderBy with computed keys (e.g., anagram signatures).</p>
+    </section>
+
+    <!-- PROBLEM 01: TWO SUM -->
+    <section id="prob-01" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Two Sum</div>
+          <p class="algo-desc">Given an array of integers and a target sum, find the indices of two numbers that add up to the target. Each input has exactly one solution; use each element at most once.</p>
+          <div class="algo-tags">
+            <span class="badge b-green">Easy</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">01</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Nested loop: for each element, check all remaining elements. O(n²) time, O(1) space. Too slow for large inputs.</p>
+
+        <h3>Optimal Approach: Hash Map Lookup</h3>
+        <p><strong>Insight:</strong> For each number, ask: "Is (target − number) in the hash set?" If yes, we found the pair.</p>
+        <p><strong>Why it works:</strong> Single pass with O(1) lookups in a hash map beats nested loops. Pairs are unordered, so order of insertion doesn't matter.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Create a hash map (Dictionary&lt;int, int&gt;) to store <strong>value → index</strong>.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">Iterate through the array. For each number, compute <code class="il">complement = target − number</code>.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">If complement exists in the map, return [map[complement], i]. Otherwise, add number to map.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">If no pair found, return [-1, -1] (problem guarantees a solution exists).</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">int</span>[] <span class="fn">TwoSum</span>(<span class="kw">int</span>[] nums, <span class="kw">int</span> target) {
+    <span class="kw">var</span> map = <span class="kw">new</span> Dictionary&lt;<span class="kw">int</span>, <span class="kw">int</span>&gt;();
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nums.Length; i++) {
+        <span class="kw">int</span> complement = target - nums[i];
+        <span class="kw">if</span> (map.ContainsKey(complement)) {
+            <span class="kw">return</span> <span class="kw">new</span> <span class="kw">int</span>[] { map[complement], i };
+        }
+        <span class="kw">if</span> (!map.ContainsKey(nums[i])) {
+            map[nums[i]] = i;
+        }
+    }
+    <span class="kw">return</span> <span class="kw">new</span> <span class="kw">int</span>[] { -<span class="num">1</span>, -<span class="num">1</span> };
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [2, 7, 11, 15], target = 9</p>
+        <p><strong>Iteration 1:</strong> i=0, nums[0]=2, complement=7. Map={2:0}. 7 not found.</p>
+        <p><strong>Iteration 2:</strong> i=1, nums[1]=7, complement=2. Map has 2 at index 0. <strong>Return [0, 1].</strong></p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>Negative numbers: complement can be negative; dictionary handles this.</li>
+          <li>Duplicates in array: each entry is indexed separately; we only care about distinct values for uniqueness check.</li>
+          <li>Single pair: problem states exactly one solution exists.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> Mention the brute force (O(n²)) first, then explain the hash map improvement. Interviewers love seeing your problem-solving progression. Also, in a sorted array, you could use two pointers instead—be ready to explain the tradeoff (sorted arrays are rare in real interviews).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 02: CONTAINS DUPLICATE -->
+    <section id="prob-02" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Contains Duplicate</div>
+          <p class="algo-desc">Given an integer array, return true if any value appears at least twice. Return false if all elements are unique.</p>
+          <div class="algo-tags">
+            <span class="badge b-green">Easy</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">02</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Double loop checking each pair: O(n²). Acceptable for n < 1000, but inefficient.</p>
+
+        <h3>Optimal Approach: HashSet</h3>
+        <p><strong>Insight:</strong> A HashSet tracks unique values. If we encounter a value already in the set, we have a duplicate.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Create a HashSet&lt;int&gt;.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">Iterate through nums. For each element, check <code class="il">set.Contains(num)</code>.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">If found, return true immediately.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">If not found, add to set and continue.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">bool</span> <span class="fn">ContainsDuplicate</span>(<span class="kw">int</span>[] nums) {
+    <span class="kw">var</span> seen = <span class="kw">new</span> HashSet&lt;<span class="kw">int</span>&gt;();
+    <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> nums) {
+        <span class="kw">if</span> (seen.Contains(num)) {
+            <span class="kw">return</span> <span class="kw">true</span>;
+        }
+        seen.Add(num);
+    }
+    <span class="kw">return</span> <span class="kw">false</span>;
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n) avg, O(n²) worst</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(min(n, k))</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:16px;">k = number of unique elements. Space is limited by the size of the input alphabet or the number of unique values.</p>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [1, 2, 3, 1]</p>
+        <p>seen = {}. Process 1 → seen = {1}. Process 2 → seen = {1,2}. Process 3 → seen = {1,2,3}. Process 1 → <strong>found in set, return true.</strong></p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>Empty array: no duplicates, return false.</li>
+          <li>Single element: no duplicates, return false.</li>
+          <li>All unique: return false.</li>
+          <li>All same: return true on second element.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> Early exit (returning true on first duplicate found) is a major optimization. Mention that the space complexity depends on how many unique elements exist—in the best case, a large array of all duplicates only needs O(1) space.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 03: VALID ANAGRAM -->
+    <section id="prob-03" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Valid Anagram</div>
+          <p class="algo-desc">Given two strings s and t, return true if t is an anagram of s. An anagram uses the same characters with the same frequency in any order.</p>
+          <div class="algo-tags">
+            <span class="badge b-green">Easy</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">03</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Sort both strings, compare: O(n log n). Simple but not optimal.</p>
+
+        <h3>Optimal Approach: Frequency Map</h3>
+        <p><strong>Insight:</strong> Two strings are anagrams iff they have identical character frequencies. Count characters in both, compare.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">If lengths differ, they can't be anagrams. Return false.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">Create a frequency map for string s (Dictionary&lt;char, int&gt;).</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">For each char in t, decrement its count. If count goes negative or char doesn't exist, return false.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">If all decrements succeed, return true.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">bool</span> <span class="fn">IsAnagram</span>(<span class="kw">string</span> s, <span class="kw">string</span> t) {
+    <span class="kw">if</span> (s.Length != t.Length) <span class="kw">return</span> <span class="kw">false</span>;
+
+    <span class="kw">var</span> freq = <span class="kw">new</span> Dictionary&lt;<span class="kw">char</span>, <span class="kw">int</span>&gt;();
+    <span class="kw">foreach</span> (<span class="kw">char</span> c <span class="kw">in</span> s) {
+        <span class="kw">if</span> (freq.ContainsKey(c)) freq[c]++;
+        <span class="kw">else</span> freq[c] = <span class="num">1</span>;
+    }
+
+    <span class="kw">foreach</span> (<span class="kw">char</span> c <span class="kw">in</span> t) {
+        <span class="kw">if</span> (!freq.ContainsKey(c) || freq[c] == <span class="num">0</span>) {
+            <span class="kw">return</span> <span class="kw">false</span>;
+        }
+        freq[c]--;
+    }
+    <span class="kw">return</span> <span class="kw">true</span>;
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(1)</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:16px;">Space is O(1) for English letters (max 26 chars). For arbitrary Unicode, it's O(k) where k = unique chars in s.</p>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> s = "listen", t = "silent"</p>
+        <p>freq = {l:1, i:1, s:1, t:1, e:1, n:1}. Process "silent": l→{l:0}, i→{i:0}, s→{s:0}, i→{i:-1}... wait, 'i' is already 0, so we'd return false. Let me redo: freq = {l:1, i:1, s:1, t:1, e:1, n:1}. 's'→0, 'i'→0, 'l'→0, 'e'→0, 'n'→0, 't'→0. All success, <strong>return true.</strong></p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>Empty strings: both are anagrams (valid).</li>
+          <li>Single char: check equality.</li>
+          <li>Case sensitivity: "Listen" ≠ "silent" by default (convert to lowercase if needed).</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> Mention the sort approach (O(n log n)) as baseline, then explain frequency counting (O(n)) is better. Also note that for Unicode strings, space becomes O(k) where k is unique chars. This is a "classic interview warmup"—interviewers expect you to know it well.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 04: GROUP ANAGRAMS -->
+    <section id="prob-04" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Group Anagrams</div>
+          <p class="algo-desc">Given an array of strings, group anagrams together. Return the grouped result as a list of lists.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">04</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Compare each string with all others: O(n² m log m) where m is max string length. Infeasible for large inputs.</p>
+
+        <h3>Optimal Approach: Canonical Key + HashMap</h3>
+        <p><strong>Insight:</strong> Anagrams have the same sorted form (canonical key). Use sorted string as a dictionary key to group anagrams in one pass.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Create a Dictionary&lt;string, List&lt;string&gt;&gt; to map canonical keys to word lists.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">For each word, compute its sorted form (canonical key).</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">Add the word to the list for that canonical key.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">Return all lists from the dictionary values.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> IList&lt;IList&lt;<span class="kw">string</span>&gt;&gt; <span class="fn">GroupAnagrams</span>(<span class="kw">string</span>[] strs) {
+    <span class="kw">var</span> groups = <span class="kw">new</span> Dictionary&lt;<span class="kw">string</span>, List&lt;<span class="kw">string</span>&gt;&gt;();
+
+    <span class="kw">foreach</span> (<span class="kw">string</span> s <span class="kw">in</span> strs) {
+        <span class="cm">// Canonical key: sorted characters</span>
+        <span class="kw">var</span> sorted = <span class="kw">new</span> <span class="kw">string</span>(s.OrderBy(c =&gt; c).ToArray());
+
+        <span class="kw">if</span> (!groups.ContainsKey(sorted)) {
+            groups[sorted] = <span class="kw">new</span> List&lt;<span class="kw">string</span>&gt;();
+        }
+        groups[sorted].Add(s);
+    }
+
+    <span class="kw">return</span> groups.Values.ToList&lt;IList&lt;<span class="kw">string</span>&gt;&gt;();
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n m log m)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n m)</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:16px;">n = number of strings, m = max string length. Sorting each string is O(m log m); we do this n times.</p>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> ["eat", "tea", "ate", "nat", "tan", "bat"]</p>
+        <p>"eat" → sorted "aet", groups = {"aet": ["eat"]}</p>
+        <p>"tea" → sorted "aet", groups = {"aet": ["eat", "tea"]}</p>
+        <p>"ate" → sorted "aet", groups = {"aet": ["eat", "tea", "ate"]}</p>
+        <p>"nat" → sorted "ant", groups = {"aet": [...], "ant": ["nat"]}</p>
+        <p>"tan" → sorted "ant", groups = {"aet": [...], "ant": ["nat", "tan"]}</p>
+        <p>"bat" → sorted "abt", groups = {"aet": [...], "ant": [...], "abt": ["bat"]}</p>
+        <p><strong>Return</strong> [["eat", "tea", "ate"], ["nat", "tan"], ["bat"]]</p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>Empty array: return empty list.</li>
+          <li>Single string: return [[string]].</li>
+          <li>No anagrams: each string is its own group.</li>
+          <li>All anagrams: one group containing all strings.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> This is a classic "grouping" problem. Alternative approach: use character frequency as a key (e.g., "#1#1#1..." for char→count), which avoids sorting but is harder to code. Stick with the sorting approach for clarity unless asked for optimization. Mention the space-time tradeoff.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 05: TOP K FREQUENT ELEMENTS -->
+    <section id="prob-05" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Top K Frequent Elements</div>
+          <p class="algo-desc">Given an integer array and an integer k, return the k most frequent elements. The result can be in any order.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">05</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Use a min-heap of size k, add all (freq, num) pairs: O(n log k). Works well for small k.</p>
+
+        <h3>Optimal Approach: Bucket Sort</h3>
+        <p><strong>Insight:</strong> Frequency ranges from 1 to n. Create buckets indexed by frequency, then extract top k from highest buckets. O(n) time, beats heap.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Count frequency of each number in a Dictionary&lt;int, int&gt;.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">Create an array of Lists (buckets), where bucket[i] contains all numbers with frequency i.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">Traverse buckets from highest frequency to lowest, collect k elements.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">int</span>[] <span class="fn">TopKFrequent</span>(<span class="kw">int</span>[] nums, <span class="kw">int</span> k) {
+    <span class="cm">// Step 1: Count frequencies</span>
+    <span class="kw">var</span> freq = <span class="kw">new</span> Dictionary&lt;<span class="kw">int</span>, <span class="kw">int</span>&gt;();
+    <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> nums) {
+        <span class="kw">if</span> (freq.ContainsKey(num)) freq[num]++;
+        <span class="kw">else</span> freq[num] = <span class="num">1</span>;
+    }
+
+    <span class="cm">// Step 2: Create buckets (index = frequency)</span>
+    <span class="kw">var</span> buckets = <span class="kw">new</span> List&lt;<span class="kw">int</span>&gt;[nums.Length + <span class="num">1</span>];
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; buckets.Length; i++) {
+        buckets[i] = <span class="kw">new</span> List&lt;<span class="kw">int</span>&gt;();
+    }
+
+    <span class="kw">foreach</span> (<span class="kw">var</span> kvp <span class="kw">in</span> freq) {
+        buckets[kvp.Value].Add(kvp.Key);
+    }
+
+    <span class="cm">// Step 3: Collect top k from highest buckets</span>
+    <span class="kw">var</span> result = <span class="kw">new</span> <span class="kw">int</span>[k];
+    <span class="kw">int</span> idx = <span class="num">0</span>;
+    <span class="kw">for</span> (<span class="kw">int</span> i = buckets.Length - <span class="num">1</span>; i &gt;= <span class="num">0</span> && idx &lt; k; i--) {
+        <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> buckets[i]) {
+            result[idx++] = num;
+            <span class="kw">if</span> (idx == k) <span class="kw">break</span>;
+        }
+    }
+    <span class="kw">return</span> result;
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [1,1,1,2,2,3], k = 2</p>
+        <p>freq = {1:3, 2:2, 3:1}. Buckets: [[], [3], [2], [1,1,1], ...]</p>
+        <p>From highest: bucket[3] = [1], add 1. bucket[2] = [2], add 2. k reached. <strong>Return [1, 2].</strong></p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>k = 1: return the single most frequent element.</li>
+          <li>k = n: return all unique elements (or tied frequencies).</li>
+          <li>All equal frequency: order doesn't matter.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> Bucket sort is optimal but less intuitive. Interviewers appreciate that you know it. However, a heap solution is equally valid and sometimes easier to explain. If stuck, start with heap O(n log k), then optimize to bucket sort if time permits.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 06: PRODUCT OF ARRAY EXCEPT SELF -->
+    <section id="prob-06" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Product of Array Except Self</div>
+          <p class="algo-desc">Given an integer array nums, return an array output where output[i] is the product of all elements except nums[i]. Solve in O(n) without using division.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">06</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>For each position, multiply all other elements: O(n²). Too slow.</p>
+
+        <h3>Optimal Approach: Prefix and Suffix Products</h3>
+        <p><strong>Insight:</strong> For position i, the product is (product of all left) × (product of all right). Pre-compute both in two passes.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Create output array filled with 1s.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">Left pass: output[i] = product of all elements before index i.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">Right pass: output[i] *= product of all elements after index i.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">int</span>[] <span class="fn">ProductExceptSelf</span>(<span class="kw">int</span>[] nums) {
+    <span class="kw">int</span> n = nums.Length;
+    <span class="kw">int</span>[] output = <span class="kw">new</span> <span class="kw">int</span>[n];
+    Array.Fill(output, <span class="num">1</span>);
+
+    <span class="cm">// Left pass: accumulate product from left</span>
+    <span class="kw">int</span> prefix = <span class="num">1</span>;
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+        output[i] = prefix;
+        prefix *= nums[i];
+    }
+
+    <span class="cm">// Right pass: multiply by product from right</span>
+    <span class="kw">int</span> suffix = <span class="num">1</span>;
+    <span class="kw">for</span> (<span class="kw">int</span> i = n - <span class="num">1</span>; i &gt;= <span class="num">0</span>; i--) {
+        output[i] *= suffix;
+        suffix *= nums[i];
+    }
+
+    <span class="kw">return</span> output;
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(1)</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:16px;">Output array doesn't count toward space complexity (it's the result container).</p>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [1, 2, 3, 4]</p>
+        <p><strong>After left pass:</strong> output = [1, 1, 2, 6] (prefix products)</p>
+        <p><strong>Right pass:</strong></p>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>i=3: output[3] = 6 × 1 = 6, suffix = 4</li>
+          <li>i=2: output[2] = 2 × 4 = 8, suffix = 12</li>
+          <li>i=1: output[1] = 1 × 12 = 12, suffix = 24</li>
+          <li>i=0: output[0] = 1 × 24 = 24, suffix = 24</li>
+        </ul>
+        <p><strong>Return</strong> [24, 12, 8, 6]</p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>Contains zeros: product is 0 except at zero's position (if there's one zero).</li>
+          <li>Multiple zeros: all products are 0.</li>
+          <li>Single element: not applicable per problem (n ≥ 2).</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> The "no division" constraint is key. It prevents the naive divide-total-by-element approach. Emphasize the two-pass strategy and that the output array can serve double duty (first as left products, then updated with right products).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 07: LONGEST CONSECUTIVE SEQUENCE -->
+    <section id="prob-07" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Longest Consecutive Sequence</div>
+          <p class="algo-desc">Given an unsorted array of integers, return the length of the longest consecutive elements sequence. Solve in O(n) time.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">07</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Sort array, then scan for consecutive runs: O(n log n). Not optimal.</p>
+
+        <h3>Optimal Approach: HashSet + Sequence Detection</h3>
+        <p><strong>Insight:</strong> Use a HashSet for O(1) lookups. For each number, only start counting if it's the beginning of a sequence (num − 1 not in set).</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Insert all numbers into a HashSet for O(1) membership testing.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">For each number, check if it's the start of a sequence (num − 1 not in set).</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">If yes, count consecutive numbers (num, num+1, num+2, ...) and track max length.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">int</span> <span class="fn">LongestConsecutive</span>(<span class="kw">int</span>[] nums) {
+    <span class="kw">if</span> (nums.Length == <span class="num">0</span>) <span class="kw">return</span> <span class="num">0</span>;
+
+    <span class="kw">var</span> numSet = <span class="kw">new</span> HashSet&lt;<span class="kw">int</span>&gt;(nums);
+    <span class="kw">int</span> maxLen = <span class="num">0</span>;
+
+    <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> numSet) {
+        <span class="cm">// Only start counting if this is the beginning of a sequence</span>
+        <span class="kw">if</span> (!numSet.Contains(num - <span class="num">1</span>)) {
+            <span class="kw">int</span> current = num;
+            <span class="kw">int</span> length = <span class="num">1</span>;
+
+            <span class="kw">while</span> (numSet.Contains(current + <span class="num">1</span>)) {
+                current++;
+                length++;
+            }
+
+            maxLen = Math.Max(maxLen, length);
+        }
+    }
+
+    <span class="kw">return</span> maxLen;
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:16px;">Each element is visited once for insertion and at most once for sequence counting. Total: O(2n) = O(n).</p>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [100, 4, 200, 1, 3, 2]</p>
+        <p>numSet = {1, 2, 3, 4, 100, 200}</p>
+        <p>Process 100: 99 not in set, count 100. maxLen = 1.</p>
+        <p>Process 4: 3 in set, skip.</p>
+        <p>Process 200: 199 not in set, count 200. maxLen = 1.</p>
+        <p>Process 1: 0 not in set, count 1 → 2 → 3 → 4 (4 total). maxLen = 4.</p>
+        <p><strong>Return 4.</strong></p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>Empty array: return 0.</li>
+          <li>Single element: return 1.</li>
+          <li>All gaps (e.g., [1, 3, 5]): each is length 1, return 1.</li>
+          <li>Duplicates: HashSet deduplicates automatically.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> The key insight is "only count from sequence starts." Without this, you'd revisit elements repeatedly, wasting time. Interviewers love when you catch this optimization detail.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 08: ENCODE AND DECODE STRINGS -->
+    <section id="prob-08" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Encode and Decode Strings</div>
+          <p class="algo-desc">Encode a list of strings into a single string such that it can be decoded back to the original list. Solve without using any library encoding schemes.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">08</div>
+      </div>
+      <div class="algo-body">
+        <h3>Challenge</h3>
+        <p>Naive approach: join with delimiter (e.g., ","). Problem: what if strings contain the delimiter?</p>
+
+        <h3>Optimal Approach: Length-Prefix Encoding</h3>
+        <p><strong>Insight:</strong> Prepend each string's length, then the string. During decoding, read the length, then extract that many characters.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body"><strong>Encode:</strong> For each string, append <code class="il">length + "#" + string</code>.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body"><strong>Decode:</strong> Scan through encoded string, read length, then extract substring.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">class</span> <span class="ty">Codec</span> {
+    <span class="kw">public</span> <span class="kw">string</span> <span class="fn">Encode</span>(List&lt;<span class="kw">string</span>&gt; strs) {
+        <span class="kw">var</span> sb = <span class="kw">new</span> StringBuilder();
+        <span class="kw">foreach</span> (<span class="kw">string</span> s <span class="kw">in</span> strs) {
+            sb.Append(s.Length).Append(<span class="str">"#"</span>).Append(s);
+        }
+        <span class="kw">return</span> sb.ToString();
+    }
+
+    <span class="kw">public</span> List&lt;<span class="kw">string</span>&gt; <span class="fn">Decode</span>(<span class="kw">string</span> s) {
+        <span class="kw">var</span> result = <span class="kw">new</span> List&lt;<span class="kw">string</span>&gt;();
+        <span class="kw">int</span> i = <span class="num">0</span>;
+        <span class="kw">while</span> (i &lt; s.Length) {
+            <span class="cm">// Find the '#' delimiter</span>
+            <span class="kw">int</span> delim = s.IndexOf(<span class="str">'#'</span>, i);
+            <span class="kw">int</span> len = <span class="kw">int</span>.Parse(s.Substring(i, delim - i));
+
+            <span class="cm">// Extract the string of length 'len'</span>
+            i = delim + <span class="num">1</span>;
+            result.Add(s.Substring(i, len));
+            i += len;
+        }
+        <span class="kw">return</span> result;
+    }
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Encode Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Decode Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(m)</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:16px;">n = number of strings, m = total character count.</p>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> ["hello", "world"]</p>
+        <p><strong>Encode:</strong> "5#helloworld" → wait, should be "5#hello5#world"</p>
+        <p>i=0: read "5", delim at 1, extract s[2:7] = "hello", i=7</p>
+        <p>i=7: read "5", delim at 8, extract s[9:14] = "world", i=14. Done.</p>
+        <p><strong>Decode result:</strong> ["hello", "world"]</p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>Empty string in list: length 0, handled correctly.</li>
+          <li>Strings with '#': not a delimiter in our encoding, handled by length.</li>
+          <li>Empty list: encode returns "", decode returns [].</li>
+          <li>Strings with special chars: all handled, encoding is binary-safe.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> This problem tests your ability to handle edge cases (delimiters, special chars). The length-prefix approach is standard in network protocols and serialization. Mention that this is how TLV (Type-Length-Value) encoding works.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 09: SUBARRAY SUM EQUALS K -->
+    <section id="prob-09" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Subarray Sum Equals K</div>
+          <p class="algo-desc">Given an integer array and an integer k, return the number of contiguous subarrays whose sum equals k.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">09</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Check all subarrays: O(n²) or O(n³) depending on implementation. Too slow.</p>
+
+        <h3>Optimal Approach: Prefix Sum + Hash Map</h3>
+        <p><strong>Insight:</strong> If cumSum[j] − cumSum[i] = k, then sum(arr[i+1:j]) = k. Track prefix sums and their frequencies.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Create a HashMap to count prefix sum occurrences. Initialize with {0: 1}.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">Iterate through array, maintain running cumulative sum.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">For each position, check if (cumSum − k) exists in map. If yes, add its count to result.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">Add current cumSum to map.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">int</span> <span class="fn">SubarraySum</span>(<span class="kw">int</span>[] nums, <span class="kw">int</span> k) {
+    <span class="kw">var</span> sumCount = <span class="kw">new</span> Dictionary&lt;<span class="kw">int</span>, <span class="kw">int</span>&gt;();
+    sumCount[<span class="num">0</span>] = <span class="num">1</span>; <span class="cm">// Base case: empty subarray sum is 0</span>
+
+    <span class="kw">int</span> cumSum = <span class="num">0</span>;
+    <span class="kw">int</span> count = <span class="num">0</span>;
+
+    <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> nums) {
+        cumSum += num;
+        <span class="kw">int</span> complement = cumSum - k;
+
+        <span class="kw">if</span> (sumCount.ContainsKey(complement)) {
+            count += sumCount[complement];
+        }
+
+        <span class="kw">if</span> (sumCount.ContainsKey(cumSum)) {
+            sumCount[cumSum]++;
+        } <span class="kw">else</span> {
+            sumCount[cumSum] = <span class="num">1</span>;
+        }
+    }
+
+    <span class="kw">return</span> count;
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [1, 1, 1], k = 2</p>
+        <p>sumCount = {0: 1}, cumSum = 0, count = 0</p>
+        <p>num=1: cumSum=1, complement=−1. Map no −1. sumCount={0:1, 1:1}, count=0</p>
+        <p>num=1: cumSum=2, complement=0. Map has 0→1. count=1. sumCount={0:1, 1:1, 2:1}</p>
+        <p>num=1: cumSum=3, complement=1. Map has 1→1. count=2. sumCount={0:1, 1:1, 2:1, 3:1}</p>
+        <p><strong>Return 2.</strong> (Subarrays: [1,1] at indices 0−1, [1,1] at indices 1−2)</p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>Negative numbers: cumSum can go negative; map handles this.</li>
+          <li>k = 0: includes subarrays that sum to 0, e.g., [−1, 1].</li>
+          <li>Single element: if nums[0] = k, return 1.</li>
+          <li>No match: return 0.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> This is a classic "prefix sum + hash map" pattern. The key is recognizing that subarray sum problems often reduce to this. Remember the base case: initialize map with {0: 1} to handle subarrays starting at index 0.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 10: MAXIMUM SUBARRAY -->
+    <section id="prob-10" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Maximum Subarray</div>
+          <p class="algo-desc">Given an integer array, find the contiguous subarray with the largest sum. Return the sum.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">10</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Check all subarrays: O(n²) or O(n³). Works but inefficient.</p>
+
+        <h3>Optimal Approach: Kadane's Algorithm</h3>
+        <p><strong>Insight:</strong> Track the maximum sum ending at each position. If adding the next element makes it worse, reset to that element.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Initialize <code class="il">maxCurrent = maxGlobal = nums[0]</code>.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">For each element, decide: continue previous subarray or start new one.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body"><code class="il">maxCurrent = max(num, maxCurrent + num)</code>.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body"><code class="il">maxGlobal = max(maxGlobal, maxCurrent)</code>.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">int</span> <span class="fn">MaxSubArray</span>(<span class="kw">int</span>[] nums) {
+    <span class="kw">int</span> maxCurrent = nums[<span class="num">0</span>];
+    <span class="kw">int</span> maxGlobal = nums[<span class="num">0</span>];
+
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt; nums.Length; i++) {
+        maxCurrent = Math.Max(nums[i], maxCurrent + nums[i]);
+        maxGlobal = Math.Max(maxGlobal, maxCurrent);
+    }
+
+    <span class="kw">return</span> maxGlobal;
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(1)</div>
+          </div>
+        </div>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [−2, 1, −3, 4, −1, 2, 1, −5, 4]</p>
+        <p>maxCurrent = maxGlobal = −2</p>
+        <p>i=1, num=1: maxCurrent = max(1, −2+1) = 1, maxGlobal = 1</p>
+        <p>i=2, num=−3: maxCurrent = max(−3, 1−3) = −2, maxGlobal = 1</p>
+        <p>i=3, num=4: maxCurrent = max(4, −2+4) = 4, maxGlobal = 4</p>
+        <p>i=4, num=−1: maxCurrent = max(−1, 4−1) = 3, maxGlobal = 4</p>
+        <p>i=5, num=2: maxCurrent = max(2, 3+2) = 5, maxGlobal = 5</p>
+        <p>i=6, num=1: maxCurrent = max(1, 5+1) = 6, maxGlobal = 6</p>
+        <p><strong>Return 6.</strong> (Subarray: [4, −1, 2, 1])</p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>All negative: return the single largest (least negative) element.</li>
+          <li>Single element: return that element.</li>
+          <li>Mix of positive/negative: Kadane handles optimally.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> Kadane's is iconic for this problem. Interviewers expect you to know it. The decision point "continue or restart" is the key insight. Also mention that you can track the subarray indices (start/end) if asked to return the actual subarray, not just the sum.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 11: MERGE SORTED ARRAY -->
+    <section id="prob-11" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Merge Sorted Array</div>
+          <p class="algo-desc">Given two sorted arrays nums1 and nums2, merge nums2 into nums1 in-place. nums1 has enough space at the end to hold all elements.</p>
+          <div class="algo-tags">
+            <span class="badge b-green">Easy</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">11</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Append nums2 to nums1, then sort: O(n log n). Ignores that inputs are already sorted.</p>
+
+        <h3>Optimal Approach: Two-Pointer from the End</h3>
+        <p><strong>Insight:</strong> Start from the end of both arrays. Pick the larger element, place it at the end of nums1. Move that pointer backward. This avoids overwriting unsorted elements.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Initialize pointers: p1 at end of nums1's actual data, p2 at end of nums2, p at end of nums1's total space.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">Compare nums1[p1] and nums2[p2], place the larger at nums1[p].</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">Move the corresponding pointer backward and p backward.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">If nums2 is exhausted first, nums1 is done. If nums1 is exhausted, copy remaining nums2.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">void</span> <span class="fn">Merge</span>(<span class="kw">int</span>[] nums1, <span class="kw">int</span> m, <span class="kw">int</span>[] nums2, <span class="kw">int</span> n) {
+    <span class="kw">int</span> p1 = m - <span class="num">1</span>;      <span class="cm">// Pointer for nums1's data</span>
+    <span class="kw">int</span> p2 = n - <span class="num">1</span>;      <span class="cm">// Pointer for nums2</span>
+    <span class="kw">int</span> p = m + n - <span class="num">1</span>;  <span class="cm">// Pointer for final position in nums1</span>
+
+    <span class="kw">while</span> (p1 &gt;= <span class="num">0</span> && p2 &gt;= <span class="num">0</span>) {
+        <span class="kw">if</span> (nums1[p1] &gt; nums2[p2]) {
+            nums1[p--] = nums1[p1--];
+        } <span class="kw">else</span> {
+            nums1[p--] = nums2[p2--];
+        }
+    }
+
+    <span class="cm">// If nums2 has remaining elements, copy them</span>
+    <span class="kw">while</span> (p2 &gt;= <span class="num">0</span>) {
+        nums1[p--] = nums2[p2--];
+    }
+    <span class="cm">// If nums1 has remaining, they're already in place</span>
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(m + n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(1)</div>
+          </div>
+        </div>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums1 = [1, 2, 3, 0, 0, 0], m = 3, nums2 = [2, 5, 6], n = 3</p>
+        <p>p1=2 (nums1[2]=3), p2=2 (nums2[2]=6), p=5</p>
+        <p>3 < 6: nums1[5]=6, p2=1, p=4</p>
+        <p>3 > 5: nums1[4]=3, p1=1, p=3</p>
+        <p>2 < 5: nums1[3]=5, p2=0, p=2</p>
+        <p>2 = 2: nums1[2]=2, p2=−1, p=1</p>
+        <p>p2 exhausted. nums1 = [1, 2, 2, 3, 5, 6]. Done.</p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>nums2 is empty: nums1 already merged.</li>
+          <li>nums1 is empty: copy all of nums2.</li>
+          <li>All nums2 elements smaller: they go at the beginning (backtracking handles).</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> The "merge from the end" trick is essential for in-place merging. It prevents overwriting. Many candidates try to merge from the front and mess up. Demonstrate the right approach.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 12: MOVE ZEROES -->
+    <section id="prob-12" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Move Zeroes</div>
+          <p class="algo-desc">Given an integer array, move all zeroes to the end while maintaining the relative order of non-zero elements. Solve in-place.</p>
+          <div class="algo-tags">
+            <span class="badge b-green">Easy</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">12</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>Create new array with non-zeros, then append zeros: O(n) but O(n) space.</p>
+
+        <h3>Optimal Approach: Two-Pointer Swap</h3>
+        <p><strong>Insight:</strong> Use a pointer to track the position for the next non-zero. When we find a non-zero, swap it with the position.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Initialize pointer <code class="il">zeroPos = 0</code> to track where the next non-zero should go.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">Iterate through array. When we find a non-zero, swap with position zeroPos.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">Increment zeroPos after each swap.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">void</span> <span class="fn">MoveZeroes</span>(<span class="kw">int</span>[] nums) {
+    <span class="kw">int</span> zeroPos = <span class="num">0</span>;
+
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nums.Length; i++) {
+        <span class="kw">if</span> (nums[i] != <span class="num">0</span>) {
+            <span class="cm">// Swap non-zero with position zeroPos</span>
+            <span class="kw">int</span> temp = nums[zeroPos];
+            nums[zeroPos] = nums[i];
+            nums[i] = temp;
+            zeroPos++;
+        }
+    }
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(1)</div>
+          </div>
+        </div>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [0, 1, 0, 3, 12]</p>
+        <p>zeroPos=0. i=0, nums[0]=0, skip.</p>
+        <p>i=1, nums[1]=1: swap nums[0] and nums[1]. nums=[1,0,0,3,12], zeroPos=1.</p>
+        <p>i=2, nums[2]=0, skip.</p>
+        <p>i=3, nums[3]=3: swap nums[1] and nums[3]. nums=[1,3,0,0,12], zeroPos=2.</p>
+        <p>i=4, nums[4]=12: swap nums[2] and nums[4]. nums=[1,3,12,0,0], zeroPos=3.</p>
+        <p><strong>Result:</strong> [1, 3, 12, 0, 0]</p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>No zeros: array unchanged.</li>
+          <li>All zeros: array unchanged.</li>
+          <li>Single element: unchanged.</li>
+          <li>Zeros at end already: no swaps needed.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> The key insight is that zeroPos tracks "the boundary of non-zeros." When we find a non-zero, we place it at zeroPos and move the boundary. This is a simple variant of partition (quicksort idea). Mention that only one pass is needed, which is O(n).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 13: NEXT PERMUTATION -->
+    <section id="prob-13" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Next Permutation</div>
+          <p class="algo-desc">Given an array of integers, modify it in-place to represent the next lexicographically greater permutation. If not possible, rearrange to the smallest permutation.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">13</div>
+      </div>
+      <div class="algo-body">
+        <h3>Challenge</h3>
+        <p>Naive approach: generate all permutations, sort, find next. Exponential time, infeasible.</p>
+
+        <h3>Optimal Approach: In-Place Two-Pass Algorithm</h3>
+        <p><strong>Insight:</strong> Find the rightmost element smaller than its right neighbor (pivot). Swap it with the smallest element to its right that's larger than it. Reverse everything to the right of pivot.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Find the rightmost index i where nums[i] < nums[i+1] (pivot).</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">If no such i, the array is the largest permutation; reverse it and return.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">Find the rightmost index j > i where nums[j] > nums[i].</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">Swap nums[i] and nums[j], then reverse everything from i+1 to end.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">void</span> <span class="fn">NextPermutation</span>(<span class="kw">int</span>[] nums) {
+    <span class="kw">int</span> n = nums.Length;
+
+    <span class="cm">// Step 1: Find the rightmost element smaller than its right neighbor</span>
+    <span class="kw">int</span> i = n - <span class="num">2</span>;
+    <span class="kw">while</span> (i &gt;= <span class="num">0</span> && nums[i] &gt;= nums[i + <span class="num">1</span>]) {
+        i--;
+    }
+
+    <span class="cm">// If found, swap with the next larger element to the right</span>
+    <span class="kw">if</span> (i &gt;= <span class="num">0</span>) {
+        <span class="kw">int</span> j = n - <span class="num">1</span>;
+        <span class="kw">while</span> (j &gt; i && nums[j] &lt;= nums[i]) {
+            j--;
+        }
+        <span class="kw">int</span> temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    <span class="cm">// Reverse from i+1 to end</span>
+    Array.Reverse(nums, i + <span class="num">1</span>, n - i - <span class="num">1</span>);
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(1)</div>
+          </div>
+        </div>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [1, 2, 3]</p>
+        <p>Find pivot: i=1 (nums[1]=2 < nums[2]=3). Found.</p>
+        <p>Find swap: j=2 (nums[2]=3 > nums[1]=2). Swap: nums=[1,3,2].</p>
+        <p>Reverse from i+1=2 to end: nums=[1,3,2] (single element, no change).</p>
+        <p><strong>Return</strong> [1, 3, 2]</p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>Largest permutation (e.g., [3, 2, 1]): reverse to [1, 2, 3].</li>
+          <li>Single element: no change (already next permutation doesn't exist, so wrap to smallest).</li>
+          <li>Two elements: swap them, then handle as above.</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> This is a tricky problem; most candidates struggle. The insight is "pivot + swap + reverse." Interviewers respect candidates who understand this algorithm. Mention that the right side of pivot is always in descending order, which allows efficient swapping and reversing.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 14: FIRST MISSING POSITIVE -->
+    <section id="prob-14" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">First Missing Positive</div>
+          <p class="algo-desc">Given an unsorted integer array, find the smallest missing positive integer. Solve in O(n) time and O(1) space.</p>
+          <div class="algo-tags">
+            <span class="badge b-red">Hard</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">14</div>
+      </div>
+      <div class="algo-body">
+        <h3>Challenge</h3>
+        <p>O(n) time + O(1) space is tight. Can't use a hash set (O(n) space) or sorting (O(n log n) time).</p>
+
+        <h3>Optimal Approach: Cyclic Sort (Mark-as-Present)</h3>
+        <p><strong>Insight:</strong> For an array of size n, the answer is in range [1, n+1]. Use the array itself as a "presence marker": place num at index num−1 if num is in [1, n].</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Pass 1: Place each number in its "correct" position. If nums[i] is in [1, n] and nums[nums[i]−1] != nums[i], swap.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">Pass 2: Scan array. If index i doesn't have i+1, then i+1 is missing.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">If all present, return n+1.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">int</span> <span class="fn">FirstMissingPositive</span>(<span class="kw">int</span>[] nums) {
+    <span class="kw">int</span> n = nums.Length;
+
+    <span class="cm">// Step 1: Place each number in its correct position</span>
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+        <span class="kw">while</span> (nums[i] &gt; <span class="num">0</span> && nums[i] &lt;= n && nums[nums[i] - <span class="num">1</span>] != nums[i]) {
+            <span class="cm">// Swap nums[i] with nums[nums[i] - 1]</span>
+            <span class="kw">int</span> correct = nums[i] - <span class="num">1</span>;
+            <span class="kw">int</span> temp = nums[i];
+            nums[i] = nums[correct];
+            nums[correct] = temp;
+        }
+    }
+
+    <span class="cm">// Step 2: Find the first missing positive</span>
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+        <span class="kw">if</span> (nums[i] != i + <span class="num">1</span>) {
+            <span class="kw">return</span> i + <span class="num">1</span>;
+        }
+    }
+
+    <span class="kw">return</span> n + <span class="num">1</span>;
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(1)</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:16px;">Each element is moved to its correct position at most once, so overall O(n).</p>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> nums = [3, 4, −1, 1]</p>
+        <p><strong>After cyclic sort:</strong> [1, −1, 3, 4] (1 at index 0, 3 at index 2, 4 at index 3)</p>
+        <p><strong>Scan:</strong> index 0: nums[0]=1 ✓, index 1: nums[1]=−1 ✗ (expect 2). <strong>Return 2.</strong></p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>All positives in order: return n+1.</li>
+          <li>Negatives/zeros: ignored during placement, scanned during finding.</li>
+          <li>Duplicates: correctly handled (no infinite loop, conditional checks).</li>
+          <li>Single element [1]: return 2.</li>
+        </ul>
+
+        <div class="callout danger">
+          <span class="callout-icon">⚠️</span>
+          <div><strong>Watch Out:</strong> The condition <code class="il">nums[nums[i]−1] != nums[i]</code> is crucial to avoid infinite swaps on duplicates. Also, the range check <code class="il">1 ≤ nums[i] ≤ n</code> prevents out-of-bounds access.</div>
+        </div>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> This is a hard problem because the space/time constraints are tight. The cyclic sort insight is the key. Explain it clearly: "We use the array as a presence marker." This shows deep problem-solving skills.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM 15: TRAPPING RAIN WATER -->
+    <section id="prob-15" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Trapping Rain Water</div>
+          <p class="algo-desc">Given an elevation map as an array of heights, calculate how much rainwater can be trapped after it rains. Water is trapped between elevation peaks.</p>
+          <div class="algo-tags">
+            <span class="badge b-red">Hard</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">15</div>
+      </div>
+      <div class="algo-body">
+        <h3>Brute Force</h3>
+        <p>For each element, find max left and max right, compute water: O(n²). Works but slow.</p>
+
+        <h3>Optimal Approach: Two-Pointer / Pre-computed Max Arrays</h3>
+        <p><strong>Insight:</strong> Water at position i is min(maxLeft, maxRight) − height[i]. Precompute max heights to both sides in O(n) time.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+            <div class="step-body">Create leftMax[i] = max height from 0 to i, rightMax[i] = max height from i to n−1.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+            <div class="step-body">For each position, water = min(leftMax[i], rightMax[i]) − height[i].</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+            <div class="step-body">Sum all trapped water.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="kw">int</span> <span class="fn">Trap</span>(<span class="kw">int</span>[] height) {
+    <span class="kw">if</span> (height.Length &lt; <span class="num">3</span>) <span class="kw">return</span> <span class="num">0</span>;
+
+    <span class="kw">int</span> n = height.Length;
+    <span class="kw">int</span>[] leftMax = <span class="kw">new</span> <span class="kw">int</span>[n];
+    <span class="kw">int</span>[] rightMax = <span class="kw">new</span> <span class="kw">int</span>[n];
+
+    <span class="cm">// Compute leftMax: max from 0 to i</span>
+    leftMax[<span class="num">0</span>] = height[<span class="num">0</span>];
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt; n; i++) {
+        leftMax[i] = Math.Max(leftMax[i - <span class="num">1</span>], height[i]);
+    }
+
+    <span class="cm">// Compute rightMax: max from i to n-1</span>
+    rightMax[n - <span class="num">1</span>] = height[n - <span class="num">1</span>];
+    <span class="kw">for</span> (<span class="kw">int</span> i = n - <span class="num">2</span>; i &gt;= <span class="num">0</span>; i--) {
+        rightMax[i] = Math.Max(rightMax[i + <span class="num">1</span>], height[i]);
+    }
+
+    <span class="cm">// Calculate trapped water</span>
+    <span class="kw">int</span> water = <span class="num">0</span>;
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+        <span class="kw">int</span> level = Math.Min(leftMax[i], rightMax[i]);
+        water += Math.Max(<span class="num">0</span>, level - height[i]);
+    }
+
+    <span class="kw">return</span> water;
+}</pre>
+        </div>
+
+        <h3>Complexity Analysis</h3>
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Example Trace</h3>
+        <p><strong>Input:</strong> height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]</p>
+        <p><strong>leftMax:</strong> [0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3]</p>
+        <p><strong>rightMax:</strong> [3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 1]</p>
+        <p>Position 0: min(0,3)−0=0. Position 1: min(1,3)−1=0. Position 2: min(1,3)−0=1. ...</p>
+        <p>Total trapped water = 6</p>
+
+        <h3>Edge Cases</h3>
+        <ul style="margin-left:20px;color:var(--ink2);font-size:15px;">
+          <li>All heights 0: return 0.</li>
+          <li>Monotonic increasing/decreasing: return 0 (no trapping).</li>
+          <li>Valley shape: max water trapped between peaks.</li>
+        </ul>
+
+        <div class="callout info">
+          <span class="callout-icon">💡</span>
+          <div><strong>Space Optimization:</strong> A two-pointer approach can reduce space to O(1) by tracking left/right max on-the-fly. Move the pointer with the smaller max inward and calculate water immediately. This is more complex but impressive in interviews.</div>
+        </div>
+
+        <div class="callout tip">
+          <span class="callout-icon">⭐</span>
+          <div><strong>Interview Tip:</strong> Start with the O(n) time, O(n) space solution (above). If asked to optimize space, pivot to the two-pointer O(1) space approach. This shows you understand the problem and can refactor under pressure.</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p><strong>FAANG Interview Book</strong> — Arrays & Hashing</p>
+      <p>15 essential problems to master before your technical interview. Updated for 2026.</p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(button) {
+      const codeBlock = button.closest('.code-block');
+      const preElement = codeBlock.querySelector('pre');
+      const text = preElement.textContent;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+      });
+    }
+  </script>
+</body>
+</html>

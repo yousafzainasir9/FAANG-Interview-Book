@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="FAANG coding pattern cheat sheet — quick reference for all major algorithm patterns with when to use each and C# templates.">
+  <meta name="keywords" content="coding patterns, cheat sheet, algorithm patterns, FAANG reference, C#, quick guide">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/pattern-cheatsheet.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/pattern-cheatsheet.html">
+  <meta property="og:title" content="FAANG Interview Book — Pattern Cheatsheet & Quick Reference">
+  <meta property="og:description" content="FAANG coding pattern cheat sheet — quick reference for all major algorithm patterns with when to use each and C# templates.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/pattern-cheatsheet.html">
+  <meta name="twitter:title" content="FAANG Interview Book — Pattern Cheatsheet & Quick Reference">
+  <meta name="twitter:description" content="FAANG coding pattern cheat sheet — quick reference for all major algorithm patterns with when to use each and C# templates.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "FAANG Interview Book \u2014 Pattern Cheatsheet & Quick Reference",
+  "description": "FAANG coding pattern cheat sheet \u2014 quick reference for all major algorithm patterns with when to use each and C# templates.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/pattern-cheatsheet.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+<title>FAANG Interview Book — Pattern Cheatsheet & Quick Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+  --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+  --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+  --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+  --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+  --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+  --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+  --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+.nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+.nav-links{display:flex;gap:0}
+.nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+.nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+.wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+.hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--acc)}
+.eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+.toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+.toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+.toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+.toc-grid a:hover{color:var(--acc)}
+.toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+.section{padding-top:72px}
+.sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+.sec-line{flex:1;height:1px;background:var(--rule)}
+.section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+.section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+.section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+.section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+.algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+.algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+.algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+.algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+.algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+.algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.algo-body{padding:28px 32px}
+.cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+.cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+.cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+.code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+.code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+.copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+.copy-btn:hover{color:#d4d0c8}
+pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+.kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+.callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+.callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+.callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+.callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+.callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+.callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+.callout strong{color:inherit;font-weight:600}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+.b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+.b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+.b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+.b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+.b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--rule);margin-bottom:26px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+thead tr{background:var(--bg2)}
+th{text-align:left;padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule)}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+td:first-child{font-weight:600;color:var(--ink)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+.decision-tree{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:28px 32px;margin:28px 0;font-family:var(--mono);font-size:13px;line-height:2;color:var(--ink2);white-space:pre-wrap;word-break:break-word}
+.decision-tree strong{color:var(--ink);font-weight:600}
+.tip-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
+.tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc)}
+.tip-card.g::before{background:var(--green)}.tip-card.b::before{background:var(--blue)}.tip-card.a::before{background:var(--amber)}
+.tip-n{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-bottom:8px}
+.tip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.tip-body{font-size:13px;color:var(--ink2);line-height:1.65}
+footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+.footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+footer p{font-size:13px;color:var(--ink3)}
+footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+.checklist{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:24px 28px;margin:28px 0}
+.checklist-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.checklist-item:last-child{border-bottom:none}
+.checklist-item input{margin-top:2px;flex-shrink:0}
+.checklist-item label{flex:1;cursor:pointer;line-height:1.5}
+@media(max-width:700px){
+  .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+  .toc-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav><div class="nav-inner"><a href="index.html" class="nav-brand">FAANG Interview Book <span class="pill">C# Edition</span></a><div class="nav-links"><a href="index.html">Back to Home</a></div></div></nav>
+
+<div class="wrap">
+<div class="hero">
+  <div class="eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Complete Reference Guide</div></div>
+  <h1>Pattern Recognition <em>Cheatsheet</em></h1>
+  <p class="hero-sub">40+ algorithm patterns with decision trees, C# templates, complexity lookup tables, and interview day checklists. Master pattern recognition in the final 15 days of your 90-day prep.</p>
+</div>
+</div>
+
+<div class="wrap">
+
+<div class="toc">
+  <div class="toc-head">Quick Navigation</div>
+  <div class="toc-grid">
+    <a href="#decision-tree"><span class="toc-n">1</span>Pattern Decision Tree</a>
+    <a href="#two-pointers"><span class="toc-n">2</span>Two Pointers</a>
+    <a href="#sliding-window"><span class="toc-n">3</span>Sliding Window</a>
+    <a href="#binary-search"><span class="toc-n">4</span>Binary Search</a>
+    <a href="#bfs-dfs"><span class="toc-n">5</span>BFS & DFS</a>
+    <a href="#graph-patterns"><span class="toc-n">6</span>Graph Patterns</a>
+    <a href="#heap"><span class="toc-n">7</span>Heap & Priority Queue</a>
+    <a href="#dynamic-programming"><span class="toc-n">8</span>Dynamic Programming</a>
+    <a href="#backtracking"><span class="toc-n">9</span>Backtracking</a>
+    <a href="#trie"><span class="toc-n">10</span>Trie & Union-Find</a>
+    <a href="#string-patterns"><span class="toc-n">11</span>String Patterns</a>
+    <a href="#bit-manipulation"><span class="toc-n">12</span>Bit Manipulation</a>
+    <a href="#complexity-cheat"><span class="toc-n">13</span>Complexity Cheat Sheet</a>
+    <a href="#csharp-quick-ref"><span class="toc-n">14</span>C# Quick Reference</a>
+    <a href="#interview-checklist"><span class="toc-n">15</span>Interview Day Checklist</a>
+  </div>
+</div>
+
+<div class="section" id="decision-tree">
+  <div class="sec-tag"><div class="sec-num">01</div><div class="sec-line"></div></div>
+  <h2>Pattern Decision Tree</h2>
+  <p class="lead">Given a problem, which pattern to use? Start here to narrow down your approach in under 30 seconds.</p>
+
+  <div class="decision-tree"><strong>START: Read Problem Statement</strong>
+│
+├─ <strong>ARRAY/SEQUENCE?</strong>
+│  ├─ <strong>Sorted?</strong>
+│  │  ├─ Find element → Binary Search
+│  │  ├─ Two-value problem → Two Pointers
+│  │  └─ Range/prefix queries → Prefix Sum
+│  │
+│  ├─ <strong>Sliding window?</strong> (consecutive elements, max/min)
+│  │  ├─ Fixed size → Fixed Sliding Window
+│  │  └─ Variable size → Variable Sliding Window
+│  │
+│  ├─ <strong>O(n) on unsorted?</strong> → Hash Map/Set
+│  ├─ <strong>Permutations/Combos?</strong> → Backtracking
+│  └─ <strong>Longest subarray?</strong> → Kadane or DP
+│
+├─ <strong>LINKED LIST?</strong>
+│  ├─ Reverse/rearrange → Fast & Slow Pointers
+│  ├─ Detect cycle → Floyd's Cycle Detection
+│  ├─ Merge multiple → Heap or Iterative Merge
+│  └─ LRU Cache → Doubly Linked List + Hash
+│
+├─ <strong>TREE/GRAPH?</strong>
+│  ├─ <strong>Tree:</strong>
+│  │  ├─ Level-order → BFS
+│  │  ├─ DFS traversal → DFS (Recursive/Iterative)
+│  │  ├─ Path sum → DFS + DP
+│  │  └─ Serialize/LCA → Specialized DFS
+│  │
+│  └─ <strong>Graph:</strong>
+│     ├─ Shortest path (unweighted) → BFS
+│     ├─ Shortest path (weighted) → Dijkstra
+│     ├─ Negative weights → Bellman-Ford
+│     ├─ Topological sort → Kahn's Algorithm
+│     ├─ Connected components → Union-Find
+│     └─ All pairs → Floyd-Warshall
+│
+├─ <strong>STRING MATCHING?</strong>
+│  ├─ Word search → Trie
+│  ├─ Substring → KMP or Rabin-Karp
+│  ├─ Prefix/Suffix → Trie or Hash
+│  └─ Transform → Edit Distance DP
+│
+├─ <strong>OPTIMIZATION?</strong>
+│  ├─ Greedy choice safe? → Greedy
+│  └─ Overlapping subproblems? → DP
+│
+├─ <strong>STREAM/RUNNING STATS?</strong>
+│  ├─ Kth largest → Min-Heap (size k)
+│  ├─ Median → Two Heaps
+│  └─ Frequency top-k → Heap + Hash
+│
+├─ <strong>INTERVALS?</strong>
+│  ├─ Merge → Sort + Merge
+│  ├─ Insert → Merge algorithm
+│  └─ Meeting rooms → Sort by end, Greedy
+│
+└─ <strong>BIT MANIPULATION?</strong>
+   ├─ Single number (XOR) → Bit ops
+   ├─ Counting bits → DP
+   └─ Power check → N & (N-1) == 0</div>
+
+  <div class="callout tip"><div class="callout-icon">💡</div><div><strong>Decision Tree Pro:</strong> Memorize levels 1-2. You can identify 85% of FAANG problems in under 30 seconds.</div></div>
+</div>
+
+<div class="section" id="two-pointers">
+  <div class="sec-tag"><div class="sec-num">02</div><div class="sec-line"></div></div>
+  <h2>Core Patterns (40+)</h2>
+  <p class="lead">Master these templates with C# code, complexity analysis, and example problems.</p>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Two Pointers (Same Direction)</div>
+      <div class="algo-desc">Remove duplicates, in-place modifications on sorted arrays. One slow pointer for write, one fast for read.</div>
+      <div class="algo-tags"><span class="badge b-orange">Array</span><span class="badge b-green">In-Place</span></div>
+    </div>
+    <div class="algo-idx">01</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int left = 0, right = 1;
+while (right < nums.Length) {
+    if (nums[left] != nums[right]) {
+        left++;
+        nums[left] = nums[right];
+    }
+    right++;
+}
+return left + 1;</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Remove Duplicates, Move Zeroes, Remove Element, Duplicate Zeros</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Two Pointers (Opposite)</div>
+      <div class="algo-desc">Find pairs, check palindromes, reverse arrays. Start at both ends, move toward center.</div>
+      <div class="algo-tags"><span class="badge b-orange">Array</span><span class="badge b-green">Sorted</span></div>
+    </div>
+    <div class="algo-idx">02</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int left = 0, right = nums.Length - 1;
+while (left < right) {
+    int sum = nums[left] + nums[right];
+    if (sum == target) return new int[] { left, right };
+    else if (sum < target) left++;
+    else right--;
+}
+return new int[] { -1, -1 };</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Two Sum (Sorted), Valid Palindrome, Container With Most Water, 3Sum</p>
+  </div>
+</div>
+
+<div class="algo" id="sliding-window">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Sliding Window (Fixed Size)</div>
+      <div class="algo-desc">Max/min in every k-sized window. Optimized with rolling computation, not re-computing entire window.</div>
+      <div class="algo-tags"><span class="badge b-orange">Array</span><span class="badge b-green">Optimization</span></div>
+    </div>
+    <div class="algo-idx">03</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(k)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int windowSum = 0;
+for (int i = 0; i < k; i++) windowSum += nums[i];
+int maxSum = windowSum;
+
+for (int i = k; i < nums.Length; i++) {
+    windowSum = windowSum - nums[i - k] + nums[i];
+    maxSum = Math.Max(maxSum, windowSum);
+}
+return maxSum;</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Maximum Average Subarray, Find All Anagrams, Sliding Window Max, Best Time Buy Stock IV</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Sliding Window (Variable Size)</div>
+      <div class="algo-desc">Find min/max subarray with condition. Expand right, shrink left when condition fails. Use hash map for char counts.</div>
+      <div class="algo-tags"><span class="badge b-orange">String</span><span class="badge b-blue">Hash</span></div>
+    </div>
+    <div class="algo-idx">04</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(k)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int left = 0;
+Dictionary<char, int> window = new();
+int minLen = int.MaxValue;
+
+for (int right = 0; right < s.Length; right++) {
+    window[s[right]] = window.GetValueOrDefault(s[right], 0) + 1;
+
+    while (IsValid(window)) {
+        minLen = Math.Min(minLen, right - left + 1);
+        window[s[left]]--;
+        left++;
+    }
+}
+return minLen;</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Longest Substring Without Repeating Chars, Min Window Substring, Longest Repeating Char Replacement</p>
+  </div>
+</div>
+
+<div class="algo" id="binary-search">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Binary Search (Exact)</div>
+      <div class="algo-desc">Find exact element in sorted array. Classic O(log n) divide-and-conquer. Watch for integer overflow with mid calculation.</div>
+      <div class="algo-tags"><span class="badge b-blue">Sorted</span><span class="badge b-green">O(log n)</span></div>
+    </div>
+    <div class="algo-idx">05</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(log n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int left = 0, right = nums.Length - 1;
+while (left <= right) {
+    int mid = left + (right - left) / 2;
+    if (nums[mid] == target) return mid;
+    else if (nums[mid] < target) left = mid + 1;
+    else right = mid - 1;
+}
+return -1;</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Search in Rotated Array, Find Peak Element, Search Insert Position, Single Element Sorted Array</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Binary Search (Boundaries)</div>
+      <div class="algo-desc">Find leftmost or rightmost position of target with duplicates. Adjust condition for left/right boundary.</div>
+      <div class="algo-tags"><span class="badge b-blue">Sorted</span><span class="badge b-amber">Duplicates</span></div>
+    </div>
+    <div class="algo-idx">06</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(log n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int left = 0, right = nums.Length;
+while (left < right) {
+    int mid = left + (right - left) / 2;
+    if (nums[mid] < target) left = mid + 1;
+    else right = mid; // Find leftmost
+}
+// For rightmost: if (nums[mid] <= target) left = mid + 1;</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Find First and Last Position, Search in Rotated Sorted Array II, First Bad Version</p>
+  </div>
+</div>
+
+<div class="algo" id="bfs-dfs">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">BFS (Breadth-First Search)</div>
+      <div class="algo-desc">Level-by-level exploration with queue. Best for shortest path, nearest target, level-order tree traversal.</div>
+      <div class="algo-tags"><span class="badge b-blue">Graph</span><span class="badge b-green">Queue</span></div>
+    </div>
+    <div class="algo-idx">07</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(V+E)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(V)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>Queue<int> q = new();
+HashSet<int> visited = new();
+q.Enqueue(start);
+visited.Add(start);
+
+while (q.Count > 0) {
+    int node = q.Dequeue();
+    // Process node
+
+    foreach (int neighbor in graph[node]) {
+        if (!visited.Contains(neighbor)) {
+            visited.Add(neighbor);
+            q.Enqueue(neighbor);
+        }
+    }
+}</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Number of Islands, Word Ladder, Rotting Oranges, Level Order Traversal, Shortest Path</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">DFS (Depth-First Search)</div>
+      <div class="algo-desc">Deep exploration with stack or recursion. Best for all paths, cycle detection, connected components, post-order traversal.</div>
+      <div class="algo-tags"><span class="badge b-blue">Graph</span><span class="badge b-amber">Recursion</span></div>
+    </div>
+    <div class="algo-idx">08</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(V+E)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(V)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>void DFS(int node, HashSet<int> visited) {
+    visited.Add(node);
+    // Process node
+
+    foreach (int neighbor in graph[node]) {
+        if (!visited.Contains(neighbor)) {
+            DFS(neighbor, visited);
+        }
+    }
+}
+
+// Iterative with Stack
+Stack<int> stack = new();
+stack.Push(start);
+while (stack.Count > 0) {
+    int node = stack.Pop();
+    if (!visited.Contains(node)) {
+        visited.Add(node);
+        foreach (int neighbor in graph[node]) {
+            stack.Push(neighbor);
+        }
+    }
+}</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Clone Graph, Course Schedule, All Paths, Cycle Detection, Alien Dictionary, Invert Tree</p>
+  </div>
+</div>
+
+<div class="algo" id="graph-patterns">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Union-Find (Disjoint Set)</div>
+      <div class="algo-desc">Efficiently group elements into connected components. Use path compression + union by rank for near O(1) operations.</div>
+      <div class="algo-tags"><span class="badge b-green">Graph</span><span class="badge b-blue">Components</span></div>
+    </div>
+    <div class="algo-idx">09</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(α(n))</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>class UnionFind {
+    int[] parent, rank;
+    public UnionFind(int n) {
+        parent = new int[n];
+        rank = new int[n];
+        for (int i = 0; i < n; i++) parent[i] = i;
+    }
+
+    public int Find(int x) {
+        if (parent[x] != x) parent[x] = Find(parent[x]);
+        return parent[x];
+    }
+
+    public bool Union(int x, int y) {
+        int px = Find(x), py = Find(y);
+        if (px == py) return false;
+        if (rank[px] < rank[py]) (px, py) = (py, px);
+        parent[py] = px;
+        if (rank[px] == rank[py]) rank[px]++;
+        return true;
+    }
+}</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Number of Provinces, Redundant Connection, Accounts Merge, Connected Components</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Topological Sort (Kahn)</div>
+      <div class="algo-desc">Order tasks with dependencies. Use indegree-based BFS (Kahn). Detect cycles if result count ≠ n.</div>
+      <div class="algo-tags"><span class="badge b-blue">DAG</span><span class="badge b-amber">Dependencies</span></div>
+    </div>
+    <div class="algo-idx">10</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(V+E)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(V)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int[] indegree = new int[n];
+List<int>[] adj = new List<int>[n];
+for (int i = 0; i < n; i++) adj[i] = new();
+
+foreach (int[] edge in edges) {
+    adj[edge[0]].Add(edge[1]);
+    indegree[edge[1]]++;
+}
+
+Queue<int> q = new();
+for (int i = 0; i < n; i++) {
+    if (indegree[i] == 0) q.Enqueue(i);
+}
+
+List<int> result = new();
+while (q.Count > 0) {
+    int u = q.Dequeue();
+    result.Add(u);
+    foreach (int v in adj[u]) {
+        indegree[v]--;
+        if (indegree[v] == 0) q.Enqueue(v);
+    }
+}
+return result.Count == n ? result : new();</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Course Schedule, Alien Dictionary, Build Order, Sequence Reconstruction</p>
+  </div>
+</div>
+
+<div class="algo" id="heap">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Min-Heap for Top K</div>
+      <div class="algo-desc">Find k largest elements. Use min-heap of size k. Time: O(n log k), better than sorting O(n log n) when k << n.</div>
+      <div class="algo-tags"><span class="badge b-green">Heap</span><span class="badge b-blue">Top-K</span></div>
+    </div>
+    <div class="algo-idx">11</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n log k)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(k)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>PriorityQueue<int, int> minHeap = new();
+foreach (int num in nums) {
+    minHeap.Enqueue(num, num);
+    if (minHeap.Count > k) {
+        minHeap.Dequeue();
+    }
+}
+
+List<int> result = new();
+while (minHeap.Count > 0) {
+    result.Add(minHeap.Dequeue());
+}
+return result;</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Top K Elements, K Largest Elements, K Closest Points, Kth Largest Element</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Two Heaps for Median</div>
+      <div class="algo-desc">Find running median in a stream. Max-heap for smaller half, min-heap for larger half. Balance sizes.</div>
+      <div class="algo-tags"><span class="badge b-blue">Heap</span><span class="badge b-amber">Stream</span></div>
+    </div>
+    <div class="algo-idx">12</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(log n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>class MedianFinder {
+    PriorityQueue<int, int> maxHeap = new();
+    PriorityQueue<int, int> minHeap = new();
+
+    public void AddNum(int num) {
+        maxHeap.Enqueue(num, -num);
+        if (maxHeap.Count > minHeap.Count + 1) {
+            int val = maxHeap.Dequeue();
+            minHeap.Enqueue(val, val);
+        }
+        if (minHeap.Count > 0 && maxHeap.Peek() > minHeap.Peek()) {
+            int max = maxHeap.Dequeue();
+            int min = minHeap.Dequeue();
+            maxHeap.Enqueue(min, -min);
+            minHeap.Enqueue(max, max);
+        }
+    }
+
+    public double FindMedian() {
+        if (maxHeap.Count > minHeap.Count) return maxHeap.Peek();
+        return (maxHeap.Peek() + minHeap.Peek()) / 2.0;
+    }
+}</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Find Median Data Stream, Sliding Window Median</p>
+  </div>
+</div>
+
+<div class="algo" id="dynamic-programming">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">DP — 1D Array</div>
+      <div class="algo-desc">Classic pattern: dp[i] = state at position i. Define state, identify transitions, handle base cases.</div>
+      <div class="algo-tags"><span class="badge b-amber">DP</span><span class="badge b-green">Memoization</span></div>
+    </div>
+    <div class="algo-idx">13</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>// Example: Climbing Stairs
+int[] dp = new int[n + 1];
+dp[0] = 1;
+for (int i = 1; i <= n; i++) {
+    for (int step = 1; step <= 2; step++) {
+        if (i - step >= 0) {
+            dp[i] += dp[i - step];
+        }
+    }
+}
+return dp[n];</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Climbing Stairs, House Robber, Longest Increasing Subsequence, Decode Ways, Jump Game</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">DP — 2D Array</div>
+      <div class="algo-desc">For path problems, grid problems, substring/subsequence. State: dp[i][j]. Fill table bottom-up.</div>
+      <div class="algo-tags"><span class="badge b-amber">DP</span><span class="badge b-blue">Grid</span></div>
+    </div>
+    <div class="algo-idx">14</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(m×n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(m×n)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>// Example: Edit Distance
+int[][] dp = new int[m + 1][];
+for (int i = 0; i <= m; i++) {
+    dp[i] = new int[n + 1];
+    dp[i][0] = i;
+}
+for (int j = 0; j <= n; j++) dp[0][j] = j;
+
+for (int i = 1; i <= m; i++) {
+    for (int j = 1; j <= n; j++) {
+        if (word1[i - 1] == word2[j - 1]) {
+            dp[i][j] = dp[i - 1][j - 1];
+        } else {
+            dp[i][j] = 1 + Math.Min(dp[i - 1][j],
+                       Math.Min(dp[i][j - 1], dp[i - 1][j - 1]));
+        }
+    }
+}
+return dp[m][n];</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Edit Distance, Unique Paths, Longest Common Subsequence, Burst Balloons</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">DP — Knapsack</div>
+      <div class="algo-desc">0/1 Knapsack: dp[i][w] = max value using first i items with weight limit w. Optimize space to 1D.</div>
+      <div class="algo-tags"><span class="badge b-amber">DP</span><span class="badge b-red">Classic</span></div>
+    </div>
+    <div class="algo-idx">15</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(nW)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(W)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int[] dp = new int[capacity + 1];
+foreach (int val in values) {
+    for (int w = capacity; w >= weights[i]; w--) {
+        dp[w] = Math.Max(dp[w], dp[w - weights[i]] + val);
+    }
+}
+return dp[capacity];
+
+// For coin change: dp[i] = min coins for amount i
+dp[0] = 0;
+for (int i = 1; i <= amount; i++) {
+    dp[i] = int.MaxValue;
+    foreach (int coin in coins) {
+        if (coin <= i && dp[i - coin] != int.MaxValue) {
+            dp[i] = Math.Min(dp[i], dp[i - coin] + 1);
+        }
+    }
+}</pre>
+    </div>
+    <p><strong>Use Cases:</strong> 0/1 Knapsack, Partition Equal Subset Sum, Coin Change, Target Sum</p>
+  </div>
+</div>
+
+<div class="algo" id="backtracking">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Backtracking</div>
+      <div class="algo-desc">Generate permutations, combinations, subsets. Use DFS with recursive calls. Prune early when needed.</div>
+      <div class="algo-tags"><span class="badge b-red">Recursion</span><span class="badge b-blue">Explore</span></div>
+    </div>
+    <div class="algo-idx">16</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(2^n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>void Backtrack(List<int> current, int[] nums,
+                  HashSet<int> used, List<List<int>> result) {
+    if (current.Count == nums.Length) {
+        result.Add(new List<int>(current));
+        return;
+    }
+
+    for (int i = 0; i < nums.Length; i++) {
+        if (!used.Contains(i)) {
+            current.Add(nums[i]);
+            used.Add(i);
+
+            Backtrack(current, nums, used, result);
+
+            current.RemoveAt(current.Count - 1);
+            used.Remove(i);
+        }
+    }
+}</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Permutations, Combinations, Subsets, N-Queens, Sudoku Solver, Word Search II</p>
+  </div>
+</div>
+
+<div class="algo" id="trie">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Trie (Prefix Tree)</div>
+      <div class="algo-desc">Fast word search and prefix matching. O(m) to search m-length word, independent of dictionary size.</div>
+      <div class="algo-tags"><span class="badge b-green">String</span><span class="badge b-blue">Trie</span></div>
+    </div>
+    <div class="algo-idx">17</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Insert</div><div class="cx-v">O(m)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(ALPHABET_SIZE × N)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>class TrieNode {
+    Dictionary<char, TrieNode> children = new();
+    bool isEnd = false;
+}
+
+class Trie {
+    TrieNode root = new();
+
+    public void Insert(string word) {
+        TrieNode node = root;
+        foreach (char c in word) {
+            if (!node.children.ContainsKey(c)) {
+                node.children[c] = new TrieNode();
+            }
+            node = node.children[c];
+        }
+        node.isEnd = true;
+    }
+
+    public bool Search(string word) {
+        TrieNode node = root;
+        foreach (char c in word) {
+            if (!node.children.ContainsKey(c)) return false;
+            node = node.children[c];
+        }
+        return node.isEnd;
+    }
+}</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Implement Trie, Word Search II, Longest Word in Dictionary, Autocomplete</p>
+  </div>
+</div>
+
+<div class="algo" id="string-patterns">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">KMP (String Matching)</div>
+      <div class="algo-desc">Find substring in O(n+m) time using failure function. Better than naive O(n×m).</div>
+      <div class="algo-tags"><span class="badge b-green">String</span><span class="badge b-blue">Matching</span></div>
+    </div>
+    <div class="algo-idx">18</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n+m)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(m)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int[] BuildFailure(string pattern) {
+    int m = pattern.Length;
+    int[] fail = new int[m];
+    for (int i = 1; i < m; i++) {
+        int j = fail[i - 1];
+        while (j > 0 && pattern[i] != pattern[j]) {
+            j = fail[j - 1];
+        }
+        if (pattern[i] == pattern[j]) j++;
+        fail[i] = j;
+    }
+    return fail;
+}
+
+int KMPSearch(string text, string pattern) {
+    int[] fail = BuildFailure(pattern);
+    int j = 0;
+    for (int i = 0; i < text.Length; i++) {
+        while (j > 0 && text[i] != pattern[j]) {
+            j = fail[j - 1];
+        }
+        if (text[i] == pattern[j]) j++;
+        if (j == pattern.Length) return i - j + 1;
+    }
+    return -1;
+}</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Implement strStr(), Shortest Palindrome, Repeated Substring Pattern</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Kadane's Algorithm</div>
+      <div class="algo-desc">Max subarray sum. Track running max and global max. Works in O(n) with O(1) space.</div>
+      <div class="algo-tags"><span class="badge b-orange">Array</span><span class="badge b-green">Optimal</span></div>
+    </div>
+    <div class="algo-idx">19</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>int maxSum = nums[0];
+int currentSum = nums[0];
+
+for (int i = 1; i < nums.Length; i++) {
+    currentSum = Math.Max(nums[i], currentSum + nums[i]);
+    maxSum = Math.Max(maxSum, currentSum);
+}
+
+return maxSum;</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Maximum Subarray, Maximum Circular Array, Best Time Buy Stock, Maximum Product Subarray</p>
+  </div>
+</div>
+
+<div class="algo" id="bit-manipulation">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Bit Manipulation Tricks</div>
+      <div class="algo-desc">Common patterns: XOR for single number, AND for power of 2, bit shifts for division/multiplication.</div>
+      <div class="algo-tags"><span class="badge b-blue">Bits</span><span class="badge b-green">Tricks</span></div>
+    </div>
+    <div class="algo-idx">20</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(1)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>// XOR: a ^ a = 0, a ^ 0 = a
+int single = 0;
+foreach (int num in nums) single ^= num;
+
+// Check if power of 2: n & (n-1) == 0
+bool isPowerOfTwo = (n > 0) && ((n & (n - 1)) == 0);
+
+// Count set bits
+int count = 0;
+while (n > 0) {
+    count += n & 1;
+    n >>= 1;
+}
+
+// Get i-th bit: (n >> i) & 1
+// Set i-th bit: n | (1 << i)
+// Clear i-th bit: n & ~(1 << i)
+// Toggle i-th bit: n ^ (1 << i)</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Single Number, Number of 1 Bits, Power of Two, Missing Number, Hamming Distance</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Monotonic Stack</div>
+      <div class="algo-desc">Find next/previous greater/smaller element in O(n). Stack keeps elements in order, pop smaller when adding larger.</div>
+      <div class="algo-tags"><span class="badge b-blue">Stack</span><span class="badge b-green">Monotonic</span></div>
+    </div>
+    <div class="algo-idx">21</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>// Next Greater Element
+int[] result = new int[nums.Length];
+Array.Fill(result, -1);
+Stack<int> stack = new();
+
+for (int i = nums.Length - 1; i >= 0; i--) {
+    while (stack.Count > 0 && nums[stack.Peek()] <= nums[i]) {
+        stack.Pop();
+    }
+    if (stack.Count > 0) {
+        result[i] = nums[stack.Peek()];
+    }
+    stack.Push(i);
+}
+
+return result;</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Next Greater Element, Daily Temperatures, Largest Rectangle, Trapping Rain Water, Sum of Subarray Minimums</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Fast & Slow Pointers</div>
+      <div class="algo-desc">Detect linked list cycles, find middle, reverse. Slow moves 1 step, fast moves 2 steps each iteration.</div>
+      <div class="algo-tags"><span class="badge b-orange">Linked List</span><span class="badge b-green">Cycle</span></div>
+    </div>
+    <div class="algo-idx">22</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>// Detect cycle
+ListNode slow = head, fast = head;
+while (fast != null && fast.next != null) {
+    slow = slow.next;
+    fast = fast.next.next;
+    if (slow == fast) return true; // Cycle found
+}
+return false;
+
+// Find middle
+slow = head; fast = head;
+while (fast != null && fast.next != null) {
+    slow = slow.next;
+    fast = fast.next.next;
+}
+return slow; // slow is at middle</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Linked List Cycle, Find Middle, Reorder List, Palindrome Linked List</p>
+  </div>
+</div>
+
+<div class="algo">
+  <div class="algo-head">
+    <div>
+      <div class="algo-name">Merge Intervals</div>
+      <div class="algo-desc">Merge overlapping intervals. Sort by start, then merge if overlapping. O(n log n) due to sorting.</div>
+      <div class="algo-tags"><span class="badge b-orange">Intervals</span><span class="badge b-green">Sort</span></div>
+    </div>
+    <div class="algo-idx">23</div>
+  </div>
+  <div class="algo-body">
+    <div class="cx-row">
+      <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n log n)</div></div>
+      <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n)</div></div>
+    </div>
+    <div class="code-block">
+      <div class="code-bar"><div class="code-lang">C#</div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre>Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
+List<int[]> result = new();
+int[] current = intervals[0];
+
+foreach (int[] interval in intervals.Skip(1)) {
+    if (interval[0] <= current[1]) {
+        current[1] = Math.Max(current[1], interval[1]);
+    } else {
+        result.Add(current);
+        current = interval;
+    }
+}
+result.Add(current);
+return result.ToArray();</pre>
+    </div>
+    <p><strong>Use Cases:</strong> Merge Intervals, Insert Interval, Meeting Rooms, Interval Scheduling</p>
+  </div>
+</div>
+
+</div>
+
+<!-- Section 3: Complexity Cheat Sheet -->
+<div class="section" id="complexity-cheat">
+  <div class="sec-tag"><div class="sec-num">03</div><div class="sec-line"></div></div>
+  <h2>Complexity Cheat Sheet</h2>
+  <p class="lead">Time and space complexity of major algorithms and data structures.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Algorithm / Data Structure</th><th>Time</th><th>Space</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Array Access</td><td>O(1)</td><td>—</td><td>Direct index access</td></tr>
+        <tr><td>Array Insert/Delete</td><td>O(n)</td><td>—</td><td>May need shift</td></tr>
+        <tr><td>Hash Map Insert/Search/Delete</td><td>O(1) avg</td><td>O(n)</td><td>O(n) worst case</td></tr>
+        <tr><td>Sorted Array Binary Search</td><td>O(log n)</td><td>O(1)</td><td>Divide & conquer</td></tr>
+        <tr><td>Heap Insert/Delete</td><td>O(log n)</td><td>—</td><td>Heapify up/down</td></tr>
+        <tr><td>Heap Extract Min/Max</td><td>O(log n)</td><td>—</td><td>Remove root</td></tr>
+        <tr><td>BFS</td><td>O(V+E)</td><td>O(V)</td><td>Queue-based</td></tr>
+        <tr><td>DFS</td><td>O(V+E)</td><td>O(h)</td><td>Stack or recursion</td></tr>
+        <tr><td>Dijkstra (with binary heap)</td><td>O((V+E) log V)</td><td>O(V)</td><td>Shortest path</td></tr>
+        <tr><td>Union-Find (with optimizations)</td><td>O(α(n))</td><td>O(n)</td><td>Nearly O(1) per op</td></tr>
+        <tr><td>Topological Sort (Kahn's)</td><td>O(V+E)</td><td>O(V)</td><td>DAG only</td></tr>
+        <tr><td>Merge Sort</td><td>O(n log n)</td><td>O(n)</td><td>Stable, guaranteed</td></tr>
+        <tr><td>Quick Sort</td><td>O(n log n) avg</td><td>O(log n)</td><td>O(n²) worst case</td></tr>
+        <tr><td>Trie Insert/Search</td><td>O(m)</td><td>O(ALPHABET × n)</td><td>m = word length</td></tr>
+        <tr><td>KMP Pattern Matching</td><td>O(n+m)</td><td>O(m)</td><td>n = text, m = pattern</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Problem Constraint</th><th>Expected Complexity</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td>N ≤ 10</td><td>O(n!), O(2^n)</td><td>Permutations, brute force</td></tr>
+        <tr><td>N ≤ 20</td><td>O(2^n), O(n × 2^n)</td><td>Subset generation, DP bitmask</td></tr>
+        <tr><td>N ≤ 100</td><td>O(n³), O(n² log n)</td><td>3D DP, Floyd-Warshall</td></tr>
+        <tr><td>N ≤ 1000</td><td>O(n²)</td><td>Bubble sort, 2D DP</td></tr>
+        <tr><td>N ≤ 100K</td><td>O(n log n)</td><td>Merge sort, heap operations</td></tr>
+        <tr><td>N ≤ 1M</td><td>O(n)</td><td>Hash map, two pointers, sliding window</td></tr>
+        <tr><td>N ≤ 10M+</td><td>O(log n), O(1)</td><td>Binary search, direct computation</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warn"><div class="callout-icon">⚠️</div><div><strong>Complexity Selection:</strong> If you see N ≤ 1M in constraints and your solution is O(n²), you'll get TLE. Choose algorithm by constraint first, then optimize.</div></div>
+</div>
+
+<!-- Section 4: C# Quick Reference -->
+<div class="section" id="csharp-quick-ref">
+  <div class="sec-tag"><div class="sec-num">04</div><div class="sec-line"></div></div>
+  <h2>C# Quick Reference</h2>
+  <p class="lead">Common data structures, collections, and operations for FAANG interviews.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Operation</th><th>C# Code</th><th>Time</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Array Initialization</td><td><code>int[] arr = new int[n];</code></td><td>O(n)</td><td>Zeros by default</td></tr>
+        <tr><td>Array Copy</td><td><code>Array.Copy(src, dest, length);</code></td><td>O(n)</td><td>Shallow copy</td></tr>
+        <tr><td>Array Sort</td><td><code>Array.Sort(arr);</code></td><td>O(n log n)</td><td>In-place, quicksort</td></tr>
+        <tr><td>List Add</td><td><code>list.Add(item);</code></td><td>O(1) amortized</td><td>Grows dynamically</td></tr>
+        <tr><td>List Insert</td><td><code>list.Insert(index, item);</code></td><td>O(n)</td><td>Shifts elements</td></tr>
+        <tr><td>List Remove</td><td><code>list.RemoveAt(index);</code></td><td>O(n)</td><td>Shifts elements</td></tr>
+        <tr><td>HashSet Add</td><td><code>set.Add(item);</code></td><td>O(1) avg</td><td>No duplicates</td></tr>
+        <tr><td>HashSet Contains</td><td><code>set.Contains(item);</code></td><td>O(1) avg</td><td>Fast lookup</td></tr>
+        <tr><td>Dictionary Add</td><td><code>dict[key] = value;</code></td><td>O(1) avg</td><td>Overwrite if exists</td></tr>
+        <tr><td>Dictionary GetOrDefault</td><td><code>dict.GetValueOrDefault(key, default);</code></td><td>O(1) avg</td><td>Safe access</td></tr>
+        <tr><td>Queue Enqueue</td><td><code>q.Enqueue(item);</code></td><td>O(1)</td><td>Add to back</td></tr>
+        <tr><td>Queue Dequeue</td><td><code>q.Dequeue();</code></td><td>O(1)</td><td>Remove from front</td></tr>
+        <tr><td>Stack Push</td><td><code>stack.Push(item);</code></td><td>O(1)</td><td>Add to top</td></tr>
+        <tr><td>Stack Pop</td><td><code>stack.Pop();</code></td><td>O(1)</td><td>Remove from top</td></tr>
+        <tr><td>PriorityQueue Add</td><td><code>pq.Enqueue(item, priority);</code></td><td>O(log n)</td><td>Min-heap by default</td></tr>
+        <tr><td>String Concatenate</td><td><code>sb.Append(str);</code></td><td>O(1) amortized</td><td>Use StringBuilder</td></tr>
+        <tr><td>String Substring</td><td><code>s.Substring(start, length);</code></td><td>O(length)</td><td>Creates new string</td></tr>
+        <tr><td>LINQ Where</td><td><code>list.Where(x => x > 0).ToList();</code></td><td>O(n)</td><td>Filter</td></tr>
+        <tr><td>LINQ OrderBy</td><td><code>list.OrderBy(x => x).ToList();</code></td><td>O(n log n)</td><td>Returns new list</td></tr>
+        <tr><td>LINQ GroupBy</td><td><code>list.GroupBy(x => x).ToList();</code></td><td>O(n)</td><td>Creates groups</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-card g">
+    <div class="tip-n">TIP 01</div>
+    <div class="tip-title">Integer Overflow</div>
+    <div class="tip-body">C# ints are 32-bit (-2^31 to 2^31-1). Use <code>long</code> for arithmetic to avoid overflow: <code>int mid = left + (right - left) / 2;</code> instead of <code>(left + right) / 2</code>.</div>
+  </div>
+
+  <div class="tip-card b">
+    <div class="tip-n">TIP 02</div>
+    <div class="tip-title">Null Checks</div>
+    <div class="tip-body">Always check for null before dereferencing: <code>if (node != null && node.val > 0)</code>. C# has nullable reference types; turn them on for safety.</div>
+  </div>
+
+  <div class="tip-card a">
+    <div class="tip-n">TIP 03</div>
+    <div class="tip-title">Array Bounds</div>
+    <div class="tip-body">Array indices are 0 to length-1. Check <code>i < nums.Length</code> before accessing <code>nums[i]</code>. Off-by-one errors are common.</div>
+  </div>
+
+  <div class="tip-card g">
+    <div class="tip-n">TIP 04</div>
+    <div class="tip-title">String Immutability</div>
+    <div class="tip-body">Strings are immutable in C#. Use <code>StringBuilder</code> for concatenation in loops: <code>new StringBuilder().Append(...).ToString()</code>.</div>
+  </div>
+
+  <div class="tip-card b">
+    <div class="tip-n">TIP 05</div>
+    <div class="tip-title">Dictionary Access</div>
+    <div class="tip-body">Use <code>GetValueOrDefault()</code> or check <code>ContainsKey()</code> to avoid KeyNotFoundException: <code>int count = dict.GetValueOrDefault(key, 0);</code>.</div>
+  </div>
+</div>
+
+<!-- Section 5: Interview Day Checklist -->
+<div class="section" id="interview-checklist">
+  <div class="sec-tag"><div class="sec-num">05</div><div class="sec-line"></div></div>
+  <h2>Interview Day Checklist & UMPIRE Method</h2>
+  <p class="lead">Use this before, during, and after your FAANG interview to stay structured and avoid common mistakes.</p>
+
+  <h3>Before Interview (Week Leading Up)</h3>
+  <div class="checklist">
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Review decision tree (memorize first 2 levels)</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Solve 1 easy, 1 medium problem from each major pattern</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Set up IDE: C# compiler, syntax highlighting, fast compile</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Test internet, webcam, mic quality 24 hours before</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Sleep 8+ hours night before. Clear desk and remove distractions</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Eat light meal 1-2 hours before. Stay hydrated</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Have notepad ready for problem-solving notes</label>
+    </div>
+  </div>
+
+  <h3>During Interview — The UMPIRE Method</h3>
+  <div class="checklist">
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label><strong>U — Understand:</strong> Read problem 3 times. Ask clarifying questions: "Can N be negative? Can array be empty? What about duplicates?"</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label><strong>M — Match:</strong> Use decision tree to identify pattern. Say it aloud: "This looks like a sliding window problem."</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label><strong>P — Plan:</strong> Explain approach before coding. Draw simple example. Estimate time/space. Get interviewer approval.</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label><strong>I — Implement:</strong> Code cleanly. Use descriptive variable names. Add comments for non-obvious logic. Talk while coding.</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label><strong>R — Review:</strong> Walk through code with examples. Check edge cases: empty input, single element, negatives, duplicates.</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label><strong>E — Evaluate:</strong> State time/space complexity. Discuss optimizations: "Can we optimize space from O(n) to O(1)?"</label>
+    </div>
+  </div>
+
+  <h3>During Interview — Key Communication Tips</h3>
+  <div class="checklist">
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Talk out loud. Silence makes interviewer anxious. Narrate your thinking</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Ask before coding: "Should I write full solution or pseudocode?" Respect time</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>If stuck: "Let me think about this differently..." or "Can I try a brute force first?"</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>If interviewer gives hint: Take it gracefully. "Ah, that makes sense. Let me incorporate that."</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>If you make mistake in code: "I see the bug. Let me fix it." Self-awareness is good</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>At end: Ask "Any follow-up or optimizations you'd like me to explore?"</label>
+    </div>
+  </div>
+
+  <h3>After Interview (Next 24 Hours)</h3>
+  <div class="checklist">
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Write thank-you email to recruiter within 2 hours (if unsure, send to recruiter)</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Note down exact problems, your approach, and any feedback given</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Solve the same problem again at home to reinforce learning</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>If you struggled with pattern X, drill 2 more problems from that pattern</label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox">
+      <label>Prepare for next round. Different rounds test different skills (coding → design → behavioral)</label>
+    </div>
+  </div>
+
+  <h3>Common Interview Mistakes to Avoid</h3>
+  <div class="callout danger"><div class="callout-icon">❌</div><div>
+    <strong>Jumping to code immediately</strong> — Spend 2-3 minutes planning. It saves time overall.
+  </div></div>
+
+  <div class="callout danger"><div class="callout-icon">❌</div><div>
+    <strong>Not handling edge cases</strong> — Empty array, single element, all negatives, duplicates. Add checks in review phase.
+  </div></div>
+
+  <div class="callout danger"><div class="callout-icon">❌</div><div>
+    <strong>Rushing complexity analysis</strong> — "O(n)" is incomplete. State both time AND space. Explain why: "We use a hash map which is O(n) space."
+  </div></div>
+
+  <div class="callout danger"><div class="callout-icon">❌</div><div>
+    <strong>Not communicating</strong> — Silence = interview assumes you're lost. Talk through your logic, even if slowly.
+  </div></div>
+
+  <div class="callout danger"><div class="callout-icon">❌</div><div>
+    <strong>Ignoring hints</strong> — Interviewer hints are gifts. Use them. "Great point, that suggests we need a hash map."
+  </div></div>
+</div>
+
+<div class="callout tip"><div class="callout-icon">✅</div><div><strong>Final Mindset:</strong> You've trained for 90 days, solved 200+ problems, and mastered 40+ patterns. Your muscle memory is strong. Trust the process, stay calm, communicate clearly, and you've got this!</div></div>
+
+</div>
+
+<footer>
+<div class="footer-inner">
+  <p><strong>Pattern Recognition Cheatsheet — Master 40+ Algorithm Patterns</strong></p>
+  <p>Decision tree, C# templates, complexity lookup, and interview day checklist. Your complete reference guide for FAANG interviews.</p>
+  <p style="margin-top:14px;font-size:12px">Memorize the decision tree. Master the 20 core patterns. Execute UMPIRE. Success.</p>
+</div>
+</footer>
+
+</body>
+<script>
+function copyCode(button) {
+  const codeBlock = button.closest('.code-block');
+  const preElement = codeBlock.querySelector('pre');
+  const text = preElement.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    setTimeout(() => {
+      button.textContent = originalText;
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy:', err);
+  });
+}
+</script>
+</html>

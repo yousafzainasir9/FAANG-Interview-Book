@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Dynamic programming FAANG problems — climbing stairs, longest subsequence, knapsack variations, with C# solutions.">
+  <meta name="keywords" content="dynamic programming, FAANG interview, climbing stairs, LCS, knapsack, C#">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat08-dynamic-programming.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat08-dynamic-programming.html">
+  <meta property="og:title" content="Chapter 8: Dynamic Programming — FAANG Interview Book">
+  <meta property="og:description" content="Dynamic programming FAANG problems — climbing stairs, longest subsequence, knapsack variations, with C# solutions.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat08-dynamic-programming.html">
+  <meta name="twitter:title" content="Chapter 8: Dynamic Programming — FAANG Interview Book">
+  <meta name="twitter:description" content="Dynamic programming FAANG problems — climbing stairs, longest subsequence, knapsack variations, with C# solutions.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Chapter 8: Dynamic Programming \u2014 FAANG Interview Book",
+  "description": "Dynamic programming FAANG problems \u2014 climbing stairs, longest subsequence, knapsack variations, with C# solutions.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/cat08-dynamic-programming.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+  <title>Chapter 8: Dynamic Programming — FAANG Interview Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* SHARED CSS TEMPLATE */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    :root{
+      --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+      --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+      --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+      --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+      --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+      --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+      --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+      --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+    }
+    body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+    nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+    .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+    .nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+    .nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+    .nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+    .nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+    .wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+    .hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+    .eyebrow-line{width:28px;height:2px;background:var(--acc)}
+    .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+    .hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+    .hero h1 em{font-style:normal;color:var(--acc)}
+    .hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+    .stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content}
+    .stat{padding:14px 26px;border-right:1px solid var(--rule)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+    .stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+    .toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+    .toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+    .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+    .toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+    .toc-grid a:hover{color:var(--acc)}
+    .toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+    .section{padding-top:72px}
+    .sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+    .sec-line{flex:1;height:1px;background:var(--rule)}
+    .section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+    .section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+    .section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+    .section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+    .algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+    .algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+    .algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+    .algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+    .algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+    .algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+    .algo-body{padding:28px 32px}
+    .cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+    .cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+    .cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+    .cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+    .steps{margin-bottom:26px}
+    .step{display:flex}
+    .step-left{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0}
+    .step-num{width:28px;height:28px;border-radius:50%;background:var(--acc-l);border:1.5px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0}
+    .step-vline{width:1.5px;flex:1;background:var(--rule);margin:4px 0}
+    .step:last-child .step-vline{display:none}
+    .step-body{padding:3px 0 22px 14px;font-size:14px;color:var(--ink2);line-height:1.68}
+    .step-body strong{color:var(--ink);font-weight:600}
+    code.il{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 7px;border-radius:4px;color:var(--acc)}
+    .code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+    .code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+    .copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+    .copy-btn:hover{color:#d4d0c8}
+    pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+    .kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+    .callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+    .callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+    .callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+    .callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+    .callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+    .callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+    .callout strong{color:inherit;font-weight:600}
+    .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+    .b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+    .b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+    .b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+    .b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+    .b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+    .tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--rule);margin-bottom:26px}
+    table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+    thead tr{background:var(--bg2)}
+    th{text-align:left;padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule)}
+    td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+    td:first-child{font-weight:600;color:var(--ink)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--bg)}
+    .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+    .vs-box{border-radius:10px;padding:18px 20px;border:1px solid}
+    .vs-box.good{background:var(--green-l);border-color:var(--green-b)}
+    .vs-box.bad{background:var(--red-l);border-color:var(--red-b)}
+    .vs-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+    .vs-box.good .vs-title{color:var(--green)}.vs-box.bad .vs-title{color:var(--red)}
+    .vs-item{font-size:13px;color:var(--ink2);padding:4px 0;display:flex;gap:8px;line-height:1.5}
+    .vs-item::before{content:'—';color:var(--ink4);flex-shrink:0}
+    .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+    .proof-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px 22px}
+    .proof-title{font-size:15px;font-weight:700;margin-bottom:8px}
+    .proof-body{font-size:13.5px;color:var(--ink2);line-height:1.7}
+    .proof-note{margin-top:12px;font-size:12px;color:var(--ink3)}
+    .proof-note strong{color:var(--ink2)}
+    .tips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
+    .tip-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+    .tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc)}
+    .tip-card.g::before{background:var(--green)}.tip-card.b::before{background:var(--blue)}.tip-card.a::before{background:var(--amber)}
+    .tip-n{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-bottom:8px}
+    .tip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+    .tip-body{font-size:13px;color:var(--ink2);line-height:1.65}
+    footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+    .footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+    footer p{font-size:13px;color:var(--ink3)}
+    footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+    .fade{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .fade.in{opacity:1;transform:none}
+    @media(max-width:700px){
+      .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+      .vs,.proof-grid,.tips{grid-template-columns:1fr}
+      .toc-grid{grid-template-columns:1fr}
+      .stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid var(--rule)}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span>FAANG</span>
+      <span class="pill">Interview</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#problems">Problems</a>
+      <a href="#framework">Framework</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Chapter 8</div>
+    </div>
+    <h1><em>Dynamic</em> Programming</h1>
+    <p class="hero-sub">Master the art of breaking complex problems into overlapping subproblems. Learn 1D and 2D DP patterns, state definition, recurrence relations, and optimization techniques essential for FAANG interviews.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-n">15</div>
+        <div class="stat-l">Problems</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">3–8</div>
+        <div class="stat-l">Difficulty</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">C#</div>
+        <div class="stat-l">Language</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-head">Contents</div>
+    <div class="toc-grid">
+      <a href="#p1"><span class="toc-n">1</span> Climbing Stairs</a>
+      <a href="#p2"><span class="toc-n">2</span> House Robber</a>
+      <a href="#p3"><span class="toc-n">3</span> House Robber II</a>
+      <a href="#p4"><span class="toc-n">4</span> Coin Change</a>
+      <a href="#p5"><span class="toc-n">5</span> Longest Increasing Subsequence</a>
+      <a href="#p6"><span class="toc-n">6</span> Word Break</a>
+      <a href="#p7"><span class="toc-n">7</span> Longest Common Subsequence</a>
+      <a href="#p8"><span class="toc-n">8</span> Edit Distance</a>
+      <a href="#p9"><span class="toc-n">9</span> Unique Paths</a>
+      <a href="#p10"><span class="toc-n">10</span> Decode Ways</a>
+      <a href="#p11"><span class="toc-n">11</span> Maximum Product Subarray</a>
+      <a href="#p12"><span class="toc-n">12</span> Partition Equal Subset Sum</a>
+      <a href="#p13"><span class="toc-n">13</span> Target Sum</a>
+      <a href="#p14"><span class="toc-n">14</span> Burst Balloons</a>
+      <a href="#p15"><span class="toc-n">15</span> Regular Expression Matching</a>
+    </div>
+  </div>
+
+  <div class="section" id="framework">
+    <div class="sec-tag">
+      <span class="sec-num">FRAMEWORK</span>
+      <div class="sec-line"></div>
+    </div>
+    <h2>Dynamic Programming Framework</h2>
+    <p class="lead">Dynamic Programming is a technique for solving problems with overlapping subproblems and optimal substructure. Success depends on correctly identifying state, recurrence, and base cases.</p>
+
+    <h3>The Five-Step DP Framework</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">1</div></div>
+        <div class="step-body"><strong>Define State:</strong> What exactly does <code class="il">dp[i]</code> represent? Be precise—state ambiguity is the root of DP mistakes.</div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">2</div></div>
+        <div class="step-body"><strong>Write Recurrence:</strong> Express <code class="il">dp[i]</code> in terms of previously computed states. This is the core logic.</div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">3</div></div>
+        <div class="step-body"><strong>Identify Base Cases:</strong> What are the simplest subproblems? (Usually <code class="il">dp[0]</code> or small values.)</div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">4</div></div>
+        <div class="step-body"><strong>Choose Evaluation Order:</strong> Determine if you'll compute bottom-up (iterative) or top-down (memoization).</div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">5</div></div>
+        <div class="step-body"><strong>Optimize Space:</strong> Can you reduce space by storing only the last k values instead of the entire array?</div>
+      </div>
+    </div>
+
+    <h3>Top-Down vs. Bottom-Up</h3>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-title">Top-Down (Recursion + Memoization)</div>
+        <div class="proof-body">Start from the end goal and recursively break down into subproblems. Use a memo dictionary to cache results.</div>
+        <div class="proof-note"><strong>Pros:</strong> Intuitive, only computes needed states.<br><strong>Cons:</strong> Recursion overhead, stack space.</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-title">Bottom-Up (Iteration)</div>
+        <div class="proof-body">Build solutions from base cases upward. Fill a table row by row or fill by fill.</div>
+        <div class="proof-note"><strong>Pros:</strong> No recursion, better cache locality, space control.<br><strong>Cons:</strong> Compute all states, requires careful ordering.</div>
+      </div>
+    </div>
+
+    <h3>Common DP Patterns</h3>
+    <div class="tips">
+      <div class="tip-card g">
+        <div class="tip-n">Pattern A</div>
+        <div class="tip-title">1D Array DP</div>
+        <div class="tip-body">State depends on one index. Examples: Climbing Stairs, House Robber, Coin Change (unbounded), LIS.</div>
+      </div>
+      <div class="tip-card b">
+        <div class="tip-n">Pattern B</div>
+        <div class="tip-title">2D Array DP</div>
+        <div class="tip-body">State depends on two indices (typically two sequences). Examples: LCS, Edit Distance, Unique Paths.</div>
+      </div>
+      <div class="tip-card a">
+        <div class="tip-n">Pattern C</div>
+        <div class="tip-title">Knapsack Variants</div>
+        <div class="tip-body">0/1 knapsack, unbounded, bounded. Use a dimension for item count or weight.</div>
+      </div>
+    </div>
+
+    <p>Additional patterns include <strong>interval DP</strong> (e.g., Burst Balloons) where state is a range, and <strong>bitmask DP</strong> for small subsets.</p>
+  </div>
+
+  <div id="problems"></div>
+
+  <!-- Problem 1: Climbing Stairs -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Climbing Stairs</div>
+        <div class="algo-desc">You are climbing a staircase with <code class="il">n</code> steps. Each time you can climb 1 or 2 steps. How many distinct ways can you climb to the top?</div>
+        <div class="algo-tags">
+          <span class="badge b-green">Easy</span>
+          <span class="badge b-orange">Meta</span>
+          <span class="badge b-orange">Google</span>
+          <span class="badge b-orange">Amazon</span>
+        </div>
+      </div>
+      <div class="algo-idx">1</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1) optimized</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">1D DP</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given a staircase with <code class="il">n</code> steps, you can climb 1 or 2 steps at a time. Calculate the number of distinct ways to reach the top.</p>
+
+      <h3>Approach Comparison</h3>
+      <div class="vs">
+        <div class="vs-box bad">
+          <div class="vs-title">Brute Force (Recursion)</div>
+          <div class="vs-item">Explore all paths recursively</div>
+          <div class="vs-item">Time: O(2^n) exponential</div>
+          <div class="vs-item">Space: O(n) stack depth</div>
+          <div class="vs-item">Hits same subproblems repeatedly</div>
+        </div>
+        <div class="vs-box good">
+          <div class="vs-title">Dynamic Programming</div>
+          <div class="vs-item">Compute each state once</div>
+          <div class="vs-item">Time: O(n) linear</div>
+          <div class="vs-item">Space: O(1) constant</div>
+          <div class="vs-item">Overlapping subproblems solved once</div>
+        </div>
+      </div>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i]</code> = number of ways to reach step <code class="il">i</code>.</p>
+      <p><strong>Recurrence:</strong> <code class="il">dp[i] = dp[i-1] + dp[i-2]</code> (you can reach step <code class="il">i</code> from step <code class="il">i-1</code> or <code class="il">i-2</code>).</p>
+      <p><strong>Base Cases:</strong> <code class="il">dp[0] = 1</code>, <code class="il">dp[1] = 1</code>.</p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">ClimbStairs</span>(<span class="kw">int</span> n) {
+        <span class="kw">if</span> (n <= <span class="num">1</span>) <span class="kw">return</span> <span class="num">1</span>;
+
+        <span class="kw">int</span> prev2 = <span class="num">1</span>, prev1 = <span class="num">1</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">2</span>; i <= n; i++) {
+            <span class="kw">int</span> curr = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        <span class="kw">return</span> prev1;
+    }
+}</pre>
+      </div>
+
+      <h3>Trace Example</h3>
+      <p><code class="il">n = 4</code></p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>i</th><th>dp[i]</th><th>Explanation</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>1</td><td>Start (base)</td></tr>
+            <tr><td>1</td><td>1</td><td>One step only</td></tr>
+            <tr><td>2</td><td>2</td><td>1+1 or 2</td></tr>
+            <tr><td>3</td><td>3</td><td>dp[1] + dp[2] = 1 + 2</td></tr>
+            <tr><td>4</td><td>5</td><td>dp[2] + dp[3] = 2 + 3</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Space Optimization:</strong> Since we only need the last two values, use two variables instead of an array. This is a common follow-up question.</div>
+      </div>
+      <div class="callout info">
+        <div class="callout-icon">ℹ️</div>
+        <div><strong>Mathematical Note:</strong> This is actually the Fibonacci sequence. If they ask for very large <code class="il">n</code>, discuss matrix exponentiation or closed-form formula.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 2: House Robber -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">House Robber</div>
+        <div class="algo-desc">Rob houses in a line, but you cannot rob two adjacent houses. Maximize the total amount of money stolen.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-orange">Meta</span>
+          <span class="badge b-orange">Apple</span>
+          <span class="badge b-orange">Amazon</span>
+        </div>
+      </div>
+      <div class="algo-idx">2</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">1D DP (Max)</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>You are a professional robber planning to rob houses. You cannot rob two adjacent houses. Given an array <code class="il">nums</code> where <code class="il">nums[i]</code> is the amount of money in house <code class="il">i</code>, return the maximum amount you can rob.</p>
+
+      <h3>Approach Comparison</h3>
+      <div class="vs">
+        <div class="vs-box bad">
+          <div class="vs-title">Brute Force</div>
+          <div class="vs-item">Try all subsets of non-adjacent houses</div>
+          <div class="vs-item">Time: O(2^n)</div>
+          <div class="vs-item">Space: O(n) for recursion</div>
+        </div>
+        <div class="vs-box good">
+          <div class="vs-title">1D DP</div>
+          <div class="vs-item">dp[i] = max(rob i, skip i)</div>
+          <div class="vs-item">Time: O(n)</div>
+          <div class="vs-item">Space: O(1) with optimization</div>
+        </div>
+      </div>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i]</code> = maximum money robbed considering houses up to <code class="il">i</code>.</p>
+      <p><strong>Recurrence:</strong> <code class="il">dp[i] = max(dp[i-1], nums[i] + dp[i-2])</code> (rob or skip house <code class="il">i</code>).</p>
+      <p><strong>Base Cases:</strong> <code class="il">dp[0] = nums[0]</code>, <code class="il">dp[1] = max(nums[0], nums[1])</code>.</p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">Rob</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">if</span> (nums.Length == <span class="num">1</span>) <span class="kw">return</span> nums[<span class="num">0</span>];
+
+        <span class="kw">int</span> prev2 = nums[<span class="num">0</span>];
+        <span class="kw">int</span> prev1 = <span class="kw">Math</span>.<span class="fn">Max</span>(nums[<span class="num">0</span>], nums[<span class="num">1</span>]);
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">2</span>; i < nums.Length; i++) {
+            <span class="kw">int</span> curr = <span class="kw">Math</span>.<span class="fn">Max</span>(prev1, nums[i] + prev2);
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        <span class="kw">return</span> prev1;
+    }
+}</pre>
+      </div>
+
+      <h3>Trace Example</h3>
+      <p><code class="il">nums = [1, 3, 1, 3, 100]</code></p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>i</th><th>nums[i]</th><th>dp[i]</th><th>Decision</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>1</td><td>1</td><td>Rob house 0</td></tr>
+            <tr><td>1</td><td>3</td><td>3</td><td>Rob house 1 (skip 0)</td></tr>
+            <tr><td>2</td><td>1</td><td>3</td><td>Skip house 2</td></tr>
+            <tr><td>3</td><td>3</td><td>6</td><td>Rob house 3 + dp[1]</td></tr>
+            <tr><td>4</td><td>100</td><td>103</td><td>Rob house 4 + dp[2]</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Follow-up:</strong> What if houses are arranged in a circle (House Robber II)? You must consider two cases: rob [0...n-2] or [1...n-1], ensuring you don't rob house 0 and n simultaneously.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 3: House Robber II -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">House Robber II</div>
+        <div class="algo-desc">Houses are arranged in a circle; you cannot rob the first and last house together. Maximize total money.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-orange">Apple</span>
+        </div>
+      </div>
+      <div class="algo-idx">3</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">Circular DP</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Same as House Robber, but now houses are arranged in a circle. You cannot rob both the first and last house.</p>
+
+      <h3>Approach & Solution</h3>
+      <p>The circular constraint means house <code class="il">n-1</code> and house <code class="il">0</code> are adjacent. Solution: compute max for two cases—(1) rob [0...n-2], (2) rob [1...n-1]—and return the maximum.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">private int</span> <span class="fn">RobLinear</span>(<span class="kw">int</span> start, <span class="kw">int</span> end, <span class="kw">int</span>[] nums) {
+        <span class="kw">int</span> prev2 = <span class="num">0</span>, prev1 = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = start; i <= end; i++) {
+            <span class="kw">int</span> curr = <span class="kw">Math</span>.<span class="fn">Max</span>(prev1, nums[i] + prev2);
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        <span class="kw">return</span> prev1;
+    }
+
+    <span class="kw">public int</span> <span class="fn">Rob</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">if</span> (nums.Length == <span class="num">1</span>) <span class="kw">return</span> nums[<span class="num">0</span>];
+        <span class="kw">if</span> (nums.Length == <span class="num">2</span>) <span class="kw">return</span> <span class="kw">Math</span>.<span class="fn">Max</span>(nums[<span class="num">0</span>], nums[<span class="num">1</span>]);
+
+        <span class="cm">// Case 1: Rob [0...n-2] (exclude last)</span>
+        <span class="kw">int</span> case1 = <span class="fn">RobLinear</span>(<span class="num">0</span>, nums.Length - <span class="num">2</span>, nums);
+
+        <span class="cm">// Case 2: Rob [1...n-1] (exclude first)</span>
+        <span class="kw">int</span> case2 = <span class="fn">RobLinear</span>(<span class="num">1</span>, nums.Length - <span class="num">1</span>, nums);
+
+        <span class="kw">return</span> <span class="kw">Math</span>.<span class="fn">Max</span>(case1, case2);
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout info">
+        <div class="callout-icon">ℹ️</div>
+        <div><strong>Key Insight:</strong> By considering both cases (exclude first, exclude last), we ensure we never rob both endpoints. This is a common technique for circular DP problems.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 4: Coin Change -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Coin Change</div>
+        <div class="algo-desc">Given coins of different denominations, find the fewest coins needed to make a given amount.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-blue">Google</span>
+          <span class="badge b-orange">Meta</span>
+        </div>
+      </div>
+      <div class="algo-idx">4</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n × m)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">Unbounded Knapsack</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given an integer array <code class="il">coins</code> and an integer <code class="il">amount</code>, return the fewest number of coins needed to make that amount. Return -1 if impossible.</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i]</code> = minimum number of coins to make amount <code class="il">i</code>.</p>
+      <p><strong>Recurrence:</strong> <code class="il">dp[i] = 1 + min(dp[i - coin])</code> for each coin ≤ <code class="il">i</code>.</p>
+      <p><strong>Base Case:</strong> <code class="il">dp[0] = 0</code> (zero coins for amount 0).</p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">CoinChange</span>(<span class="kw">int</span>[] coins, <span class="kw">int</span> amount) {
+        <span class="kw">int</span>[] dp = <span class="kw">new int</span>[amount + <span class="num">1</span>];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i <= amount; i++) {
+            dp[i] = amount + <span class="num">1</span>; <span class="cm">// Initialize to impossible value</span>
+            <span class="kw">foreach</span> (<span class="kw">int</span> coin <span class="kw">in</span> coins) {
+                <span class="kw">if</span> (coin <= i) {
+                    dp[i] = <span class="kw">Math</span>.<span class="fn">Min</span>(dp[i], dp[i - coin] + <span class="num">1</span>);
+                }
+            }
+        }
+        <span class="kw">return</span> dp[amount] > amount ? <span class="num">-1</span> : dp[amount];
+    }
+}</pre>
+      </div>
+
+      <h3>Trace Example</h3>
+      <p><code class="il">coins = [1, 2, 5], amount = 5</code></p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Amount</th><th>dp[i]</th><th>Coins Used</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>0</td><td>—</td></tr>
+            <tr><td>1</td><td>1</td><td>[1]</td></tr>
+            <tr><td>2</td><td>1</td><td>[2]</td></tr>
+            <tr><td>3</td><td>2</td><td>[1, 2]</td></tr>
+            <tr><td>4</td><td>2</td><td>[2, 2]</td></tr>
+            <tr><td>5</td><td>1</td><td>[5]</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Unbounded Knapsack:</strong> Unlike 0/1 knapsack, you can use each coin unlimited times. The key difference is looping through amounts for each coin, not coins for each amount.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 5: Longest Increasing Subsequence -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Longest Increasing Subsequence</div>
+        <div class="algo-desc">Find the length of the longest strictly increasing subsequence in an array.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-orange">Amazon</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">5</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time (DP)</div><div class="cx-v">O(n²)</div></div>
+        <div class="cx"><div class="cx-l">Time (Binary Search)</div><div class="cx-v">O(n log n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n)</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given an integer array <code class="il">nums</code>, return the length of the longest strictly increasing subsequence.</p>
+
+      <h3>DP State & Recurrence (O(n²) solution)</h3>
+      <p><strong>State:</strong> <code class="il">dp[i]</code> = length of LIS ending at index <code class="il">i</code>.</p>
+      <p><strong>Recurrence:</strong> <code class="il">dp[i] = 1 + max(dp[j])</code> for all <code class="il">j &lt; i</code> where <code class="il">nums[j] &lt; nums[i]</code>.</p>
+
+      <h3>Solution (DP)</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">LengthOfLIS</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">int</span>[] dp = <span class="kw">new int</span>[nums.Length];
+        <span class="kw">int</span> maxLen = <span class="num">0</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < nums.Length; i++) {
+            dp[i] = <span class="num">1</span>;
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j < i; j++) {
+                <span class="kw">if</span> (nums[j] < nums[i]) {
+                    dp[i] = <span class="kw">Math</span>.<span class="fn">Max</span>(dp[i], dp[j] + <span class="num">1</span>);
+                }
+            }
+            maxLen = <span class="kw">Math</span>.<span class="fn">Max</span>(maxLen, dp[i]);
+        }
+        <span class="kw">return</span> maxLen;
+    }
+}</pre>
+      </div>
+
+      <h3>Optimized Solution (Binary Search, O(n log n))</h3>
+      <p>Maintain an array where <code class="il">tails[i]</code> is the smallest tail of all increasing subsequences of length <code class="il">i+1</code>.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">LengthOfLIS</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">var</span> tails = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">int</span>&gt;();
+
+        <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> nums) {
+            <span class="kw">int</span> pos = tails.<span class="fn">BinarySearch</span>(num);
+            <span class="kw">if</span> (pos < <span class="num">0</span>) pos = ~pos; <span class="cm">// Convert to insertion point</span>
+
+            <span class="kw">if</span> (pos == tails.<span class="prop">Count</span>) {
+                tails.<span class="fn">Add</span>(num);
+            } <span class="kw">else</span> {
+                tails[pos] = num;
+            }
+        }
+        <span class="kw">return</span> tails.<span class="prop">Count</span>;
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Interview Tip:</strong> Start with O(n²) DP, then optimize with binary search if asked. Explain why the greedy strategy (keeping smallest tails) is valid.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 6: Word Break -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Word Break</div>
+        <div class="algo-desc">Determine if a string can be segmented into words from a given dictionary.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-orange">Meta</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">6</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n² × m)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">1D DP + Set</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given a string <code class="il">s</code> and a list of words <code class="il">wordDict</code>, return true if <code class="il">s</code> can be segmented into space-separated words from the dictionary.</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i]</code> = true if substring <code class="il">s[0...i-1]</code> can be segmented.</p>
+      <p><strong>Recurrence:</strong> <code class="il">dp[i] = true</code> if <code class="il">dp[j] == true</code> and <code class="il">s[j...i-1]</code> is in the word dictionary, for some <code class="il">j &lt; i</code>.</p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public bool</span> <span class="fn">WordBreak</span>(<span class="kw">string</span> s, <span class="ty">IList</span>&lt;<span class="kw">string</span>&gt; wordDict) {
+        <span class="kw">var</span> wordSet = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">string</span>&gt;(wordDict);
+        <span class="kw">bool</span>[] dp = <span class="kw">new bool</span>[s.Length + <span class="num">1</span>];
+        dp[<span class="num">0</span>] = <span class="kw">true</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i <= s.Length; i++) {
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j < i; j++) {
+                <span class="kw">string</span> word = s.<span class="fn">Substring</span>(j, i - j);
+                <span class="kw">if</span> (dp[j] && wordSet.<span class="fn">Contains</span>(word)) {
+                    dp[i] = <span class="kw">true</span>;
+                    <span class="kw">break</span>;
+                }
+            }
+        }
+        <span class="kw">return</span> dp[s.Length];
+    }
+}</pre>
+      </div>
+
+      <h3>Trace Example</h3>
+      <p><code class="il">s = "leetcode", wordDict = ["leet", "code"]</code></p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>i</th><th>s[0..i-1]</th><th>dp[i]</th><th>Reason</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td></td><td>true</td><td>Base case</td></tr>
+            <tr><td>4</td><td>"leet"</td><td>true</td><td>"leet" in dict</td></tr>
+            <tr><td>8</td><td>"leetcode"</td><td>true</td><td>dp[4]=true and "code" in dict</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Optimization:</strong> Use a HashSet for O(1) dictionary lookup. Without it, the solution becomes O(n³).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 7: Longest Common Subsequence -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Longest Common Subsequence</div>
+        <div class="algo-desc">Find the length of the longest subsequence common to two strings.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">7</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(m × n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(m × n)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">2D DP</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given two strings <code class="il">text1</code> and <code class="il">text2</code>, return the length of their longest common subsequence. A subsequence is a sequence that appears in the same order but not necessarily contiguous.</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i][j]</code> = LCS length of <code class="il">text1[0...i-1]</code> and <code class="il">text2[0...j-1]</code>.</p>
+      <p><strong>Recurrence:</strong><br>
+      <code class="il">If text1[i-1] == text2[j-1]: dp[i][j] = dp[i-1][j-1] + 1</code><br>
+      <code class="il">Else: dp[i][j] = max(dp[i-1][j], dp[i][j-1])</code></p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">LongestCommonSubsequence</span>(<span class="kw">string</span> text1, <span class="kw">string</span> text2) {
+        <span class="kw">int</span>[][] dp = <span class="kw">new int</span>[text1.Length + <span class="num">1</span>][];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i <= text1.Length; i++) {
+            dp[i] = <span class="kw">new int</span>[text2.Length + <span class="num">1</span>];
+        }
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i <= text1.Length; i++) {
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">1</span>; j <= text2.Length; j++) {
+                <span class="kw">if</span> (text1[i - <span class="num">1</span>] == text2[j - <span class="num">1</span>]) {
+                    dp[i][j] = dp[i - <span class="num">1</span>][j - <span class="num">1</span>] + <span class="num">1</span>;
+                } <span class="kw">else</span> {
+                    dp[i][j] = <span class="kw">Math</span>.<span class="fn">Max</span>(dp[i - <span class="num">1</span>][j], dp[i][j - <span class="num">1</span>]);
+                }
+            }
+        }
+        <span class="kw">return</span> dp[text1.Length][text2.Length];
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Follow-up:</strong> Reconstruct the actual LCS by backtracking from dp[m][n]. Keep a separate array to store parent pointers or directions.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 8: Edit Distance -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Edit Distance (Levenshtein Distance)</div>
+        <div class="algo-desc">Find the minimum number of operations (insert, delete, replace) to transform one string into another.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-orange">Meta</span>
+          <span class="badge b-orange">Apple</span>
+        </div>
+      </div>
+      <div class="algo-idx">8</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(m × n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(m × n) or O(n)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">2D DP</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given two strings <code class="il">word1</code> and <code class="il">word2</code>, return the minimum number of single-character edits (insert, delete, replace) needed to change <code class="il">word1</code> into <code class="il">word2</code>.</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i][j]</code> = min edits to transform <code class="il">word1[0...i-1]</code> to <code class="il">word2[0...j-1]</code>.</p>
+      <p><strong>Recurrence:</strong><br>
+      <code class="il">If word1[i-1] == word2[j-1]: dp[i][j] = dp[i-1][j-1]</code> (no edit needed)<br>
+      <code class="il">Else: dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])</code> (delete, insert, replace)</p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">MinDistance</span>(<span class="kw">string</span> word1, <span class="kw">string</span> word2) {
+        <span class="kw">int</span>[][] dp = <span class="kw">new int</span>[word1.Length + <span class="num">1</span>][];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i <= word1.Length; i++) {
+            dp[i] = <span class="kw">new int</span>[word2.Length + <span class="num">1</span>];
+        }
+
+        <span class="cm">// Base cases</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i <= word1.Length; i++) dp[i][<span class="num">0</span>] = i;
+        <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j <= word2.Length; j++) dp[<span class="num">0</span>][j] = j;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i <= word1.Length; i++) {
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">1</span>; j <= word2.Length; j++) {
+                <span class="kw">if</span> (word1[i - <span class="num">1</span>] == word2[j - <span class="num">1</span>]) {
+                    dp[i][j] = dp[i - <span class="num">1</span>][j - <span class="num">1</span>];
+                } <span class="kw">else</span> {
+                    dp[i][j] = <span class="num">1</span> + <span class="kw">Math</span>.<span class="fn">Min</span>(<span class="kw">Math</span>.<span class="fn">Min</span>(
+                        dp[i - <span class="num">1</span>][j], <span class="cm">// delete</span>
+                        dp[i][j - <span class="num">1</span>]  <span class="cm">// insert</span>
+                    ), dp[i - <span class="num">1</span>][j - <span class="num">1</span>]); <span class="cm">// replace</span>
+                }
+            }
+        }
+        <span class="kw">return</span> dp[word1.Length][word2.Length];
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Space Optimization:</strong> Use a rolling array (only keep current and previous rows) to reduce space from O(m×n) to O(n).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 9: Unique Paths -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Unique Paths</div>
+        <div class="algo-desc">Count paths from top-left to bottom-right in a grid, moving only right or down.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-orange">Meta</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">9</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(m × n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(m × n) or O(n)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">2D Grid DP</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given an <code class="il">m × n</code> grid, return the number of unique paths from top-left <code class="il">[0, 0]</code> to bottom-right <code class="il">[m-1, n-1]</code>. You can only move right or down.</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i][j]</code> = number of unique paths to cell <code class="il">(i, j)</code>.</p>
+      <p><strong>Recurrence:</strong> <code class="il">dp[i][j] = dp[i-1][j] + dp[i][j-1]</code> (come from top or left).</p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">UniquePaths</span>(<span class="kw">int</span> m, <span class="kw">int</span> n) {
+        <span class="kw">int</span>[][] dp = <span class="kw">new int</span>[m][];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < m; i++) {
+            dp[i] = <span class="kw">new int</span>[n];
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j < n; j++) {
+                <span class="kw">if</span> (i == <span class="num">0</span> || j == <span class="num">0</span>) {
+                    dp[i][j] = <span class="num">1</span>;
+                } <span class="kw">else</span> {
+                    dp[i][j] = dp[i - <span class="num">1</span>][j] + dp[i][j - <span class="num">1</span>];
+                }
+            }
+        }
+        <span class="kw">return</span> dp[m - <span class="num">1</span>][n - <span class="num">1</span>];
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout info">
+        <div class="callout-icon">ℹ️</div>
+        <div><strong>Mathematical Solution:</strong> This is actually a combinatorics problem: C(m+n-2, m-1). For large grids, use BigInteger to avoid overflow.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 10: Decode Ways -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Decode Ways</div>
+        <div class="algo-desc">Count the number of ways to decode an encoded string (1='A', 2='B', ..., 26='Z').</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-orange">Meta</span>
+        </div>
+      </div>
+      <div class="algo-idx">10</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">1D DP</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>A message containing letters from A-Z is encoded as numbers 1-26. Given a non-empty string containing only digits, return the number of ways to decode it.</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i]</code> = number of ways to decode <code class="il">s[0...i-1]</code>.</p>
+      <p><strong>Recurrence:</strong><br>
+      <code class="il">- If s[i-1] != '0': dp[i] += dp[i-1]</code> (decode as single digit)<br>
+      <code class="il">- If s[i-2:i] is valid (10-26): dp[i] += dp[i-2]</code> (decode as two digits)</p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">NumDecodings</span>(<span class="kw">string</span> s) {
+        <span class="kw">if</span> (s[<span class="num">0</span>] == <span class="str">'0'</span>) <span class="kw">return</span> <span class="num">0</span>;
+
+        <span class="kw">long</span> prev2 = <span class="num">1</span>, prev1 = <span class="num">1</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i < s.Length; i++) {
+            <span class="kw">long</span> curr = <span class="num">0</span>;
+            <span class="kw">int</span> oneDigit = s[i] - <span class="str">'0'</span>;
+            <span class="kw">int</span> twoDigit = (<span class="kw">int</span>.<span class="fn">Parse</span>(s.<span class="fn">Substring</span>(i - <span class="num">1</span>, <span class="num">2</span>));
+
+            <span class="kw">if</span> (oneDigit >= <span class="num">1</span> && oneDigit <= <span class="num">9</span>) {
+                curr += prev1;
+            }
+            <span class="kw">if</span> (twoDigit >= <span class="num">10</span> && twoDigit <= <span class="num">26</span>) {
+                curr += prev2;
+            }
+
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        <span class="kw">return</span> (<span class="kw">int</span>)prev1;
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>Common Pitfall:</strong> Handle strings with leading zeros. "0" cannot be decoded. "10" and "20" are valid, but "00" is not.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 11: Maximum Product Subarray -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Maximum Product Subarray</div>
+        <div class="algo-desc">Find the contiguous subarray with the largest product.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-orange">Amazon</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">11</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(1)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">1D DP (Min/Max Track)</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given an integer array, find the contiguous subarray with the largest product and return that product.</p>
+
+      <h3>Key Insight</h3>
+      <p>Unlike maximum subarray sum, we must track both <strong>max</strong> and <strong>min</strong> products, because a negative number can flip a negative minimum to a positive maximum.</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">maxProd[i]</code> = max product ending at index <code class="il">i</code>; <code class="il">minProd[i]</code> = min product ending at index <code class="il">i</code>.</p>
+      <p><strong>Recurrence:</strong><br>
+      <code class="il">maxProd[i] = max(nums[i], nums[i] * maxProd[i-1], nums[i] * minProd[i-1])</code><br>
+      <code class="il">minProd[i] = min(nums[i], nums[i] * maxProd[i-1], nums[i] * minProd[i-1])</code></p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">MaxProduct</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">int</span> maxProd = nums[<span class="num">0</span>];
+        <span class="kw">int</span> minProd = nums[<span class="num">0</span>];
+        <span class="kw">int</span> result = nums[<span class="num">0</span>];
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i < nums.Length; i++) {
+            <span class="kw">int</span> newMax = <span class="kw">Math</span>.<span class="fn">Max</span>(<span class="kw">Math</span>.<span class="fn">Max</span>(
+                nums[i],
+                nums[i] * maxProd
+            ), nums[i] * minProd);
+
+            <span class="kw">int</span> newMin = <span class="kw">Math</span>.<span class="fn">Min</span>(<span class="kw">Math</span>.<span class="fn">Min</span>(
+                nums[i],
+                nums[i] * maxProd
+            ), nums[i] * minProd);
+
+            maxProd = newMax;
+            minProd = newMin;
+            result = <span class="kw">Math</span>.<span class="fn">Max</span>(result, maxProd);
+        }
+        <span class="kw">return</span> result;
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Interview Tip:</strong> Explain why we track both max and min. A negative number can flip the min to become the new max on the next iteration.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 12: Partition Equal Subset Sum -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Partition Equal Subset Sum</div>
+        <div class="algo-desc">Determine if an array can be partitioned into two subsets with equal sum (0/1 Knapsack variant).</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">12</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n × sum/2)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(sum/2)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">0/1 Knapsack</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given an integer array, determine if it can be partitioned into two subsets such that the sum of elements in both subsets is equal.</p>
+
+      <h3>Approach</h3>
+      <p>If the total sum is odd, partitioning is impossible. Otherwise, check if we can achieve a subset with sum = <code class="il">total / 2</code> using 0/1 knapsack DP.</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i]</code> = true if sum <code class="il">i</code> is achievable.</p>
+      <p><strong>Recurrence:</strong> <code class="il">dp[i] = dp[i] || dp[i - num]</code> for each number in the array.</p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public bool</span> <span class="fn">CanPartition</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">int</span> total = <span class="num">0</span>;
+        <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> nums) total += num;
+
+        <span class="kw">if</span> (total % <span class="num">2</span> != <span class="num">0</span>) <span class="kw">return false</span>;
+
+        <span class="kw">int</span> target = total / <span class="num">2</span>;
+        <span class="kw">bool</span>[] dp = <span class="kw">new bool</span>[target + <span class="num">1</span>];
+        dp[<span class="num">0</span>] = <span class="kw">true</span>;
+
+        <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> nums) {
+            <span class="cm">// Iterate backwards to avoid using same element twice</span>
+            <span class="kw">for</span> (<span class="kw">int</span> i = target; i >= num; i--) {
+                dp[i] = dp[i] || dp[i - num];
+            }
+        }
+        <span class="kw">return</span> dp[target];
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>Crucial:</strong> Iterate the dp array backwards when updating. This ensures each number is used at most once (0/1 knapsack). Forward iteration would allow reuse (unbounded knapsack).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 13: Target Sum -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Target Sum</div>
+        <div class="algo-desc">Count ways to assign +/- signs to array elements to achieve a target sum.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-orange">Meta</span>
+        </div>
+      </div>
+      <div class="algo-idx">13</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n × (sum + target))</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(sum + target)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">DP + Offset</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given an integer array and a target, count the number of ways to assign +/- signs to each element such that the sum equals the target.</p>
+
+      <h3>Approach</h3>
+      <p>Convert to subset sum: if P is the sum of positive subset and N is the sum of negative subset, then P - N = target and P + N = sum. Solving: P = (target + sum) / 2. Count ways to achieve P using DP.</p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">FindTargetSumWays</span>(<span class="kw">int</span>[] nums, <span class="kw">int</span> target) {
+        <span class="kw">int</span> sum = <span class="num">0</span>;
+        <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> nums) sum += num;
+
+        <span class="kw">if</span> (sum < <span class="kw">Math</span>.<span class="fn">Abs</span>(target) || (sum + target) % <span class="num">2</span> != <span class="num">0</span>) <span class="kw">return</span> <span class="num">0</span>;
+
+        <span class="kw">int</span> subsetSum = (sum + target) / <span class="num">2</span>;
+        <span class="kw">int</span>[] dp = <span class="kw">new int</span>[subsetSum + <span class="num">1</span>];
+        dp[<span class="num">0</span>] = <span class="num">1</span>;
+
+        <span class="kw">foreach</span> (<span class="kw">int</span> num <span class="kw">in</span> nums) {
+            <span class="kw">for</span> (<span class="kw">int</span> i = subsetSum; i >= num; i--) {
+                dp[i] += dp[i - num];
+            }
+        }
+        <span class="kw">return</span> dp[subsetSum];
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Mathematical Reduction:</strong> This problem reduces to "count subsets with sum = (target + total) / 2". This elegant transformation converts a sign-assignment problem into a standard subset sum counting problem.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 14: Burst Balloons -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Burst Balloons</div>
+        <div class="algo-desc">Maximize coins collected by bursting balloons (Interval DP).</div>
+        <div class="algo-tags">
+          <span class="badge b-red">Hard</span>
+          <span class="badge b-orange">Meta</span>
+        </div>
+      </div>
+      <div class="algo-idx">14</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(n³)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(n²)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">Interval DP</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given an array of balloons with values, burst them to maximize coins. When you burst balloon <code class="il">k</code>, you get <code class="il">balloons[left] × balloons[k] × balloons[right]</code> coins, where left and right are adjacent intact balloons.</p>
+
+      <h3>Key Insight</h3>
+      <p>Think backwards: consider which balloon to burst <strong>last</strong> in a range, not first. This avoids recalculating damaged states.</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i][j]</code> = max coins from bursting balloons between <code class="il">i</code> and <code class="il">j</code> (exclusive).</p>
+      <p><strong>Recurrence:</strong> For each balloon <code class="il">k</code> in range, assume it's the last to burst: <code class="il">dp[i][j] = max(dp[i][k] + nums[i]*nums[k]*nums[j] + dp[k][j])</code></p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">MaxCoins</span>(<span class="kw">int</span>[] nums) {
+        <span class="cm">// Pad with 1s: simplifies boundary calculations</span>
+        <span class="kw">int</span>[] balloons = <span class="kw">new int</span>[nums.Length + <span class="num">2</span>];
+        balloons[<span class="num">0</span>] = <span class="num">1</span>;
+        balloons[balloons.Length - <span class="num">1</span>] = <span class="num">1</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < nums.Length; i++) {
+            balloons[i + <span class="num">1</span>] = nums[i];
+        }
+
+        <span class="kw">int</span>[][] dp = <span class="kw">new int</span>[balloons.Length][];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < balloons.Length; i++) {
+            dp[i] = <span class="kw">new int</span>[balloons.Length];
+        }
+
+        <span class="cm">// len = distance between balloons (exclusive)</span>
+        <span class="kw">for</span> (<span class="kw">int</span> len = <span class="num">2</span>; len < balloons.Length; len++) {
+            <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < balloons.Length - len; i++) {
+                <span class="kw">int</span> j = i + len;
+                <span class="kw">for</span> (<span class="kw">int</span> k = i + <span class="num">1</span>; k < j; k++) {
+                    dp[i][j] = <span class="kw">Math</span>.<span class="fn">Max</span>(
+                        dp[i][j],
+                        dp[i][k] + balloons[i] * balloons[k] * balloons[j] + dp[k][j]
+                    );
+                }
+            }
+        }
+        <span class="kw">return</span> dp[<span class="num">0</span>][balloons.Length - <span class="num">1</span>];
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Advanced Insight:</strong> Padding the array with 1s is a clever trick. It eliminates special boundary cases since balloons[0] and balloons[n+1] = 1 act as neutral multipliers for all bursts.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem 15: Regular Expression Matching -->
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Regular Expression Matching</div>
+        <div class="algo-desc">Implement regex matching with '.' (any char) and '*' (0+ of previous char).</div>
+        <div class="algo-tags">
+          <span class="badge b-red">Hard</span>
+          <span class="badge b-orange">Meta</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">15</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx"><div class="cx-l">Time</div><div class="cx-v">O(m × n)</div></div>
+        <div class="cx"><div class="cx-l">Space</div><div class="cx-v">O(m × n)</div></div>
+        <div class="cx"><div class="cx-l">Type</div><div class="cx-v">2D DP (Complex)</div></div>
+      </div>
+
+      <h3>Problem Statement</h3>
+      <p>Given a string <code class="il">s</code> and a pattern <code class="il">p</code>, implement regex matching supporting '.' (matches any single char) and '*' (matches zero or more of the preceding element).</p>
+
+      <h3>DP State & Recurrence</h3>
+      <p><strong>State:</strong> <code class="il">dp[i][j]</code> = true if <code class="il">s[0...i-1]</code> matches <code class="il">p[0...j-1]</code>.</p>
+      <p><strong>Recurrence (complex):</strong> Consider <code class="il">p[j-1]</code>:<br>
+      &mdash; If it's '*': skip pair or match preceding; <br>
+      &mdash; If it's '.' or matches <code class="il">s[i-1]</code>: <code class="il">dp[i][j] = dp[i-1][j-1]</code></p>
+
+      <h3>Solution</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public bool</span> <span class="fn">IsMatch</span>(<span class="kw">string</span> s, <span class="kw">string</span> p) {
+        <span class="kw">bool</span>[][] dp = <span class="kw">new bool</span>[s.Length + <span class="num">1</span>][];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i <= s.Length; i++) {
+            dp[i] = <span class="kw">new bool</span>[p.Length + <span class="num">1</span>];
+        }
+
+        dp[<span class="num">0</span>][<span class="num">0</span>] = <span class="kw">true</span>;
+
+        <span class="cm">// Handle patterns like a*, a*b*, etc. at start</span>
+        <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">2</span>; j <= p.Length; j++) {
+            <span class="kw">if</span> (p[j - <span class="num">1</span>] == <span class="str">'*'</span>) {
+                dp[<span class="num">0</span>][j] = dp[<span class="num">0</span>][j - <span class="num">2</span>];
+            }
+        }
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i <= s.Length; i++) {
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">1</span>; j <= p.Length; j++) {
+                <span class="kw">if</span> (p[j - <span class="num">1</span>] == <span class="str">'*'</span>) {
+                    <span class="cm">// Two cases: skip pair or match</span>
+                    dp[i][j] = dp[i][j - <span class="num">2</span>]; <span class="cm">// Skip a*</span>
+                    <span class="kw">if</span> (p[j - <span class="num">2</span>] == <span class="str">'.'</span> || p[j - <span class="num">2</span>] == s[i - <span class="num">1</span>]) {
+                        dp[i][j] = dp[i][j] || dp[i - <span class="num">1</span>][j]; <span class="cm">// Match 1+ chars</span>
+                    }
+                } <span class="kw">else</span> {
+                    <span class="cm">// Char or dot</span>
+                    <span class="kw">if</span> (p[j - <span class="num">1</span>] == <span class="str">'.'</span> || p[j - <span class="num">1</span>] == s[i - <span class="num">1</span>]) {
+                        dp[i][j] = dp[i - <span class="num">1</span>][j - <span class="num">1</span>];
+                    }
+                }
+            }
+        }
+        <span class="kw">return</span> dp[s.Length][p.Length];
+    }
+}</pre>
+      </div>
+
+      <h3>Edge Cases & FAANG Tips</h3>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>Tricky Cases:</strong> Empty pattern matches empty string. "a*" matches empty string. "*" never matches without a preceding char. Test: ("aa", "a"), ("aa", "a*"), ("ab", ".*").</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-tag">
+      <span class="sec-num">SUMMARY</span>
+      <div class="sec-line"></div>
+    </div>
+    <h2>Key Takeaways</h2>
+    <div class="callout tip">
+      <div class="callout-icon">💡</div>
+      <div><strong>Always start with state definition.</strong> Ambiguous state = guaranteed error. Write it clearly and test with an example before coding.</div>
+    </div>
+    <div class="callout tip">
+      <div class="callout-icon">💡</div>
+      <div><strong>Optimize space when possible.</strong> If DP only depends on previous rows/values, use a rolling array or two variables to reduce space.</div>
+    </div>
+    <div class="callout tip">
+      <div class="callout-icon">💡</div>
+      <div><strong>Master knapsack variants.</strong> 0/1, unbounded, and bounded knapsack appear frequently. Know when to iterate forward vs. backward.</div>
+    </div>
+    <div class="callout info">
+      <div class="callout-icon">ℹ️</div>
+      <div><strong>Practice bottom-up first.</strong> Iterative DP is clearer for interviews and avoids stack overflow. Top-down memoization is more intuitive but riskier under time pressure.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>FAANG Interview Book — Chapter 8: Dynamic Programming</p>
+    <p>Curated DP patterns and 15 essential problems for coding interviews.</p>
+  </div>
+</footer>
+
+<script>
+function copyCode(button) {
+  const codeBlock = button.closest('.code-block').querySelector('pre');
+  const text = codeBlock.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    button.textContent = 'Copied!';
+    setTimeout(() => {
+      button.textContent = 'Copy';
+    }, 1500);
+  });
+}
+
+// Lazy load fade-in animations
+document.addEventListener('DOMContentLoaded', () => {
+  const observerOptions = { threshold: 0.1 };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.algo').forEach(el => {
+    el.classList.add('fade');
+    observer.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>

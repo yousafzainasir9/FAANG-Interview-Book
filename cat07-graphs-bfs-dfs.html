@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Complete guide to Breadth-First Search (BFS) — level-order traversal, shortest path in unweighted graphs, C# implementation, and common interview problems.">
+  <meta name="keywords" content="BFS, breadth-first search, graph traversal, shortest path, queue, C#, level-order">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat07-graphs-bfs-dfs.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat07-graphs-bfs-dfs.html">
+  <meta property="og:title" content="Graphs: BFS & DFS | FAANG Interview Book">
+  <meta property="og:description" content="Complete guide to Breadth-First Search (BFS) — level-order traversal, shortest path in unweighted graphs, C# implementation, and common interview problems.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat07-graphs-bfs-dfs.html">
+  <meta name="twitter:title" content="Graphs: BFS & DFS | FAANG Interview Book">
+  <meta name="twitter:description" content="Complete guide to Breadth-First Search (BFS) — level-order traversal, shortest path in unweighted graphs, C# implementation, and common interview problems.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Graphs: BFS & DFS | FAANG Interview Book",
+  "description": "Complete guide to Breadth-First Search (BFS) \u2014 level-order traversal, shortest path in unweighted graphs, C# implementation, and common interview problems.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/cat07-graphs-bfs-dfs.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+  <title>Graphs: BFS & DFS | FAANG Interview Book</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+/* SHARED CSS TEMPLATE */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+  --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+  --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+  --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+  --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+  --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+  --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+  --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+.nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+.nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+.nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+.wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+.hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--acc)}
+.eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+.stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content}
+.stat{padding:14px 26px;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:none}
+.stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+.stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+.toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+.toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+.toc-grid a:hover{color:var(--acc)}
+.toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+.section{padding-top:72px}
+.sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+.sec-line{flex:1;height:1px;background:var(--rule)}
+.section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+.section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+.section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+.section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+.algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+.algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+.algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+.algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+.algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+.algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.algo-body{padding:28px 32px}
+.cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+.cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+.cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+.steps{margin-bottom:26px}
+.step{display:flex}
+.step-left{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--acc-l);border:1.5px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0}
+.step-vline{width:1.5px;flex:1;background:var(--rule);margin:4px 0}
+.step:last-child .step-vline{display:none}
+.step-body{padding:3px 0 22px 14px;font-size:14px;color:var(--ink2);line-height:1.68}
+.step-body strong{color:var(--ink);font-weight:600}
+code.il{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 7px;border-radius:4px;color:var(--acc)}
+.code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+.code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+.copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+.copy-btn:hover{color:#d4d0c8}
+pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+.kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+.callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+.callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+.callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+.callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+.callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+.callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+.callout strong{color:inherit;font-weight:600}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+.b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+.b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+.b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+.b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+.b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--rule);margin-bottom:26px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+thead tr{background:var(--bg2)}
+th{text-align:left;padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule)}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+td:first-child{font-weight:600;color:var(--ink)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+.vs-box{border-radius:10px;padding:18px 20px;border:1px solid}
+.vs-box.good{background:var(--green-l);border-color:var(--green-b)}
+.vs-box.bad{background:var(--red-l);border-color:var(--red-b)}
+.vs-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.vs-box.good .vs-title{color:var(--green)}.vs-box.bad .vs-title{color:var(--red)}
+.vs-item{font-size:13px;color:var(--ink2);padding:4px 0;display:flex;gap:8px;line-height:1.5}
+.vs-item::before{content:'—';color:var(--ink4);flex-shrink:0}
+.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+.proof-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px 22px}
+.proof-title{font-size:15px;font-weight:700;margin-bottom:8px}
+.proof-body{font-size:13.5px;color:var(--ink2);line-height:1.7}
+.proof-note{margin-top:12px;font-size:12px;color:var(--ink3)}
+.proof-note strong{color:var(--ink2)}
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
+.tip-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+.tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc)}
+.tip-card.g::before{background:var(--green)}.tip-card.b::before{background:var(--blue)}.tip-card.a::before{background:var(--amber)}
+.tip-n{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-bottom:8px}
+.tip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.tip-body{font-size:13px;color:var(--ink2);line-height:1.65}
+footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+.footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+footer p{font-size:13px;color:var(--ink3)}
+footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+.fade{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fade.in{opacity:1;transform:none}
+@media(max-width:700px){
+  .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+  .vs,.proof-grid,.tips{grid-template-columns:1fr}
+  .toc-grid{grid-template-columns:1fr}
+  .stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid var(--rule)}
+}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        FAANG <span class="pill">Book</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Topics</a>
+        <a href="#intro">Intro</a>
+        <a href="#problems">Problems</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Chapter 7</span>
+      </div>
+      <h1>Graphs: <em>BFS & DFS</em></h1>
+      <p class="hero-sub">Master breadth-first search, depth-first search, topological sorting, shortest path algorithms, and union-find structures. 15 essential graph problems from top FAANG companies with full C# implementations.</p>
+      <div class="stats" style="margin-top:32px">
+        <div class="stat">
+          <div class="stat-n">15</div>
+          <div class="stat-l">Problems</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">3</div>
+          <div class="stat-l">Difficulty Levels</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">1</div>
+          <div class="stat-l">Language</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toc">
+      <div class="toc-head">Table of Contents</div>
+      <div class="toc-grid">
+        <a href="#intro"><span class="toc-n">Intro</span> Graph Foundations & Templates</a>
+        <a href="#p1"><span class="toc-n">1</span> Number of Islands</a>
+        <a href="#p2"><span class="toc-n">2</span> Clone Graph</a>
+        <a href="#p3"><span class="toc-n">3</span> Pacific Atlantic Water Flow</a>
+        <a href="#p4"><span class="toc-n">4</span> Course Schedule</a>
+        <a href="#p5"><span class="toc-n">5</span> Course Schedule II</a>
+        <a href="#p6"><span class="toc-n">6</span> Graph Valid Tree</a>
+        <a href="#p7"><span class="toc-n">7</span> Number of Connected Components</a>
+        <a href="#p8"><span class="toc-n">8</span> Word Ladder</a>
+        <a href="#p9"><span class="toc-n">9</span> Alien Dictionary</a>
+        <a href="#p10"><span class="toc-n">10</span> Surrounded Regions</a>
+        <a href="#p11"><span class="toc-n">11</span> Rotting Oranges</a>
+        <a href="#p12"><span class="toc-n">12</span> Shortest Path in Binary Matrix</a>
+        <a href="#p13"><span class="toc-n">13</span> Network Delay Time</a>
+        <a href="#p14"><span class="toc-n">14</span> Cheapest Flights Within K Stops</a>
+        <a href="#p15"><span class="toc-n">15</span> Reconstruct Itinerary</a>
+      </div>
+    </div>
+
+    <section class="section" id="intro">
+      <div class="sec-tag">
+        <span class="sec-num">INTRO</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Graph Foundations & Core Templates</h2>
+      <p class="lead">Graphs are fundamental structures in FAANG interviews. This chapter covers representation, traversal algorithms, and common patterns with production-ready C# code.</p>
+
+      <h3>Graph Representations in C#</h3>
+      <p>Two primary ways to represent graphs: adjacency lists and adjacency matrices. Lists are memory-efficient for sparse graphs; matrices work better for dense graphs.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">csharp</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="cm">// Adjacency List (sparse graphs) — most common</span>
+<span class="kw">Dictionary</span>&lt;<span class="ty">int</span>, <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;&gt; graph = <span class="kw">new</span>();
+<span class="cm">// Access: graph[node] gives neighbors</span>
+
+<span class="cm">// Adjacency Matrix (dense graphs)</span>
+<span class="ty">int</span>[][] matrix = <span class="kw">new</span> <span class="ty">int</span>[n][];
+<span class="cm">// matrix[i][j] = weight or presence</span>
+
+<span class="cm">// Weighted edges with node class</span>
+<span class="kw">public class</span> <span class="ty">Node</span> {
+    <span class="kw">public int</span> <span class="prop">Val</span> { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public</span> <span class="ty">List</span>&lt;<span class="ty">Node</span>&gt; <span class="prop">Neighbors</span> { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="kw">new</span>();
+}</pre>
+      </div>
+
+      <h3>BFS Template (Adjacency List)</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">csharp</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="ty">void</span> <span class="fn">BFS</span>(<span class="ty">int</span> start, <span class="ty">Dictionary</span>&lt;<span class="ty">int</span>, <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;&gt; graph) {
+    <span class="ty">var</span> visited = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="ty">int</span>&gt;();
+    <span class="ty">var</span> queue = <span class="kw">new</span> <span class="ty">Queue</span>&lt;<span class="ty">int</span>&gt;();
+
+    queue.Enqueue(start);
+    visited.Add(start);
+
+    <span class="kw">while</span> (queue.Count > <span class="num">0</span>) {
+        <span class="ty">int</span> node = queue.Dequeue();
+        <span class="cm">// Process node</span>
+
+        <span class="kw">foreach</span> (<span class="ty">var</span> neighbor <span class="kw">in</span> graph[node]) {
+            <span class="kw">if</span> (!visited.Contains(neighbor)) {
+                visited.Add(neighbor);
+                queue.Enqueue(neighbor);
+            }
+        }
+    }
+}</pre>
+      </div>
+
+      <h3>DFS Template (Recursive)</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">csharp</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">private</span> <span class="ty">void</span> <span class="fn">DFS</span>(<span class="ty">int</span> node, <span class="ty">Dictionary</span>&lt;<span class="ty">int</span>, <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;&gt; graph, <span class="ty">HashSet</span>&lt;<span class="ty">int</span>&gt; visited) {
+    visited.Add(node);
+    <span class="cm">// Process node</span>
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> neighbor <span class="kw">in</span> graph[node]) {
+        <span class="kw">if</span> (!visited.Contains(neighbor)) {
+            <span class="fn">DFS</span>(neighbor, graph, visited);
+        }
+    }
+}</pre>
+      </div>
+
+      <h3>Union-Find (Disjoint Set Union)</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">csharp</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">UnionFind</span> {
+    <span class="kw">private</span> <span class="ty">int</span>[] parent, rank;
+
+    <span class="kw">public</span> <span class="fn">UnionFind</span>(<span class="ty">int</span> n) {
+        parent = <span class="kw">new</span> <span class="ty">int</span>[n];
+        rank = <span class="kw">new</span> <span class="ty">int</span>[n];
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; n; i++) parent[i] = i;
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">Find</span>(<span class="ty">int</span> x) {
+        <span class="kw">if</span> (parent[x] != x)
+            parent[x] = <span class="fn">Find</span>(parent[x]); <span class="cm">// Path compression</span>
+        <span class="kw">return</span> parent[x];
+    }
+
+    <span class="kw">public</span> <span class="ty">bool</span> <span class="fn">Union</span>(<span class="ty">int</span> x, <span class="ty">int</span> y) {
+        <span class="ty">int</span> px = <span class="fn">Find</span>(x), py = <span class="fn">Find</span>(y);
+        <span class="kw">if</span> (px == py) <span class="kw">return</span> <span class="kw">false</span>;
+        <span class="cm">// Union by rank</span>
+        <span class="kw">if</span> (rank[px] &lt; rank[py]) {
+            parent[px] = py;
+        } <span class="kw">else if</span> (rank[px] &gt; rank[py]) {
+            parent[py] = px;
+        } <span class="kw">else</span> {
+            parent[py] = px;
+            rank[px]++;
+        }
+        <span class="kw">return</span> <span class="kw">true</span>;
+    }
+}</pre>
+      </div>
+
+      <h3>Topological Sort (Kahn's Algorithm)</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">csharp</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="ty">List</span>&lt;<span class="ty">int</span>&gt; <span class="fn">TopologicalSort</span>(<span class="ty">Dictionary</span>&lt;<span class="ty">int</span>, <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;&gt; graph, <span class="ty">int</span> n) {
+    <span class="ty">var</span> indegree = <span class="kw">new</span> <span class="ty">int</span>[n];
+    <span class="kw">foreach</span> (<span class="ty">var</span> neighbors <span class="kw">in</span> graph.Values) {
+        <span class="kw">foreach</span> (<span class="ty">var</span> neighbor <span class="kw">in</span> neighbors) {
+            indegree[neighbor]++;
+        }
+    }
+
+    <span class="ty">var</span> queue = <span class="kw">new</span> <span class="ty">Queue</span>&lt;<span class="ty">int</span>&gt;();
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+        <span class="kw">if</span> (indegree[i] == <span class="num">0</span>) queue.Enqueue(i);
+    }
+
+    <span class="ty">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;();
+    <span class="kw">while</span> (queue.Count > <span class="num">0</span>) {
+        <span class="ty">int</span> node = queue.Dequeue();
+        result.Add(node);
+        <span class="kw">foreach</span> (<span class="ty">var</span> neighbor <span class="kw">in</span> graph[node]) {
+            <span class="kw">if</span> (--indegree[neighbor] == <span class="num">0</span>) queue.Enqueue(neighbor);
+        }
+    }
+    <span class="kw">return</span> result;
+}</pre>
+      </div>
+    </section>
+
+    <section class="section" id="problems">
+      <div class="sec-tag">
+        <span class="sec-num">PROBLEMS</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>15 Essential Graph Problems</h2>
+
+      <!-- PROBLEM 1 -->
+      <div class="algo" id="p1">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Number of Islands</div>
+            <p class="algo-desc">Count distinct islands in a grid. Adjacent 1s (horizontal/vertical) form one island.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">Amazon</span>
+              <span class="badge b-blue">Meta</span>
+            </div>
+          </div>
+          <div class="algo-idx">1</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given an m x n 2D binary grid representing a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and formed by connecting adjacent lands horizontally or vertically.</p>
+
+          <h3>Approach</h3>
+          <div class="steps">
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">1</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body">Iterate through each cell in the grid</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">2</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body">When finding a '1' not yet visited, increment island count and <strong>mark all connected land via BFS or DFS</strong></div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">3</div>
+              </div>
+              <div class="step-body">Return total islands found</div>
+            </div>
+          </div>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public int</span> <span class="fn">NumIslands</span>(<span class="ty">char</span>[][] grid) {
+    <span class="kw">if</span> (grid == <span class="kw">null</span> || grid.Length == <span class="num">0</span>) <span class="kw">return</span> <span class="num">0</span>;
+
+    <span class="ty">int</span> rows = grid.Length, cols = grid[<span class="num">0</span>].Length;
+    <span class="ty">int</span> islands = <span class="num">0</span>;
+
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; rows; i++) {
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; cols; j++) {
+            <span class="kw">if</span> (grid[i][j] == <span class="str">'1'</span>) {
+                <span class="fn">DFS</span>(grid, i, j, rows, cols);
+                islands++;
+            }
+        }
+    }
+    <span class="kw">return</span> islands;
+}
+
+<span class="kw">private void</span> <span class="fn">DFS</span>(<span class="ty">char</span>[][] grid, <span class="ty">int</span> r, <span class="ty">int</span> c, <span class="ty">int</span> rows, <span class="ty">int</span> cols) {
+    <span class="kw">if</span> (r &lt; <span class="num">0</span> || r >= rows || c &lt; <span class="num">0</span> || c >= cols || grid[r][c] == <span class="str">'0'</span>) <span class="kw">return</span>;
+
+    grid[r][c] = <span class="str">'0'</span>; <span class="cm">// Mark as visited</span>
+    <span class="fn">DFS</span>(grid, r + <span class="num">1</span>, c, rows, cols);
+    <span class="fn">DFS</span>(grid, r - <span class="num">1</span>, c, rows, cols);
+    <span class="fn">DFS</span>(grid, r, c + <span class="num">1</span>, rows, cols);
+    <span class="fn">DFS</span>(grid, r, c - <span class="num">1</span>, rows, cols);
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(m × n)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(m × n)</div>
+            </div>
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-icon">💡</div>
+            <div><strong>FAANG Tip:</strong> Mention you mark cells as visited by changing them in-place. Ask if modifying input is acceptable; if not, use a separate visited set or boolean array.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 2 -->
+      <div class="algo" id="p2">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Clone Graph</div>
+            <p class="algo-desc">Create a deep copy of an undirected graph. Return a reference to the cloned graph.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">LinkedIn</span>
+              <span class="badge b-blue">Apple</span>
+            </div>
+          </div>
+          <div class="algo-idx">2</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given a reference to a node in a connected undirected graph, return a deep copy (clone) of the graph. You must return the copy of the given node as a reference to the cloned graph.</p>
+
+          <h3>Approach</h3>
+          <p>Use BFS or DFS with a <code class="il">HashMap</code> to track original nodes to cloned nodes. For each unvisited node, create its clone and recursively clone all neighbors.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public class</span> <span class="ty">Node</span> {
+    <span class="kw">public int</span> <span class="prop">Val</span> { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public</span> <span class="ty">List</span>&lt;<span class="ty">Node</span>&gt; <span class="prop">Neighbors</span> { <span class="kw">get</span>; <span class="kw">set</span>; }
+}
+
+<span class="kw">public</span> <span class="ty">Node</span> <span class="fn">CloneGraph</span>(<span class="ty">Node</span> node) {
+    <span class="kw">if</span> (node == <span class="kw">null</span>) <span class="kw">return</span> <span class="kw">null</span>;
+
+    <span class="ty">var</span> clones = <span class="kw">new</span> <span class="ty">Dictionary</span>&lt;<span class="ty">Node</span>, <span class="ty">Node</span>&gt;();
+    <span class="ty">var</span> queue = <span class="kw">new</span> <span class="ty">Queue</span>&lt;<span class="ty">Node</span>&gt;();
+
+    queue.Enqueue(node);
+    clones[node] = <span class="kw">new</span> <span class="ty">Node</span> { <span class="prop">Val</span> = node.<span class="prop">Val</span>, <span class="prop">Neighbors</span> = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">Node</span>&gt;() };
+
+    <span class="kw">while</span> (queue.Count > <span class="num">0</span>) {
+        <span class="ty">var</span> curr = queue.Dequeue();
+        <span class="kw">foreach</span> (<span class="ty">var</span> neighbor <span class="kw">in</span> curr.<span class="prop">Neighbors</span>) {
+            <span class="kw">if</span> (!clones.ContainsKey(neighbor)) {
+                clones[neighbor] = <span class="kw">new</span> <span class="ty">Node</span> { <span class="prop">Val</span> = neighbor.<span class="prop">Val</span>, <span class="prop">Neighbors</span> = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">Node</span>&gt;() };
+                queue.Enqueue(neighbor);
+            }
+            clones[curr].Neighbors.Add(clones[neighbor]);
+        }
+    }
+    <span class="kw">return</span> clones[node];
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(N + E)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(N)</div>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>Edge Case:</strong> Cycles in graph—use visited map to avoid infinite loops. Watch for null input and self-loops.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 3 -->
+      <div class="algo" id="p3">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Pacific Atlantic Water Flow</div>
+            <p class="algo-desc">Find cells from which water flows to both Pacific and Atlantic oceans.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">Meta</span>
+            </div>
+          </div>
+          <div class="algo-idx">3</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given an m x n matrix of heights, find all cells from which water flows to both the Pacific and Atlantic oceans. Water flows from higher to lower elevations.</p>
+
+          <h3>Approach</h3>
+          <p>Run multi-source DFS from ocean borders. Start from Pacific border (top and left edges) and Atlantic border (bottom and right edges). A cell reaches the answer if it's reachable from both oceans.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public</span> <span class="ty">List</span>&lt;<span class="ty">List</span>&lt;<span class="ty">int</span>&gt;&gt; <span class="fn">PacificAtlantic</span>(<span class="ty">int</span>[][] heights) {
+    <span class="ty">int</span> m = heights.Length, n = heights[<span class="num">0</span>].Length;
+    <span class="ty">bool</span>[][] pacific = <span class="kw">new</span> <span class="ty">bool</span>[m][], atlantic = <span class="kw">new</span> <span class="ty">bool</span>[m][];
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; m; i++) {
+        pacific[i] = <span class="kw">new</span> <span class="ty">bool</span>[n];
+        atlantic[i] = <span class="kw">new</span> <span class="ty">bool</span>[n];
+    }
+
+    <span class="cm">// DFS from Pacific borders</span>
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; m; i++) {
+        <span class="fn">DFS</span>(heights, i, <span class="num">0</span>, m, n, pacific, <span class="ty">int</span>.MinValue);
+        <span class="fn">DFS</span>(heights, i, n - <span class="num">1</span>, m, n, atlantic, <span class="ty">int</span>.MinValue);
+    }
+    <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; n; j++) {
+        <span class="fn">DFS</span>(heights, <span class="num">0</span>, j, m, n, pacific, <span class="ty">int</span>.MinValue);
+        <span class="fn">DFS</span>(heights, m - <span class="num">1</span>, j, m, n, atlantic, <span class="ty">int</span>.MinValue);
+    }
+
+    <span class="ty">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">List</span>&lt;<span class="ty">int</span>&gt;&gt;();
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; m; i++) {
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; n; j++) {
+            <span class="kw">if</span> (pacific[i][j] && atlantic[i][j]) {
+                result.Add(<span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">int</span>&gt; { i, j });
+            }
+        }
+    }
+    <span class="kw">return</span> result;
+}
+
+<span class="kw">private void</span> <span class="fn">DFS</span>(<span class="ty">int</span>[][] heights, <span class="ty">int</span> r, <span class="ty">int</span> c, <span class="ty">int</span> m, <span class="ty">int</span> n, <span class="ty">bool</span>[][] ocean, <span class="ty">int</span> prevH) {
+    <span class="kw">if</span> (r &lt; <span class="num">0</span> || r >= m || c &lt; <span class="num">0</span> || c >= n || ocean[r][c] || heights[r][c] &lt; prevH) <span class="kw">return</span>;
+
+    ocean[r][c] = <span class="kw">true</span>;
+    <span class="fn">DFS</span>(heights, r + <span class="num">1</span>, c, m, n, ocean, heights[r][c]);
+    <span class="fn">DFS</span>(heights, r - <span class="num">1</span>, c, m, n, ocean, heights[r][c]);
+    <span class="fn">DFS</span>(heights, r, c + <span class="num">1</span>, m, n, ocean, heights[r][c]);
+    <span class="fn">DFS</span>(heights, r, c - <span class="num">1</span>, m, n, ocean, heights[r][c]);
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(m × n)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(m × n)</div>
+            </div>
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-icon">💡</div>
+            <div><strong>FAANG Tip:</strong> Explain "reverse thinking"—instead of checking if water flows to oceans, start FROM the oceans and flood inward. Water can flow to ocean if current height ≥ previous.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 4 -->
+      <div class="algo" id="p4">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Course Schedule</div>
+            <p class="algo-desc">Detect cycle in course dependencies via topological sort.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Amazon</span>
+              <span class="badge b-blue">Uber</span>
+            </div>
+          </div>
+          <div class="algo-idx">4</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given n courses (0 to n-1) and a list of prerequisite pairs, determine if you can complete all courses. Course [a,b] means you must complete b before a.</p>
+
+          <h3>Approach</h3>
+          <p>Use Kahn's algorithm (topological sort with indegrees). If we can sort all n courses, no cycle exists.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public bool</span> <span class="fn">CanFinish</span>(<span class="ty">int</span> numCourses, <span class="ty">int</span>[][] prerequisites) {
+    <span class="ty">var</span> graph = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;[numCourses];
+    <span class="ty">var</span> indegree = <span class="kw">new</span> <span class="ty">int</span>[numCourses];
+
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; numCourses; i++) graph[i] = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;();
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> prereq <span class="kw">in</span> prerequisites) {
+        graph[prereq[<span class="num">1</span>]].Add(prereq[<span class="num">0</span>]);
+        indegree[prereq[<span class="num">0</span>]]++;
+    }
+
+    <span class="ty">var</span> queue = <span class="kw">new</span> <span class="ty">Queue</span>&lt;<span class="ty">int</span>&gt;();
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; numCourses; i++) {
+        <span class="kw">if</span> (indegree[i] == <span class="num">0</span>) queue.Enqueue(i);
+    }
+
+    <span class="ty">int</span> count = <span class="num">0</span>;
+    <span class="kw">while</span> (queue.Count > <span class="num">0</span>) {
+        <span class="ty">int</span> course = queue.Dequeue();
+        count++;
+        <span class="kw">foreach</span> (<span class="ty">var</span> next <span class="kw">in</span> graph[course]) {
+            <span class="kw">if</span> (--indegree[next] == <span class="num">0</span>) queue.Enqueue(next);
+        }
+    }
+
+    <span class="kw">return</span> count == numCourses;
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(V + E)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(V + E)</div>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <div class="callout-icon">ℹ️</div>
+            <div>Alternative: DFS with colors (white/gray/black) also detects cycles. Black = fully explored, gray = in progress. Gray-to-gray edge = cycle.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 5 -->
+      <div class="algo" id="p5">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Course Schedule II</div>
+            <p class="algo-desc">Return ordering of courses (topological sort order).</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">Amazon</span>
+            </div>
+          </div>
+          <div class="algo-idx">5</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Return an ordering of courses such that each course is taken after all its prerequisites. Return empty array if impossible.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public int</span>[] <span class="fn">FindOrder</span>(<span class="ty">int</span> numCourses, <span class="ty">int</span>[][] prerequisites) {
+    <span class="ty">var</span> graph = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;[numCourses];
+    <span class="ty">var</span> indegree = <span class="kw">new</span> <span class="ty">int</span>[numCourses];
+
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; numCourses; i++) graph[i] = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;();
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> prereq <span class="kw">in</span> prerequisites) {
+        graph[prereq[<span class="num">1</span>]].Add(prereq[<span class="num">0</span>]);
+        indegree[prereq[<span class="num">0</span>]]++;
+    }
+
+    <span class="ty">var</span> queue = <span class="kw">new</span> <span class="ty">Queue</span>&lt;<span class="ty">int</span>&gt;();
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; numCourses; i++) {
+        <span class="kw">if</span> (indegree[i] == <span class="num">0</span>) queue.Enqueue(i);
+    }
+
+    <span class="ty">var</span> result = <span class="kw">new</span> <span class="ty">int</span>[numCourses];
+    <span class="ty">int</span> idx = <span class="num">0</span>;
+
+    <span class="kw">while</span> (queue.Count > <span class="num">0</span>) {
+        <span class="ty">int</span> course = queue.Dequeue();
+        result[idx++] = course;
+
+        <span class="kw">foreach</span> (<span class="ty">var</span> next <span class="kw">in</span> graph[course]) {
+            <span class="kw">if</span> (--indegree[next] == <span class="num">0</span>) queue.Enqueue(next);
+        }
+    }
+
+    <span class="kw">return</span> idx == numCourses ? result : <span class="kw">new int</span>[<span class="num">0</span>];
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(V + E)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(V + E)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 6 -->
+      <div class="algo" id="p6">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Graph Valid Tree</div>
+            <p class="algo-desc">Verify if n nodes with n-1 edges form a valid tree using Union-Find.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">LinkedIn</span>
+            </div>
+          </div>
+          <div class="algo-idx">6</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>A valid tree has exactly n nodes and n-1 edges, and is fully connected with no cycles.</p>
+
+          <h3>Approach</h3>
+          <p>Use Union-Find. For each edge, union two nodes. If both already belong to the same component (union returns false), a cycle exists. If all edges are processed and we have exactly 1 component, it's a valid tree.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public bool</span> <span class="fn">ValidTree</span>(<span class="ty">int</span> n, <span class="ty">int</span>[][] edges) {
+    <span class="kw">if</span> (edges.Length != n - <span class="num">1</span>) <span class="kw">return</span> <span class="kw">false</span>;
+
+    <span class="ty">var</span> uf = <span class="kw">new</span> <span class="ty">UnionFind</span>(n);
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> edge <span class="kw">in</span> edges) {
+        <span class="kw">if</span> (!uf.<span class="fn">Union</span>(edge[<span class="num">0</span>], edge[<span class="num">1</span>])) <span class="kw">return</span> <span class="kw">false</span>; <span class="cm">// Cycle detected</span>
+    }
+
+    <span class="kw">return</span> <span class="kw">true</span>;
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(E·α(N))</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(N)</div>
+            </div>
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-icon">💡</div>
+            <div><strong>Tree Properties:</strong> n nodes, n-1 edges, connected, acyclic. Quick validation: n - 1 edges is essential.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 7 -->
+      <div class="algo" id="p7">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Number of Connected Components</div>
+            <p class="algo-desc">Count connected components in an undirected graph using Union-Find.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Google</span>
+            </div>
+          </div>
+          <div class="algo-idx">7</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given n nodes (0 to n-1) and a list of edges, count the number of connected components in the graph.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public int</span> <span class="fn">CountComponents</span>(<span class="ty">int</span> n, <span class="ty">int</span>[][] edges) {
+    <span class="ty">var</span> uf = <span class="kw">new</span> <span class="ty">UnionFind</span>(n);
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> edge <span class="kw">in</span> edges) {
+        uf.<span class="fn">Union</span>(edge[<span class="num">0</span>], edge[<span class="num">1</span>]);
+    }
+
+    <span class="ty">var</span> roots = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="ty">int</span>&gt;();
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+        roots.Add(uf.<span class="fn">Find</span>(i));
+    }
+
+    <span class="kw">return</span> roots.Count;
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O((N+E)·α(N))</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(N)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 8 -->
+      <div class="algo" id="p8">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Word Ladder</div>
+            <p class="algo-desc">Find shortest path from beginWord to endWord using BFS.</p>
+            <div class="algo-tags">
+              <span class="badge b-red">Hard</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">Amazon</span>
+            </div>
+          </div>
+          <div class="algo-idx">8</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given two words (beginWord, endWord) and a dictionary, find the shortest path from beginWord to endWord. Each step changes exactly one letter. Return the length of the path.</p>
+
+          <h3>Approach</h3>
+          <p>BFS explores all neighbors at each level. For each word, generate all one-letter-change variants and check if they exist in the dictionary.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public int</span> <span class="fn">LadderLength</span>(<span class="ty">string</span> beginWord, <span class="ty">string</span> endWord, <span class="ty">List</span>&lt;<span class="ty">string</span>&gt; wordList) {
+    <span class="ty">var</span> dict = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="ty">string</span>&gt;(wordList);
+    <span class="kw">if</span> (!dict.Contains(endWord)) <span class="kw">return</span> <span class="num">0</span>;
+
+    <span class="ty">var</span> queue = <span class="kw">new</span> <span class="ty">Queue</span>&lt;<span class="ty">string</span>&gt;();
+    <span class="ty">var</span> visited = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="ty">string</span>&gt;();
+    queue.Enqueue(beginWord);
+    visited.Add(beginWord);
+
+    <span class="ty">int</span> level = <span class="num">1</span>;
+
+    <span class="kw">while</span> (queue.Count > <span class="num">0</span>) {
+        <span class="ty">int</span> size = queue.Count;
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; size; i++) {
+            <span class="ty">var</span> word = queue.Dequeue();
+            <span class="kw">if</span> (word == endWord) <span class="kw">return</span> level;
+
+            <span class="ty">var</span> neighbors = <span class="fn">GetNeighbors</span>(word, dict);
+            <span class="kw">foreach</span> (<span class="ty">var</span> neighbor <span class="kw">in</span> neighbors) {
+                <span class="kw">if</span> (!visited.Contains(neighbor)) {
+                    visited.Add(neighbor);
+                    queue.Enqueue(neighbor);
+                }
+            }
+        }
+        level++;
+    }
+
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+
+<span class="kw">private</span> <span class="ty">List</span>&lt;<span class="ty">string</span>&gt; <span class="fn">GetNeighbors</span>(<span class="ty">string</span> word, <span class="ty">HashSet</span>&lt;<span class="ty">string</span>&gt; dict) {
+    <span class="ty">var</span> neighbors = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">string</span>&gt;();
+    <span class="ty">var</span> chars = word.ToCharArray();
+
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; chars.Length; i++) {
+        <span class="ty">char</span> original = chars[i];
+        <span class="kw">for</span> (<span class="ty">char</span> c = <span class="str">'a'</span>; c &lt;= <span class="str">'z'</span>; c++) {
+            chars[i] = c;
+            <span class="ty">var</span> newWord = <span class="kw">new</span> <span class="ty">string</span>(chars);
+            <span class="kw">if</span> (dict.Contains(newWord)) neighbors.Add(newWord);
+        }
+        chars[i] = original;
+    }
+
+    <span class="kw">return</span> neighbors;
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(N·L·26)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(N)</div>
+            </div>
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-icon">💡</div>
+            <div><strong>Optimization:</strong> Bidirectional BFS halves the search space. Start from both beginWord and endWord simultaneously.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 9 -->
+      <div class="algo" id="p9">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Alien Dictionary</div>
+            <p class="algo-desc">Derive alien alphabet order from sorted word list using topological sort.</p>
+            <div class="algo-tags">
+              <span class="badge b-red">Hard</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">Amazon</span>
+            </div>
+          </div>
+          <div class="algo-idx">9</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given a sorted list of words in an alien language, derive the order of the alphabet. Return empty string if invalid.</p>
+
+          <h3>Approach</h3>
+          <p>Compare adjacent words character-by-character. When first differing character is found, it defines an order relationship. Build a graph and perform topological sort.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public</span> <span class="ty">string</span> <span class="fn">AlienOrder</span>(<span class="ty">List</span>&lt;<span class="ty">string</span>&gt; words) {
+    <span class="ty">var</span> graph = <span class="kw">new</span> <span class="ty">Dictionary</span>&lt;<span class="ty">char</span>, <span class="ty">List</span>&lt;<span class="ty">char</span>&gt;&gt;();
+    <span class="ty">var</span> indegree = <span class="kw">new</span> <span class="ty">Dictionary</span>&lt;<span class="ty">char</span>, <span class="ty">int</span>&gt;();
+
+    <span class="cm">// Initialize all characters</span>
+    <span class="kw">foreach</span> (<span class="ty">var</span> word <span class="kw">in</span> words) {
+        <span class="kw">foreach</span> (<span class="ty">char</span> c <span class="kw">in</span> word) {
+            <span class="kw">if</span> (!graph.ContainsKey(c)) {
+                graph[c] = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">char</span>&gt;();
+                indegree[c] = <span class="num">0</span>;
+            }
+        }
+    }
+
+    <span class="cm">// Build graph from word pairs</span>
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; words.Count - <span class="num">1</span>; i++) {
+        <span class="ty">var</span> w1 = words[i], w2 = words[i + <span class="num">1</span>];
+        <span class="ty">int</span> minLen = <span class="ty">Math</span>.<span class="fn">Min</span>(w1.Length, w2.Length);
+
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; minLen; j++) {
+            <span class="kw">if</span> (w1[j] != w2[j]) {
+                <span class="kw">if</span> (!graph[w1[j]].Contains(w2[j])) {
+                    graph[w1[j]].Add(w2[j]);
+                    indegree[w2[j]]++;
+                }
+                <span class="kw">break</span>;
+            }
+        }
+    }
+
+    <span class="cm">// Topological sort</span>
+    <span class="ty">var</span> queue = <span class="kw">new</span> <span class="ty">Queue</span>&lt;<span class="ty">char</span>&gt;();
+    <span class="kw">foreach</span> (<span class="ty">var</span> c <span class="kw">in</span> indegree.Keys) {
+        <span class="kw">if</span> (indegree[c] == <span class="num">0</span>) queue.Enqueue(c);
+    }
+
+    <span class="ty">var</span> sb = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
+    <span class="kw">while</span> (queue.Count > <span class="num">0</span>) {
+        <span class="ty">char</span> c = queue.Dequeue();
+        sb.Append(c);
+
+        <span class="kw">foreach</span> (<span class="ty">var</span> neighbor <span class="kw">in</span> graph[c]) {
+            <span class="kw">if</span> (--indegree[neighbor] == <span class="num">0</span>) queue.Enqueue(neighbor);
+        }
+    }
+
+    <span class="kw">return</span> sb.Length == graph.Count ? sb.<span class="fn">ToString</span>() : <span class="str">""</span>;
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(N·L + U)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(U)</div>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>Edge Case:</strong> Invalid input (e.g., "abc" before "ab"—longer comes before prefix). Return empty string if graph size ≠ topological sort size.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 10 -->
+      <div class="algo" id="p10">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Surrounded Regions</div>
+            <p class="algo-desc">Flip surrounded 'O' regions to 'X' via border DFS.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Meta</span>
+              <span class="badge b-blue">Microsoft</span>
+            </div>
+          </div>
+          <div class="algo-idx">10</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given a 2D board, capture all 'O' surrounded by 'X'. A surrounded 'O' region has no path to board edges.</p>
+
+          <h3>Approach</h3>
+          <p>DFS from all border 'O' cells to mark unreachable 'O's. Then flip all remaining 'O' to 'X'.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public void</span> <span class="fn">Solve</span>(<span class="ty">char</span>[][] board) {
+    <span class="ty">int</span> m = board.Length, n = board[<span class="num">0</span>].Length;
+
+    <span class="cm">// Mark all border-reachable 'O' with '#'</span>
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; m; i++) {
+        <span class="fn">DFS</span>(board, i, <span class="num">0</span>, m, n);
+        <span class="fn">DFS</span>(board, i, n - <span class="num">1</span>, m, n);
+    }
+    <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; n; j++) {
+        <span class="fn">DFS</span>(board, <span class="num">0</span>, j, m, n);
+        <span class="fn">DFS</span>(board, m - <span class="num">1</span>, j, m, n);
+    }
+
+    <span class="cm">// Flip: unsurrounded 'O' → 'O', surrounded 'O' → 'X'</span>
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; m; i++) {
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; n; j++) {
+            <span class="kw">if</span> (board[i][j] == <span class="str">'#'</span>) board[i][j] = <span class="str">'O'</span>;
+            <span class="kw">else if</span> (board[i][j] == <span class="str">'O'</span>) board[i][j] = <span class="str">'X'</span>;
+        }
+    }
+}
+
+<span class="kw">private void</span> <span class="fn">DFS</span>(<span class="ty">char</span>[][] board, <span class="ty">int</span> r, <span class="ty">int</span> c, <span class="ty">int</span> m, <span class="ty">int</span> n) {
+    <span class="kw">if</span> (r &lt; <span class="num">0</span> || r >= m || c &lt; <span class="num">0</span> || c >= n || board[r][c] != <span class="str">'O'</span>) <span class="kw">return</span>;
+
+    board[r][c] = <span class="str">'#'</span>;
+    <span class="fn">DFS</span>(board, r + <span class="num">1</span>, c, m, n);
+    <span class="fn">DFS</span>(board, r - <span class="num">1</span>, c, m, n);
+    <span class="fn">DFS</span>(board, r, c + <span class="num">1</span>, m, n);
+    <span class="fn">DFS</span>(board, r, c - <span class="num">1</span>, m, n);
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(m × n)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(m × n)</div>
+            </div>
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-icon">💡</div>
+            <div><strong>Key Insight:</strong> Only 'O' regions NOT touching borders are captured. Start from borders and mark all reachable 'O's as safe.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 11 -->
+      <div class="algo" id="p11">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Rotting Oranges</div>
+            <p class="algo-desc">Find time for all fresh oranges to rot via multi-source BFS.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">Amazon</span>
+              <span class="badge b-blue">Meta</span>
+            </div>
+          </div>
+          <div class="algo-idx">11</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given a grid with fresh (1), rotten (2), and empty (0) oranges, rotten oranges spread to adjacent fresh oranges each minute. Return minutes until all fresh oranges rot, or -1 if impossible.</p>
+
+          <h3>Approach</h3>
+          <p>Multi-source BFS: enqueue all rotten oranges initially. Process level-by-level (each level = 1 minute). Count minutes and fresh oranges remaining.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public int</span> <span class="fn">OrangesRotting</span>(<span class="ty">int</span>[][] grid) {
+    <span class="ty">int</span> m = grid.Length, n = grid[<span class="num">0</span>].Length;
+    <span class="ty">int</span> freshCount = <span class="num">0</span>;
+    <span class="ty">var</span> queue = <span class="kw">new</span> <span class="ty">Queue</span>&lt;(<span class="ty">int</span>, <span class="ty">int</span>)&gt;();
+
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; m; i++) {
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; n; j++) {
+            <span class="kw">if</span> (grid[i][j] == <span class="num">2</span>) queue.Enqueue((i, j));
+            <span class="kw">else if</span> (grid[i][j] == <span class="num">1</span>) freshCount++;
+        }
+    }
+
+    <span class="ty">int</span>[][] dirs = <span class="kw">new</span> <span class="ty">int</span>[][] { <span class="kw">new</span> <span class="ty">int</span>[] { <span class="num">1</span>, <span class="num">0</span> }, <span class="kw">new</span> <span class="ty">int</span>[] { <span class="num">-1</span>, <span class="num">0</span> }, <span class="kw">new</span> <span class="ty">int</span>[] { <span class="num">0</span>, <span class="num">1</span> }, <span class="kw">new</span> <span class="ty">int</span>[] { <span class="num">0</span>, <span class="num">-1</span> } };
+    <span class="ty">int</span> minutes = <span class="num">0</span>;
+
+    <span class="kw">while</span> (queue.Count > <span class="num">0</span> && freshCount > <span class="num">0</span>) {
+        <span class="ty">int</span> size = queue.Count;
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; size; i++) {
+            <span class="ty">var</span> (r, c) = queue.Dequeue();
+            <span class="kw">foreach</span> (<span class="ty">var</span> dir <span class="kw">in</span> dirs) {
+                <span class="ty">int</span> nr = r + dir[<span class="num">0</span>], nc = c + dir[<span class="num">1</span>];
+                <span class="kw">if</span> (nr >= <span class="num">0</span> && nr &lt; m && nc >= <span class="num">0</span> && nc &lt; n && grid[nr][nc] == <span class="num">1</span>) {
+                    grid[nr][nc] = <span class="num">2</span>;
+                    queue.Enqueue((nr, nc));
+                    freshCount--;
+                }
+            }
+        }
+        minutes++;
+    }
+
+    <span class="kw">return</span> freshCount == <span class="num">0</span> ? minutes : -<span class="num">1</span>;
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(m × n)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(m × n)</div>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <div class="callout-icon">ℹ️</div>
+            <div><strong>Multi-source BFS:</strong> Start with multiple sources in queue. Excellent for spreading/propagation problems where multiple origins expand simultaneously.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 12 -->
+      <div class="algo" id="p12">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Shortest Path in Binary Matrix</div>
+            <p class="algo-desc">Find shortest path from top-left to bottom-right allowing 8-directional movement.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Google</span>
+            </div>
+          </div>
+          <div class="algo-idx">12</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given an n×n binary matrix, find shortest path from (0,0) to (n-1,n-1). You can move in 8 directions; 0 = walkable, 1 = obstacle. Return -1 if no path.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public int</span> <span class="fn">ShortestPathBinaryMatrix</span>(<span class="ty">int</span>[][] grid) {
+    <span class="ty">int</span> n = grid.Length;
+    <span class="kw">if</span> (grid[<span class="num">0</span>][<span class="num">0</span>] == <span class="num">1</span>) <span class="kw">return</span> -<span class="num">1</span>;
+
+    <span class="ty">var</span> queue = <span class="kw">new</span> <span class="ty">Queue</span>&lt;(<span class="ty">int</span>, <span class="ty">int</span>)&gt;();
+    queue.Enqueue((<span class="num">0</span>, <span class="num">0</span>));
+    grid[<span class="num">0</span>][<span class="num">0</span>] = <span class="num">1</span>; <span class="cm">// Mark as visited</span>
+
+    <span class="ty">int</span>[][] dirs = <span class="kw">new</span> <span class="ty">int</span>[][] {
+        <span class="kw">new</span> <span class="ty">int</span>[] { <span class="num">0</span>, <span class="num">1</span> }, <span class="kw">new</span> <span class="ty">int</span>[] { <span class="num">1</span>, <span class="num">0</span> }, <span class="kw">new</span> <span class="ty">int</span>[] { <span class="num">0</span>, -<span class="num">1</span> }, <span class="kw">new</span> <span class="ty">int</span>[] { -<span class="num">1</span>, <span class="num">0</span> },
+        <span class="kw">new</span> <span class="ty">int</span>[] { <span class="num">1</span>, <span class="num">1</span> }, <span class="kw">new</span> <span class="ty">int</span>[] { <span class="num">1</span>, -<span class="num">1</span> }, <span class="kw">new</span> <span class="ty">int</span>[] { -<span class="num">1</span>, <span class="num">1</span> }, <span class="kw">new</span> <span class="ty">int</span>[] { -<span class="num">1</span>, -<span class="num">1</span> }
+    };
+
+    <span class="ty">int</span> steps = <span class="num">1</span>;
+
+    <span class="kw">while</span> (queue.Count > <span class="num">0</span>) {
+        <span class="ty">int</span> size = queue.Count;
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; size; i++) {
+            <span class="ty">var</span> (r, c) = queue.Dequeue();
+            <span class="kw">if</span> (r == n - <span class="num">1</span> && c == n - <span class="num">1</span>) <span class="kw">return</span> steps;
+
+            <span class="kw">foreach</span> (<span class="ty">var</span> dir <span class="kw">in</span> dirs) {
+                <span class="ty">int</span> nr = r + dir[<span class="num">0</span>], nc = c + dir[<span class="num">1</span>];
+                <span class="kw">if</span> (nr >= <span class="num">0</span> && nr &lt; n && nc >= <span class="num">0</span> && nc &lt; n && grid[nr][nc] == <span class="num">0</span>) {
+                    grid[nr][nc] = <span class="num">1</span>;
+                    queue.Enqueue((nr, nc));
+                }
+            }
+        }
+        steps++;
+    }
+
+    <span class="kw">return</span> -<span class="num">1</span>;
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(N²)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(N²)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 13 -->
+      <div class="algo" id="p13">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Network Delay Time</div>
+            <p class="algo-desc">Calculate minimum time for signal to reach all nodes via Dijkstra's algorithm.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">Amazon</span>
+            </div>
+          </div>
+          <div class="algo-idx">13</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given n nodes and directed weighted edges (travel time), return the time when all nodes receive a signal sent from node 1.</p>
+
+          <h3>Approach</h3>
+          <p>Dijkstra's algorithm: maintain shortest distance to each node. Always process the nearest unvisited node. Return max distance.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public int</span> <span class="fn">NetworkDelayTime</span>(<span class="ty">int</span>[][] times, <span class="ty">int</span> n, <span class="ty">int</span> k) {
+    <span class="ty">var</span> graph = <span class="kw">new</span> <span class="ty">Dictionary</span>&lt;<span class="ty">int</span>, <span class="ty">List</span>&lt;(<span class="ty">int</span>, <span class="ty">int</span>)&gt;&gt;();
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">1</span>; i &lt;= n; i++) graph[i] = <span class="kw">new</span> <span class="ty">List</span>&lt;(<span class="ty">int</span>, <span class="ty">int</span>)&gt;();
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> time <span class="kw">in</span> times) {
+        graph[time[<span class="num">0</span>]].Add((time[<span class="num">1</span>], time[<span class="num">2</span>]));
+    }
+
+    <span class="ty">var</span> dist = <span class="kw">new</span> <span class="ty">int</span>[n + <span class="num">1</span>];
+    <span class="ty">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt;= n; i++) dist[i] = <span class="ty">int</span>.MaxValue;
+    dist[k] = <span class="num">0</span>;
+
+    <span class="ty">var</span> pq = <span class="kw">new</span> <span class="ty">PriorityQueue</span>&lt;<span class="ty">int</span>, <span class="ty">int</span>&gt;();
+    pq.Enqueue(k, <span class="num">0</span>);
+
+    <span class="kw">while</span> (pq.Count > <span class="num">0</span>) {
+        <span class="ty">int</span> node = pq.Dequeue();
+
+        <span class="kw">foreach</span> (<span class="ty">var</span> (neighbor, time) <span class="kw">in</span> graph[node]) {
+            <span class="kw">if</span> (dist[node] + time &lt; dist[neighbor]) {
+                dist[neighbor] = dist[node] + time;
+                pq.Enqueue(neighbor, dist[neighbor]);
+            }
+        }
+    }
+
+    <span class="ty">int</span> maxTime = <span class="num">0</span>;
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">1</span>; i &lt;= n; i++) {
+        <span class="kw">if</span> (dist[i] == <span class="ty">int</span>.MaxValue) <span class="kw">return</span> -<span class="num">1</span>;
+        maxTime = <span class="ty">Math</span>.<span class="fn">Max</span>(maxTime, dist[i]);
+    }
+
+    <span class="kw">return</span> maxTime;
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O((V+E)logV)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(V + E)</div>
+            </div>
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-icon">💡</div>
+            <div><strong>Dijkstra's vs Bellman-Ford:</strong> Dijkstra faster but requires non-negative weights. Bellman-Ford handles negative weights but slower.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 14 -->
+      <div class="algo" id="p14">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Cheapest Flights Within K Stops</div>
+            <p class="algo-desc">Find minimum cost route with ≤K stops using Bellman-Ford or BFS with distance tracking.</p>
+            <div class="algo-tags">
+              <span class="badge b-orange">Medium</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">Uber</span>
+            </div>
+          </div>
+          <div class="algo-idx">14</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given n cities, flights with prices, and a source/destination, find minimum cost to travel with at most k stops (edges).</p>
+
+          <h3>Solution (Bellman-Ford)</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public int</span> <span class="fn">FindCheapestPrice</span>(<span class="ty">int</span> n, <span class="ty">int</span>[][] flights, <span class="ty">int</span> src, <span class="ty">int</span> dst, <span class="ty">int</span> k) {
+    <span class="ty">var</span> dist = <span class="kw">new</span> <span class="ty">int</span>[n];
+    <span class="ty">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; n; i++) dist[i] = <span class="ty">int</span>.MaxValue;
+    dist[src] = <span class="num">0</span>;
+
+    <span class="cm">// Relax edges k times (k stops = k+1 edges)</span>
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; k + <span class="num">1</span>; i++) {
+        <span class="ty">var</span> temp = <span class="kw">new</span> <span class="ty">int</span>[n];
+        <span class="ty">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; n; j++) temp[j] = dist[j];
+
+        <span class="kw">foreach</span> (<span class="ty">var</span> flight <span class="kw">in</span> flights) {
+            <span class="ty">int</span> from = flight[<span class="num">0</span>], to = flight[<span class="num">1</span>], price = flight[<span class="num">2</span>];
+            <span class="kw">if</span> (dist[from] != <span class="ty">int</span>.MaxValue && dist[from] + price &lt; temp[to]) {
+                temp[to] = dist[from] + price;
+            }
+        }
+        dist = temp;
+    }
+
+    <span class="kw">return</span> dist[dst] == <span class="ty">int</span>.MaxValue ? -<span class="num">1</span> : dist[dst];
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(K × E)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(N)</div>
+            </div>
+          </div>
+
+          <div class="callout warn">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>K Stops vs K Edges:</strong> k stops = k edges. Relax k+1 times. Without stopping at source, relax k times for exactly k edges.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 15 -->
+      <div class="algo" id="p15">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Reconstruct Itinerary</div>
+            <p class="algo-desc">Find Eulerian path through directed multigraph (flight tickets).</p>
+            <div class="algo-tags">
+              <span class="badge b-red">Hard</span>
+              <span class="badge b-blue">Google</span>
+              <span class="badge b-blue">Amazon</span>
+            </div>
+          </div>
+          <div class="algo-idx">15</div>
+        </div>
+        <div class="algo-body">
+          <h3>Problem Statement</h3>
+          <p>Given a list of tickets [from, to], reconstruct your travel itinerary starting from "JFK". Each ticket must be used exactly once.</p>
+
+          <h3>Approach</h3>
+          <p>Hierholzer's algorithm: DFS to find Eulerian path in a directed multigraph. Use recursion and backtracking.</p>
+
+          <h3>Solution</h3>
+          <div class="code-block">
+            <div class="code-bar">
+              <span class="code-lang">csharp</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><span class="kw">public</span> <span class="ty">List</span>&lt;<span class="ty">string</span>&gt; <span class="fn">FindItinerary</span>(<span class="ty">List</span>&lt;<span class="ty">List</span>&lt;<span class="ty">string</span>&gt;&gt; tickets) {
+    <span class="ty">var</span> graph = <span class="kw">new</span> <span class="ty">Dictionary</span>&lt;<span class="ty">string</span>, <span class="ty">List</span>&lt;<span class="ty">string</span>&gt;&gt;();
+
+    <span class="cm">// Build graph and sort destinations</span>
+    <span class="kw">foreach</span> (<span class="ty">var</span> ticket <span class="kw">in</span> tickets) {
+        <span class="ty">string</span> from = ticket[<span class="num">0</span>], to = ticket[<span class="num">1</span>];
+        <span class="kw">if</span> (!graph.ContainsKey(from)) graph[from] = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">string</span>&gt;();
+        graph[from].Add(to);
+    }
+
+    <span class="kw">foreach</span> (<span class="ty">var</span> key <span class="kw">in</span> graph.Keys) {
+        graph[key].Sort();
+    }
+
+    <span class="ty">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">string</span>&gt;();
+    <span class="fn">DFS</span>(<span class="str">"JFK"</span>, graph, result);
+    result.Reverse();
+
+    <span class="kw">return</span> result;
+}
+
+<span class="kw">private void</span> <span class="fn">DFS</span>(<span class="ty">string</span> from, <span class="ty">Dictionary</span>&lt;<span class="ty">string</span>, <span class="ty">List</span>&lt;<span class="ty">string</span>&gt;&gt; graph, <span class="ty">List</span>&lt;<span class="ty">string</span>&gt; result) {
+    <span class="kw">if</span> (graph.ContainsKey(from)) {
+        <span class="kw">while</span> (graph[from].Count > <span class="num">0</span>) {
+            <span class="ty">string</span> to = graph[from][<span class="num">0</span>];
+            graph[from].RemoveAt(<span class="num">0</span>);
+            <span class="fn">DFS</span>(to, graph, result);
+        }
+    }
+    result.Add(from);
+}</pre>
+          </div>
+
+          <div class="cx-row">
+            <div class="cx">
+              <div class="cx-l">Time</div>
+              <div class="cx-v">O(E log E)</div>
+            </div>
+            <div class="cx">
+              <div class="cx-l">Space</div>
+              <div class="cx-v">O(E)</div>
+            </div>
+          </div>
+
+          <div class="callout tip">
+            <div class="callout-icon">💡</div>
+            <div><strong>Eulerian Path:</strong> Visits every edge exactly once. Hierholzer's algorithm: DFS from node, remove edges, add to result AFTER recursion, then reverse.</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p>FAANG Interview Book — Chapter 7: Graphs, BFS & DFS</p>
+      <p>All code in C# with full syntax highlighting and complexity analysis. Master graph theory for top-tier tech interviews.</p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.closest('.code-block').querySelector('pre');
+      const text = pre.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.algo').forEach(el => {
+        el.classList.add('fade');
+        setTimeout(() => { el.classList.add('in'); }, 100);
+      });
+    });
+  </script>
+</body>
+</html>

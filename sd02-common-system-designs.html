@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Common system design problems — design URL shortener, Twitter, Netflix, Uber, with step-by-step solutions for FAANG interviews.">
+  <meta name="keywords" content="system design problems, URL shortener, design Twitter, design Netflix, FAANG system design">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/sd02-common-system-designs.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/sd02-common-system-designs.html">
+  <meta property="og:title" content="Common System Design Problems — FAANG Interview Prep">
+  <meta property="og:description" content="Common system design problems — design URL shortener, Twitter, Netflix, Uber, with step-by-step solutions for FAANG interviews.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/sd02-common-system-designs.html">
+  <meta name="twitter:title" content="Common System Design Problems — FAANG Interview Prep">
+  <meta name="twitter:description" content="Common system design problems — design URL shortener, Twitter, Netflix, Uber, with step-by-step solutions for FAANG interviews.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Common System Design Problems \u2014 FAANG Interview Prep",
+  "description": "Common system design problems \u2014 design URL shortener, Twitter, Netflix, Uber, with step-by-step solutions for FAANG interviews.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/sd02-common-system-designs.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+  <title>Common System Design Problems — FAANG Interview Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* SHARED CSS TEMPLATE */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    :root{
+      --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+      --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+      --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+      --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+      --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+      --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+      --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+      --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+    }
+    body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+    nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+    .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+    .nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+    .nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+    .nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+    .nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+    .wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+    .hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+    .eyebrow-line{width:28px;height:2px;background:var(--acc)}
+    .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+    .hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+    .hero h1 em{font-style:normal;color:var(--acc)}
+    .hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+    .stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content}
+    .stat{padding:14px 26px;border-right:1px solid var(--rule)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+    .stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+    .toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+    .toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+    .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+    .toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+    .toc-grid a:hover{color:var(--acc)}
+    .toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+    .section{padding-top:72px}
+    .sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+    .sec-line{flex:1;height:1px;background:var(--rule)}
+    .section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+    .section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+    .section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+    .section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+    .algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+    .algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+    .algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+    .algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+    .algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+    .algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+    .algo-body{padding:28px 32px}
+    .cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+    .cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+    .cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+    .cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+    .steps{margin-bottom:26px}
+    .step{display:flex}
+    .step-left{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0}
+    .step-num{width:28px;height:28px;border-radius:50%;background:var(--acc-l);border:1.5px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0}
+    .step-vline{width:1.5px;flex:1;background:var(--rule);margin:4px 0}
+    .step:last-child .step-vline{display:none}
+    .step-body{padding:3px 0 22px 14px;font-size:14px;color:var(--ink2);line-height:1.68}
+    .step-body strong{color:var(--ink);font-weight:600}
+    code.il{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 7px;border-radius:4px;color:var(--acc)}
+    .code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+    .code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+    .copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+    .copy-btn:hover{color:#d4d0c8}
+    pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+    .kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+    .callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+    .callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+    .callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+    .callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+    .callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+    .callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+    .callout strong{color:inherit;font-weight:600}
+    .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+    .b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+    .b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+    .b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+    .b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+    .b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+    .tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--rule);margin-bottom:26px}
+    table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+    thead tr{background:var(--bg2)}
+    th{text-align:left;padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule)}
+    td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+    td:first-child{font-weight:600;color:var(--ink)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--bg)}
+    .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+    .vs-box{border-radius:10px;padding:18px 20px;border:1px solid}
+    .vs-box.good{background:var(--green-l);border-color:var(--green-b)}
+    .vs-box.bad{background:var(--red-l);border-color:var(--red-b)}
+    .vs-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+    .vs-box.good .vs-title{color:var(--green)}.vs-box.bad .vs-title{color:var(--red)}
+    .vs-item{font-size:13px;color:var(--ink2);padding:4px 0;display:flex;gap:8px;line-height:1.5}
+    .vs-item::before{content:'—';color:var(--ink4);flex-shrink:0}
+    .tip-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+    .tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc)}
+    .tip-card.g::before{background:var(--green)}.tip-card.b::before{background:var(--blue)}.tip-card.a::before{background:var(--amber)}
+    .tip-n{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-bottom:8px}
+    .tip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+    .tip-body{font-size:13px;color:var(--ink2);line-height:1.65}
+    footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+    .footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+    footer p{font-size:13px;color:var(--ink3)}
+    footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+    @media(max-width:700px){
+      .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+      .vs{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span>FAANG Interview Prep</span>
+        <span class="pill">Book</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#designs">Designs</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Chapter 2</span>
+      </div>
+      <h1>Common <em>System Design</em> Problems</h1>
+      <p class="hero-sub">Master the 10 most frequently asked system design problems in FAANG interviews. Each design includes requirements, capacity planning, architecture, APIs, database schemas, and deep-dive discussions on key components.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-n">10</div>
+          <div class="stat-l">Designs</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">~2000</div>
+          <div class="stat-l">Lines</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">90m</div>
+          <div class="stat-l">Read Time</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toc" id="designs">
+      <div class="toc-head">Contents</div>
+      <div class="toc-grid">
+        <a href="#design-1"><span class="toc-n">1.</span> URL Shortener (TinyURL)</a>
+        <a href="#design-2"><span class="toc-n">2.</span> News Feed (Twitter/X)</a>
+        <a href="#design-3"><span class="toc-n">3.</span> Photo Sharing (Instagram)</a>
+        <a href="#design-4"><span class="toc-n">4.</span> Chat System (WhatsApp)</a>
+        <a href="#design-5"><span class="toc-n">5.</span> Ride Sharing (Uber)</a>
+        <a href="#design-6"><span class="toc-n">6.</span> Video Streaming (Netflix)</a>
+        <a href="#design-7"><span class="toc-n">7.</span> Search Engine (Google)</a>
+        <a href="#design-8"><span class="toc-n">8.</span> Notifications</a>
+        <a href="#design-9"><span class="toc-n">9.</span> Rate Limiter</a>
+        <a href="#design-10"><span class="toc-n">10.</span> Distributed Cache</a>
+      </div>
+    </div>
+
+    <!-- DESIGN 1: URL SHORTENER -->
+    <div class="section" id="design-1">
+      <div class="sec-tag">
+        <span class="sec-num">1</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>URL Shortener (TinyURL)</h2>
+      <p class="lead">Design a service that converts long URLs into short, shareable links with redirect capability, analytics, and high availability.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Generate short URL, redirect to original, track clicks, support custom slugs, analytics dashboard. <strong>Non-functional:</strong> Highly available, sub-100ms latency, no single point of failure, support 10M+ URLs.</div>
+      </div>
+
+      <h3>Capacity Estimation</h3>
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">QPS</div>
+          <div class="cx-v">100K RPS</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Write:Read</div>
+          <div class="cx-v">1:100</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Storage</div>
+          <div class="cx-v">5 PB (10y)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Cache Hit</div>
+          <div class="cx-v">90%+</div>
+        </div>
+      </div>
+
+      <h3>High-Level Architecture</h3>
+      <p>Client → Load Balancer → API Servers (Shorten/Redirect) → Cache Layer (Redis) → Database (Master/Slave) → Analytics Queue</p>
+
+      <h3>Core Components</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">1</div></div>
+          <div class="step-body"><strong>Hash Generation:</strong> Use base62 encoding of auto-increment ID or MD5 hash. Base62 (a-z, A-Z, 0-9) gives 62^6 ≈ 56 trillion combinations for 6-char URLs.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">2</div></div>
+          <div class="step-body"><strong>Collision Handling:</strong> With sequential IDs + zookeeper for ID generation, virtually zero collisions. For random hashes, use bloom filters or collision counter.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">3</div></div>
+          <div class="step-body"><strong>Read Optimization:</strong> Cache layer with TTL-based expiry. Redirect API checks cache first (Redis), then DB. 99.9% hit rate expected.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">4</div></div>
+          <div class="step-body"><strong>Analytics:</strong> Async event queue (Kafka) writes clicks to time-series DB (InfluxDB). Real-time dashboards query aggregated metrics.</div>
+        </div>
+      </div>
+
+      <h3>API Design</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">REST API</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre>POST /api/v1/shorten
+{
+  "long_url": "https://example.com/very/long/path",
+  "custom_slug": "abc123",  // optional
+  "ttl_days": 365
+}
+Response:
+{
+  "short_url": "https://t.co/abc123",
+  "created_at": "2025-03-24T10:15:30Z"
+}
+
+GET /api/v1/:short_code
+Response: 301 Redirect to original URL
+
+GET /api/v1/:short_code/stats
+Response:
+{
+  "total_clicks": 15000,
+  "unique_visitors": 12000,
+  "clicks_by_day": [...],
+  "referrers": [...]
+}</pre>
+      </div>
+
+      <h3>Database Schema</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">SQL</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">CREATE TABLE</span> urls (
+  id <span class="ty">BIGINT PRIMARY KEY AUTO_INCREMENT</span>,
+  short_code <span class="ty">VARCHAR(10) UNIQUE NOT NULL</span>,
+  long_url <span class="ty">VARCHAR(2048) NOT NULL</span>,
+  user_id <span class="ty">BIGINT</span>,
+  created_at <span class="ty">TIMESTAMP</span>,
+  expires_at <span class="ty">TIMESTAMP</span>,
+  is_active <span class="ty">BOOLEAN DEFAULT TRUE</span>,
+  INDEX(short_code),
+  INDEX(user_id, created_at)
+);
+
+<span class="kw">CREATE TABLE</span> clicks (
+  id <span class="ty">BIGINT PRIMARY KEY AUTO_INCREMENT</span>,
+  url_id <span class="ty">BIGINT NOT NULL</span>,
+  user_ip <span class="ty">VARCHAR(45)</span>,
+  user_agent <span class="ty">TEXT</span>,
+  referrer <span class="ty">VARCHAR(2048)</span>,
+  clicked_at <span class="ty">TIMESTAMP</span>,
+  FOREIGN KEY(url_id) REFERENCES urls(id),
+  INDEX(url_id, clicked_at)
+);</pre>
+      </div>
+
+      <h3>Key Insights & Trade-offs</h3>
+      <div class="vs">
+        <div class="vs-box good">
+          <div class="vs-title">✓ Sequential IDs + Base62</div>
+          <div class="vs-item">Guaranteed no collisions</div>
+          <div class="vs-item">Simple, predictable growth</div>
+          <div class="vs-item">Easy to shard by ID range</div>
+        </div>
+        <div class="vs-box bad">
+          <div class="vs-title">✗ Random Hash Approach</div>
+          <div class="vs-item">Must handle collisions</div>
+          <div class="vs-item">Harder to predict growth</div>
+          <div class="vs-item">Less friendly to ranges</div>
+        </div>
+      </div>
+
+      <p><strong>Scaling:</strong> Use Zookeeper for distributed ID generation. Shard URLs by ID range (1-1M to server1, 1M-2M to server2). Cache at CDN edge for extremely hot URLs. TTL-based expiry reduces cleanup complexity.</p>
+    </div>
+
+    <!-- DESIGN 2: TWITTER FEED -->
+    <div class="section" id="design-2">
+      <div class="sec-tag">
+        <span class="sec-num">2</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Twitter/X News Feed</h2>
+      <p class="lead">Design a real-time, highly personalized news feed that ranks and delivers tweets to millions of concurrent users with sub-second latency.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Post tweets, fetch feed (chronological/ranked), like/retweet, trending topics. <strong>Non-functional:</strong> <500ms feed latency, support 500M users, real-time updates, consistency not critical.</div>
+      </div>
+
+      <h3>Capacity Estimation</h3>
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">DAU</div>
+          <div class="cx-v">500M</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Tweets/Day</div>
+          <div class="cx-v">500M</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Feed QPS</div>
+          <div class="cx-v">10M RPS</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Avg. Followers</div>
+          <div class="cx-v">1K-10M</div>
+        </div>
+      </div>
+
+      <h3>Fan-Out Strategy Comparison</h3>
+      <div class="vs">
+        <div class="vs-box good">
+          <div class="vs-title">✓ Fan-Out on Write (Push)</div>
+          <div class="vs-item">Fast feed read (pre-computed)</div>
+          <div class="vs-item">Good for average users</div>
+          <div class="vs-item">Cache is warm on read</div>
+        </div>
+        <div class="vs-box bad">
+          <div class="vs-title">✗ Fan-Out on Read (Pull)</div>
+          <div class="vs-item">Slow for celeb (1M+ followers)</div>
+          <div class="vs-item">Merge many sources at query time</div>
+          <div class="vs-item">Cache misses on hot accounts</div>
+        </div>
+      </div>
+
+      <h3>Hybrid Approach (Recommended)</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">1</div></div>
+          <div class="step-body"><strong>Push for Regular Users:</strong> User posts → enqueue to Kafka → Fan-out service pushes to Redis feed list for each follower. TTL 7 days.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">2</div></div>
+          <div class="step-body"><strong>Pull for Celebrities:</strong> Users with >1M followers trigger pull mode. Feed merge fetches from multiple celebrity timelines on read.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">3</div></div>
+          <div class="step-body"><strong>Ranking Engine:</strong> ML model scores tweets by engagement, recency, personalization. Top-K selection at read time.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">4</div></div>
+          <div class="step-body"><strong>Caching:</strong> Hot feeds cached in Redis, LRU eviction, bloom filters for missing tweets detection.</div>
+        </div>
+      </div>
+
+      <h3>Database Schema</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">SQL</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">CREATE TABLE</span> tweets (
+  id <span class="ty">BIGINT PRIMARY KEY</span>,  <span class="cm">-- Snowflake ID</span>
+  user_id <span class="ty">BIGINT NOT NULL</span>,
+  text <span class="ty">TEXT</span>,
+  created_at <span class="ty">TIMESTAMP NOT NULL</span>,
+  engagement_score <span class="ty">DOUBLE</span>,
+  INDEX(user_id, created_at),
+  INDEX(created_at)
+);
+
+<span class="kw">CREATE TABLE</span> follows (
+  follower_id <span class="ty">BIGINT NOT NULL</span>,
+  followee_id <span class="ty">BIGINT NOT NULL</span>,
+  created_at <span class="ty">TIMESTAMP</span>,
+  PRIMARY KEY(follower_id, followee_id),
+  INDEX(followee_id)
+);
+
+<span class="kw">CREATE TABLE</span> feed_cache (
+  user_id <span class="ty">BIGINT PRIMARY KEY</span>,
+  tweet_ids <span class="ty">TEXT</span>,  <span class="cm">-- Comma-separated, updated async</span>
+  updated_at <span class="ty">TIMESTAMP</span>
+);</pre>
+      </div>
+
+      <h3>API Design</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">REST</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre>POST /api/v1/tweets
+{ "text": "Hello world", "media": [...] }
+
+GET /api/v1/feed?cursor=abc123&count=20
+Response: tweets sorted by score, with next cursor
+
+GET /api/v1/tweets/:id
+GET /api/v1/tweets/:id/likes
+POST /api/v1/tweets/:id/like
+POST /api/v1/tweets/:id/retweet</pre>
+      </div>
+
+      <h3>Scaling & Trade-offs</h3>
+      <p><strong>Celebrity Problem:</strong> When a celebrity posts, pushing to millions of followers is expensive. Solution: Hybrid pull/push model. Heavy users get special treatment with read-time merging.</p>
+      <p><strong>Consistency:</strong> Accept eventual consistency (seconds). Real-time events published via WebSocket (Kafka → Message Queue → WebSocket servers).</p>
+    </div>
+
+    <!-- DESIGN 3: PHOTO SHARING -->
+    <div class="section" id="design-3">
+      <div class="sec-tag">
+        <span class="sec-num">3</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Instagram/Photo Sharing</h2>
+      <p class="lead">Design a platform for uploading, storing, retrieving photos with automatic thumbnail generation, CDN delivery, and metadata indexing.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Upload photo, generate thumbnails, fetch feed, like/comment, search by tags. <strong>Non-functional:</strong> Sub-second image load, global distribution, 1B+ photos, 99.9% availability.</div>
+      </div>
+
+      <h3>Capacity Estimation</h3>
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Uploads/Day</div>
+          <div class="cx-v">100M</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Avg. Size</div>
+          <div class="cx-v">2 MB</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Storage</div>
+          <div class="cx-v">200 PB (1 yr)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Thumbnails</div>
+          <div class="cx-v">3 sizes</div>
+        </div>
+      </div>
+
+      <h3>Architecture</h3>
+      <p>Client → Load Balancer → Upload Service → Object Storage (S3) → Thumbnail Queue (Kafka) → Thumbnail Service → CDN → Global Users</p>
+
+      <h3>Core Components</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">1</div></div>
+          <div class="step-body"><strong>Object Storage:</strong> S3-compatible (AWS S3, GCS, Ceph). Partitioned by user_id/date for fast retrieval. Replication for durability.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">2</div></div>
+          <div class="step-body"><strong>Thumbnail Generation:</strong> Async job via Kafka. Generate 3 sizes: 360px (feed), 720px (detail), 1080px (full). Resized images cached.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">3</div></div>
+          <div class="step-body"><strong>CDN Delivery:</strong> CloudFront/Akamai caches images globally. Cache-Control headers set for 1 year (images are immutable).</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">4</div></div>
+          <div class="step-body"><strong>Metadata DB:</strong> Photo metadata (owner, upload_time, tags, likes) in MySQL with sharding by user_id.</div>
+        </div>
+      </div>
+
+      <h3>Database Schema</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">SQL</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">CREATE TABLE</span> photos (
+  id <span class="ty">BIGINT PRIMARY KEY</span>,
+  user_id <span class="ty">BIGINT NOT NULL</span>,
+  s3_key <span class="ty">VARCHAR(512) NOT NULL</span>,  <span class="cm">-- e.g., user123/2025-03-24/photo-abc.jpg</span>
+  caption <span class="ty">TEXT</span>,
+  tags <span class="ty">JSON</span>,
+  uploaded_at <span class="ty">TIMESTAMP NOT NULL</span>,
+  thumbnail_urls <span class="ty">JSON</span>,  <span class="cm">-- {small: url, medium: url, large: url}</span>
+  like_count <span class="ty">INT DEFAULT 0</span>,
+  comment_count <span class="ty">INT DEFAULT 0</span>,
+  INDEX(user_id, uploaded_at),
+  INDEX(tags) <span class="cm">-- JSON index for tag search</span>
+);
+
+<span class="kw">CREATE TABLE</span> likes (
+  photo_id <span class="ty">BIGINT NOT NULL</span>,
+  user_id <span class="ty">BIGINT NOT NULL</span>,
+  liked_at <span class="ty">TIMESTAMP</span>,
+  PRIMARY KEY(photo_id, user_id)
+);</pre>
+      </div>
+
+      <h3>Thumbnail Generation Pipeline</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">Pseudocode</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="cm">// Kafka consumer processes upload events</span>
+<span class="kw">function</span> <span class="fn">processPhotoUpload</span>(event) {
+  <span class="kw">const</span> photo = event.photo;
+  <span class="kw">const</span> s3Key = photo.s3_key;
+
+  <span class="cm">// Fetch original from S3</span>
+  <span class="kw">const</span> originalImage = s3.<span class="fn">getObject</span>(s3Key);
+
+  <span class="cm">// Generate thumbnails in parallel</span>
+  <span class="kw">const</span> sizes = [360, 720, 1080];
+  <span class="kw">const</span> thumbnails = <span class="fn">Promise.all</span>(
+    sizes.<span class="fn">map</span>(size =>
+      <span class="fn">resizeImage</span>(originalImage, size)
+        .<span class="fn">then</span>(img => s3.<span class="fn">putObject</span>(
+          s3Key.<span class="fn">replace</span>(<span class="str">'.jpg'</span>, `_${size}w.jpg`), img
+        ))
+    )
+  );
+
+  <span class="cm">// Update metadata with thumbnail URLs</span>
+  db.<span class="fn">updatePhoto</span>(photo.id, {
+    thumbnail_urls: {
+      small: `cdn.domain/${s3Key}_360w.jpg`,
+      medium: `cdn.domain/${s3Key}_720w.jpg`,
+      large: `cdn.domain/${s3Key}_1080w.jpg`
+    }
+  });
+}</pre>
+      </div>
+
+      <h3>Key Insights</h3>
+      <p><strong>Image Optimization:</strong> Use JPEG with 80% quality + WebP fallback for modern browsers. Reduces size by 30-40%. CDN handles format negotiation via Accept header.</p>
+      <p><strong>Tag Search:</strong> ElasticSearch indexes tags separately for full-text search. Redis caches top 1000 tags for typeahead.</p>
+    </div>
+
+    <!-- DESIGN 4: CHAT SYSTEM -->
+    <div class="section" id="design-4">
+      <div class="sec-tag">
+        <span class="sec-num">4</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>WhatsApp/Chat System</h2>
+      <p class="lead">Design a real-time messaging system supporting 1:1 and group chats with message delivery guarantees, offline storage, and typing indicators.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Send/receive messages, delivery status (sent/delivered/read), group chats, typing indicators, offline message queue. <strong>Non-functional:</strong> <100ms latency, exactly-once delivery, support 1B users, message history.</div>
+      </div>
+
+      <h3>Capacity Estimation</h3>
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Messages/Day</div>
+          <div class="cx-v">2B</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Peak QPS</div>
+          <div class="cx-v">50K RPS</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Concurrent Connections</div>
+          <div class="cx-v">100M</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Avg. Msg Size</div>
+          <div class="cx-v">500 B</div>
+        </div>
+      </div>
+
+      <h3>Architecture Overview</h3>
+      <p>Client (WebSocket) → Connection Manager → Message Queue (Kafka) → Storage (Cassandra) → Delivery Service → Recipient</p>
+
+      <h3>Core Components</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">1</div></div>
+          <div class="step-body"><strong>Connection Manager:</strong> WebSocket servers handle persistent connections. Each server manages 10K-100K connections. Horizontal scaling via connection pooling.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">2</div></div>
+          <div class="step-body"><strong>Message Delivery:</strong> Kafka topics by recipient (topic: user_123). If online, push directly to WebSocket. If offline, store in Cassandra for retrieval on reconnection.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">3</div></div>
+          <div class="step-body"><strong>Exactly-Once Delivery:</strong> Message deduplication via idempotency keys. Cassandra stores message IDs with 7-day TTL to detect replays.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">4</div></div>
+          <div class="step-body"><strong>Read Receipts:</strong> Separate topic for delivery status. Aggregated in Redis for fast queries. Bloom filters detect read status.</div>
+        </div>
+      </div>
+
+      <h3>Database Schema</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">Cassandra</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">CREATE TABLE</span> messages (
+  chat_id <span class="ty">UUID</span>,           <span class="cm">-- 1:1 or group chat ID</span>
+  timestamp <span class="ty">BIGINT</span>,        <span class="cm">-- Unix timestamp</span>
+  message_id <span class="ty">UUID PRIMARY KEY</span>,
+  sender_id <span class="ty">BIGINT</span>,
+  content <span class="ty">TEXT</span>,
+  media_urls <span class="ty">LIST&lt;TEXT&gt;</span>,
+  delivery_status <span class="ty">TEXT</span>,     <span class="cm">-- 'sent', 'delivered', 'read'</span>
+  read_at <span class="ty">BIGINT</span>,
+  TTL 604800  <span class="cm">-- 7 days</span>
+) <span class="kw">WITH CLUSTERING ORDER BY</span> (timestamp DESC);
+
+<span class="kw">CREATE TABLE</span> user_chats (
+  user_id <span class="ty">BIGINT</span>,
+  chat_id <span class="ty">UUID</span>,
+  last_message_id <span class="ty">UUID</span>,
+  unread_count <span class="ty">INT</span>,
+  muted <span class="ty">BOOLEAN</span>,
+  PRIMARY KEY (user_id, chat_id)
+) <span class="kw">WITH CLUSTERING ORDER BY</span> (chat_id DESC);</pre>
+      </div>
+
+      <h3>Message Flow Protocol</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">Pseudocode</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="cm">// Client sends message with idempotency key</span>
+<span class="fn">sendMessage</span>(recipientId, text, idempotencyKey) {
+  <span class="kw">const</span> message = {
+    id: <span class="fn">generateMessageId</span>(),
+    sender: currentUserId,
+    recipient: recipientId,
+    text: text,
+    timestamp: now(),
+    idempotency_key: idempotencyKey,
+    status: <span class="str">'PENDING'</span>
+  };
+
+  <span class="cm">// Step 1: Store in local queue for offline support</span>
+  localStorage.<span class="fn">save</span>(message);
+
+  <span class="cm">// Step 2: Send to server</span>
+  websocket.<span class="fn">send</span>({
+    type: <span class="str">'MESSAGE'</span>,
+    payload: message
+  });
+
+  <span class="cm">// Step 3: Server writes to Kafka (with dedup)</span>
+  <span class="cm">// Step 4: If recipient online, push via WebSocket</span>
+  <span class="cm">// Step 5: Sender receives 'sent' ack</span>
+  <span class="cm">// Step 6: Recipient receives message, auto-sends 'delivered' ack</span>
+  <span class="cm">// Step 7: Sender sees 'delivered' badge</span>
+}
+
+<span class="fn">onMessageReceived</span>(message) {
+  <span class="cm">// Deduplicate using idempotency key</span>
+  <span class="kw">if</span> (dedupeCache.<span class="fn">has</span>(message.idempotency_key)) {
+    <span class="kw">return</span>;  <span class="cm">// Already processed</span>
+  }
+
+  <span class="cm">// Store message</span>
+  db.<span class="fn">saveMessage</span>(message);
+
+  <span class="cm">// Update unread count</span>
+  cache.<span class="fn">increment</span>(<span class="str">'unread:'</span> + recipientId, 1);
+
+  <span class="cm">// Send delivery ack</span>
+  <span class="fn">sendDeliveryAck</span>(message.id, <span class="str">'DELIVERED'</span>);
+}</pre>
+      </div>
+
+      <h3>Typing Indicators & Presence</h3>
+      <p>Implement typing indicator via WebSocket events (ephemeral, not stored). Presence updates use Redis pub/sub with 30-second heartbeats. Threshold of 3 missed heartbeats marks user offline.</p>
+
+      <h3>Offline Message Handling</h3>
+      <p>When user reconnects, fetch undelivered messages from Cassandra (sorted by timestamp). Batch fetch to avoid overload. Limit to last 100 messages or 30 days, whichever is smaller.</p>
+    </div>
+
+    <!-- DESIGN 5: UBER/RIDE SHARING -->
+    <div class="section" id="design-5">
+      <div class="sec-tag">
+        <span class="sec-num">5</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Uber/Ride Sharing</h2>
+      <p class="lead">Design a real-time ride matching system with geospatial indexing, driver matching, ETA estimation, and pricing calculation.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Request ride, match drivers, real-time tracking, ETA, pricing. <strong>Non-functional:</strong> Sub-second matching, global scale, high availability, accurate location updates.</div>
+      </div>
+
+      <h3>Capacity Estimation</h3>
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Active Drivers</div>
+          <div class="cx-v">1M</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Ride Requests/Min</div>
+          <div class="cx-v">100K</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Location Updates</div>
+          <div class="cx-v">100K/sec</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Geohash Precision</div>
+          <div class="cx-v">6-8 chars</div>
+        </div>
+      </div>
+
+      <h3>Key Trade-off: Geospatial Indexing</h3>
+      <div class="vs">
+        <div class="vs-box good">
+          <div class="vs-title">✓ Geohash Approach</div>
+          <div class="vs-item">Simple, fixed precision, easy distribution</div>
+          <div class="vs-item">Fast neighbor lookups</div>
+          <div class="vs-item">Integrates well with Redis Geo commands</div>
+        </div>
+        <div class="vs-box bad">
+          <div class="vs-title">✗ QuadTree Approach</div>
+          <div class="vs-item">More complex implementation</div>
+          <div class="vs-item">Better for sparse regions but overhead</div>
+          <div class="vs-item">Harder to parallelize</div>
+        </div>
+      </div>
+
+      <h3>Driver Matching Algorithm</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">1</div></div>
+          <div class="step-body"><strong>Candidate Generation:</strong> Query drivers within 2km radius using geohash neighbors + Redis GEORADIUS. Filter by availability.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">2</div></div>
+          <div class="step-body"><strong>Scoring:</strong> distance (40%), ETA to pickup (30%), driver rating (20%), surge multiplier (10%).</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">3</div></div>
+          <div class="step-body"><strong>Request to Top 3:</strong> Send ride offer to top-3 candidates in parallel. First acceptance wins (30s timeout).</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">4</div></div>
+          <div class="step-body"><strong>Trip Creation:</strong> Create trip record, stream real-time location updates to rider and driver via WebSocket.</div>
+        </div>
+      </div>
+
+      <h3>ETA Calculation</h3>
+      <p>Use Google Maps Distance Matrix API or internal routing service. Cache ETA for common routes (Redis). Adjust for real-time traffic (integrate Waze API). Server-side ETA updates every 30 seconds during trip.</p>
+
+      <h3>Pricing Model</h3>
+      <p>Fare = base (1.50) + distance_km * rate (0.25) + duration_min * rate (0.10) + surge_multiplier. Surge calculated per geohash (demand/supply ratio). Cap surge at 4x during peak hours.</p>
+    </div>
+
+    <!-- DESIGN 6: NETFLIX/VIDEO STREAMING -->
+    <div class="section" id="design-6">
+      <div class="sec-tag">
+        <span class="sec-num">6</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Netflix/Video Streaming</h2>
+      <p class="lead">Design a video streaming platform with adaptive bitrate delivery, global CDN, transcoding pipeline, and personalized recommendations.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Stream video, pause/resume, recommendations, watch history, offline download. <strong>Non-functional:</strong> <2s startup, adaptive quality (480p-4K), 99.99% uptime, global availability.</div>
+      </div>
+
+      <h3>Transcoding Pipeline</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">1</div></div>
+          <div class="step-body"><strong>Master Upload:</strong> Content team uploads 4K video (200 Mbps, ProRes/DNxHD codec).</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">2</div></div>
+          <div class="step-body"><strong>Chunk & Queue:</strong> Split into 10-second segments. Enqueue to transcoding farm with priority (popular shows first).</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">3</div></div>
+          <div class="step-body"><strong>Parallel Transcode:</strong> Generate 5 bitrates (480p@1Mbps, 720p@3Mbps, 1080p@5Mbps, 1440p@15Mbps, 4K@25Mbps) using FFmpeg.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">4</div></div>
+          <div class="step-body"><strong>Packaging:</strong> HLS (HTTP Live Streaming) format with .m3u8 manifests. DASH as fallback. Cache-Control: 1 year (immutable).</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">5</div></div>
+          <div class="step-body"><strong>CDN Distribution:</strong> Push to S3 + CloudFront edge locations. Replicate to Akamai, Cloudflare. Geo-pin to closest region (latency <50ms).</div>
+        </div>
+      </div>
+
+      <h3>Adaptive Bitrate Selection</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">Client Algorithm</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="fn">selectBitrate</span>() {
+  <span class="kw">const</span> bw = <span class="fn">measureBandwidth</span>();
+  <span class="kw">const</span> buffer = player.bufferSeconds;
+  <span class="kw">const</span> options = [1, 3, 5, 15, 25];  <span class="cm">// Mbps</span>
+
+  <span class="cm">// Don't exceed 1.5x measured bandwidth</span>
+  <span class="kw">let</span> max = bw / 1.5;
+
+  <span class="cm">// Step down if buffer critically low</span>
+  <span class="kw">if</span> (buffer &lt; 10) max = 3;
+
+  <span class="cm">// Cap mobile at 1080p</span>
+  <span class="kw">if</span> (isMobile) max = 5;
+
+  <span class="kw">return</span> options.<span class="fn">filter</span>(b => b &lt;= max).<span class="fn">pop</span>();
+}</pre>
+      </div>
+
+      <h3>Recommendation Engine</h3>
+      <p><strong>Collaborative Filtering:</strong> User-item matrix from watch history. Compute cosine similarity with similar users. Recommend titles watched by similar cohorts.</p>
+      <p><strong>Content-Based:</strong> Feature embeddings (genre, director, actors). Recommend semantically similar titles.</p>
+      <p><strong>Ranking:</strong> Blend 70% collaborative + 30% content-based. Add trending boost (last 7 days views).</p>
+    </div>
+
+    <!-- DESIGN 7: GOOGLE SEARCH -->
+    <div class="section" id="design-7">
+      <div class="sec-tag">
+        <span class="sec-num">7</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Google Search Engine</h2>
+      <p class="lead">Design a search engine with web crawler, inverted index, PageRank algorithm, and query processing with spelling correction.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Crawl web, index pages, full-text search, ranking by relevance, spelling correction. <strong>Non-functional:</strong> <100ms query latency, index billions of pages, 99.9% uptime.</div>
+      </div>
+
+      <h3>Web Crawler Architecture</h3>
+      <p>Seed URLs → URL Frontier (priority queue) → Downloader Pool (polite, 1-3s delays) → Parser (extract text, links) → Inverted Indexer (update posting lists)</p>
+
+      <h3>URL Frontier (Distributed Priority Queue)</h3>
+      <p>Kafka-based queue prioritized by PageRank, last-crawl-time (freshness), domain importance. Per-domain sub-queue enforces politeness (max 1 req/3s per domain). Bloom filter prevents duplicate URLs.</p>
+
+      <h3>Inverted Index Structure</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">Index Format</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="cm">// Inverted index: word → posting list</span>
+word: <span class="str">'search'</span>
+posting_list: [
+  {
+    doc_id: 123456,
+    positions: [0, 45, 102],
+    term_frequency: 3,
+    field: <span class="str">'body'</span>
+  },
+  {
+    doc_id: 789012,
+    positions: [12, 78],
+    term_frequency: 2,
+    field: <span class="str">'title'</span>
+  }
+]
+
+<span class="cm">// Sharding: word_hash % num_shards determines shard server</span>
+<span class="cm">// Each shard replicated on 3 servers for high availability</span></pre>
+      </div>
+
+      <h3>PageRank Computation</h3>
+      <p>Iterative algorithm: PR(A) = (1-d)/N + d*(PR(B)/OutboundLinks(B) + ...). Damping factor d=0.85. Run weekly using MapReduce on entire web graph (100B+ nodes). Converges in ~20 iterations. Store precomputed scores in index.</p>
+
+      <h3>Query Processing Pipeline</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">1</div></div>
+          <div class="step-body"><strong>Parse & Clean:</strong> Extract keywords, operators (AND/OR/NOT), exact phrases. Remove stop words (the, a, is).</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">2</div></div>
+          <div class="step-body"><strong>Spelling Correction:</strong> Edit distance ≤2 against dictionary. Use context (previous queries) for smart suggestions.</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">3</div></div>
+          <div class="step-body"><strong>Index Lookup:</strong> Fetch posting list from shards (parallel). Merge (intersection for AND, union for OR).</div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">4</div></div>
+          <div class="step-body"><strong>Ranking:</strong> Score = TF-IDF(term, doc) * PageRank(doc) * Freshness(doc). Return top-10 results.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 8: NOTIFICATION SYSTEM -->
+    <div class="section" id="design-8">
+      <div class="sec-tag">
+        <span class="sec-num">8</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Notification System</h2>
+      <p class="lead">Design a scalable system for sending push/SMS/email notifications with delivery tracking, rate limiting, and template management.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Send notifications (push, SMS, email), templates, scheduled delivery, opt-out, delivery status. <strong>Non-functional:</strong> 1B+ daily notifications, 99.95% success rate, sub-second ack.</div>
+      </div>
+
+      <h3>Multi-Channel Architecture</h3>
+      <p>Notification API → Priority Queue (Kafka) → Channel Workers (Push/SMS/Email) → External APIs (FCM, Twilio, SendGrid) → Status Tracker</p>
+
+      <h3>Channel Comparison</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Channel</th>
+              <th>Latency</th>
+              <th>Reliability</th>
+              <th>Cost</th>
+              <th>Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Push (FCM)</td>
+              <td>&lt;1s</td>
+              <td>95%</td>
+              <td>Free</td>
+              <td>Time-sensitive, mobile</td>
+            </tr>
+            <tr>
+              <td>SMS (Twilio)</td>
+              <td>2-10s</td>
+              <td>99%</td>
+              <td>$0.01</td>
+              <td>Critical alerts</td>
+            </tr>
+            <tr>
+              <td>Email (SendGrid)</td>
+              <td>1-5m</td>
+              <td>99.9%</td>
+              <td>$0.0001</td>
+              <td>Non-urgent info</td>
+            </tr>
+            <tr>
+              <td>In-App</td>
+              <td>&lt;100ms</td>
+              <td>100%</td>
+              <td>Free</td>
+              <td>Low-priority</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Rate Limiting Strategy</h3>
+      <p>Per-user token bucket: Critical (unlimited), High (5/hr), Normal (2/hr), Promotional (1/day). Global rate limit: 100M/hr per service. Kafka partition by user_id ensures ordering.</p>
+
+      <h3>Scheduled Delivery</h3>
+      <p>Store messages with scheduled_time. Kafka topic retention: 30 days. Process due messages every minute. Timezone-aware: "9 AM user's local time" computed server-side before queue insertion.</p>
+
+      <h3>Database Schema</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">SQL</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">CREATE TABLE</span> notifications (
+  id <span class="ty">BIGINT PRIMARY KEY</span>,
+  user_id <span class="ty">BIGINT NOT NULL</span>,
+  template_id <span class="ty">BIGINT</span>,
+  channels <span class="ty">JSON</span>,  <span class="cm">-- ['push', 'email']</span>
+  status <span class="ty">ENUM('PENDING','SENT','FAILED','BOUNCED')</span>,
+  scheduled_at <span class="ty">TIMESTAMP</span>,
+  sent_at <span class="ty">TIMESTAMP</span>,
+  INDEX(user_id, scheduled_at)
+);
+
+<span class="kw">CREATE TABLE</span> notification_status (
+  notification_id <span class="ty">BIGINT</span>,
+  channel <span class="ty">VARCHAR(20)</span>,
+  provider_id <span class="ty">VARCHAR(255)</span>,  <span class="cm">-- FCM msg ID, SMS txn ID</span>
+  status <span class="ty">ENUM('SENT','DELIVERED','FAILED')</span>,
+  PRIMARY KEY(notification_id, channel)
+);</pre>
+      </div>
+    </div>
+
+    <!-- DESIGN 9: RATE LIMITER -->
+    <div class="section" id="design-9">
+      <div class="sec-tag">
+        <span class="sec-num">9</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Rate Limiter</h2>
+      <p class="lead">Design a distributed rate limiting system supporting token bucket, sliding window, and per-user limits with sub-millisecond latency.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Enforce rate limits (RPS), per-user/IP/API key, configurable limits, graceful degradation. <strong>Non-functional:</strong> <1ms latency, distributed, no false negatives.</div>
+      </div>
+
+      <h3>Token Bucket Algorithm</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">Algorithm</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="cm">// Redis-based token bucket</span>
+<span class="fn">allowRequest</span>(userId, limit, refillRate) {
+  <span class="kw">const</span> key = `rate:${userId}`;
+
+  <span class="cm">// Get current bucket state</span>
+  <span class="kw">const</span> bucket = redis.<span class="fn">hgetall</span>(key);
+  <span class="kw">const</span> tokens = bucket.tokens || limit;
+  <span class="kw">const</span> lastRefill = bucket.lastRefill || now();
+
+  <span class="cm">// Refill tokens based on time elapsed</span>
+  <span class="kw">const</span> elapsed = (now() - lastRefill) / 1000;
+  <span class="kw">const</span> refilled = Math.<span class="fn">min</span>(limit, tokens + elapsed * refillRate);
+
+  <span class="cm">// Try to consume 1 token</span>
+  <span class="kw">if</span> (refilled >= 1) {
+    redis.<span class="fn">hset</span>(key, {
+      tokens: refilled - 1,
+      lastRefill: now()
+    });
+    redis.<span class="fn">expire</span>(key, 3600);
+    <span class="kw">return</span> <span class="kw">true</span>;
+  }
+
+  <span class="kw">return</span> <span class="kw">false</span>;
+}</pre>
+      </div>
+
+      <h3>Sliding Window Log (Alternative)</h3>
+      <p>Store request timestamps in Redis sorted set. Count requests in last 60 seconds (ZCOUNT). Simple but higher memory usage. Better for low RPS limits. Trade-off: precision vs memory.</p>
+
+      <h3>Distributed Rate Limiting</h3>
+      <p>Each API server has Redis connection. Token bucket state stored in Redis (single source of truth). Race condition resolved by Redis atomic operations (Lua script). Cluster: Redis Cluster with consistent hashing by user_id.</p>
+
+      <h3>Lua Script for Atomic Operation</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">Lua</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="cm">-- Atomic token bucket refill + consume</span>
+<span class="kw">local</span> key = KEYS[1]
+<span class="kw">local</span> limit = tonumber(ARGV[1])
+<span class="kw">local</span> refillRate = tonumber(ARGV[2])
+<span class="kw">local</span> now = tonumber(ARGV[3])
+
+<span class="kw">local</span> bucket = redis.<span class="fn">call</span>(<span class="str">'HGETALL'</span>, key)
+<span class="kw">local</span> tokens = tonumber(bucket[2]) <span class="kw">or</span> limit
+<span class="kw">local</span> lastRefill = tonumber(bucket[4]) <span class="kw">or</span> now
+
+<span class="cm">-- Refill</span>
+<span class="kw">local</span> elapsed = (now - lastRefill) / 1000
+<span class="kw">local</span> refilled = math.<span class="fn">min</span>(limit, tokens + elapsed * refillRate)
+
+<span class="cm">-- Consume</span>
+<span class="kw">if</span> refilled >= 1 <span class="kw">then</span>
+  redis.<span class="fn">call</span>(<span class="str">'HSET'</span>, key, <span class="str">'tokens'</span>, refilled - 1, <span class="str">'lastRefill'</span>, now)
+  redis.<span class="fn">call</span>(<span class="str">'EXPIRE'</span>, key, 3600)
+  <span class="kw">return</span> 1
+<span class="kw">end</span>
+
+<span class="kw">return</span> 0</pre>
+      </div>
+
+      <h3>Response Headers</h3>
+      <p><code class="il">X-RateLimit-Limit: 1000</code>, <code class="il">X-RateLimit-Remaining: 245</code>, <code class="il">X-RateLimit-Reset: 1234567890</code>. Client can backoff proactively when approaching limit. Return 429 (Too Many Requests) when limit exceeded. Include <code class="il">Retry-After</code> header.</p>
+    </div>
+
+    <!-- DESIGN 10: DISTRIBUTED CACHE -->
+    <div class="section" id="design-10">
+      <div class="sec-tag">
+        <span class="sec-num">10</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Distributed Cache (Redis/Memcached)</h2>
+      <p class="lead">Design a highly available distributed cache system with consistent hashing, replication, eviction policies, and cache warming.</p>
+
+      <h3>Requirements</h3>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div><strong>Functional:</strong> Get/Set/Delete, TTL expiry, eviction on memory full. <strong>Non-functional:</strong> <1ms latency, multi-node, no data loss, high throughput (1M+ ops/sec).</div>
+      </div>
+
+      <h3>Consistent Hashing</h3>
+      <p>Map keys to cache nodes using consistent hash function (MD5, SHA1). Hash ring with virtual nodes (150-200 per server) ensures balanced distribution. Node addition/removal only rehashes ~33% of keys (vs ~100% with modulo hashing).</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">Pseudocode</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="cm">// Consistent hashing with virtual nodes</span>
+<span class="fn">initHashRing</span>(servers) {
+  <span class="kw">const</span> ring = {};  <span class="cm">// hash -> server mapping</span>
+
+  <span class="kw">for</span> (<span class="kw">const</span> server <span class="kw">of</span> servers) {
+    <span class="kw">for</span> (<span class="kw">let</span> i = 0; i < 150; i++) {
+      <span class="kw">const</span> virtualKey = `${server.id}:${i}`;
+      <span class="kw">const</span> hash = md5(virtualKey);
+      ring[hash] = server;
+    }
+  }
+
+  <span class="kw">return</span> ring;
+}
+
+<span class="fn">getServer</span>(key, ring) {
+  <span class="kw">const</span> hash = md5(key);
+  <span class="cm">// Find next hash >= key hash (clockwise)</span>
+  <span class="kw">const</span> hashes = Object.<span class="fn">keys</span>(ring).<span class="fn">sort</span>();
+  <span class="kw">const</span> idx = <span class="fn">binarySearch</span>(hashes, hash);
+  <span class="kw">return</span> ring[hashes[idx % hashes.<span class="fn">length</span>]];
+}</pre>
+      </div>
+
+      <h3>Eviction Policies</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Policy</th>
+              <th>When</th>
+              <th>Pros</th>
+              <th>Cons</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>LRU (Least Recently Used)</td>
+              <td>Memory full</td>
+              <td>Good temporal locality</td>
+              <td>O(1) but requires tracking LRU list</td>
+            </tr>
+            <tr>
+              <td>LFU (Least Frequently Used)</td>
+              <td>Memory full</td>
+              <td>Evicts cold items</td>
+              <td>Higher CPU overhead</td>
+            </tr>
+            <tr>
+              <td>FIFO (First In First Out)</td>
+              <td>Memory full</td>
+              <td>Simple, predictable</td>
+              <td>Ignores access patterns</td>
+            </tr>
+            <tr>
+              <td>Random</td>
+              <td>Memory full</td>
+              <td>Minimal overhead</td>
+              <td>Poor hit ratio</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Replication & Failover</h3>
+      <p>Each cache node replicated on 2-3 secondary nodes. Master writes go to all replicas (synchronous for critical data). Read from any replica. On master failure, elect new master from replicas (Raft consensus). Sentinel monitors health (ping, timeout 3s).</p>
+
+      <h3>Cache Warming Strategy</h3>
+      <p>On deployment, preload hot keys from database. Use offline analysis (access logs) to identify top 1000 keys. Batch load in background before marking cache ready. Prevents "thundering herd" on cold start (all clients query DB simultaneously).</p>
+
+      <h3>Cache Invalidation Patterns</h3>
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">Pseudocode</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="cm">// Write-through: update cache + DB atomically</span>
+<span class="fn">setWithWriteThrough</span>(key, value) {
+  cache.<span class="fn">set</span>(key, value, ttl=3600);
+  db.<span class="fn">update</span>(key, value);
+}
+
+<span class="cm">// Write-back: update cache, async DB write</span>
+<span class="fn">setWithWriteBack</span>(key, value) {
+  cache.<span class="fn">set</span>(key, value, ttl=3600);
+  queue.<span class="fn">enqueue</span>({type: 'WRITE', key, value});
+  <span class="cm">// Background worker processes queue</span>
+}
+
+<span class="cm">// Cache invalidation via versioning</span>
+<span class="fn">deleteWithVersioning</span>(key) {
+  <span class="kw">const</span> versionKey = `${key}:version`;
+  <span class="kw">const</span> version = cache.<span class="fn">increment</span>(versionKey);
+  <span class="cm">// Next read will see new version, old cached data ignored</span>
+}</pre>
+      </div>
+
+      <h3>Monitoring & Metrics</h3>
+      <p>Track: hit rate (should be 90%+), miss rate, eviction count, memory usage, latency (p50, p99). Set alerts if hit rate drops below 85% (indicates insufficient cache size or ineffective policies). Use Redis <code class="il">INFO</code> command for stats.</p>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <p><strong>FAANG Interview Prep Book — Common System Design Problems</strong></p>
+        <p>Comprehensive guide to 10 most frequently asked system design interviews. Master architecture, trade-offs, and scaling strategies.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.closest('.code-block').querySelector('pre');
+      const text = pre.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = originalText; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

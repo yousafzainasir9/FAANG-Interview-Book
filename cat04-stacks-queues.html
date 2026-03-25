@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Stack and queue FAANG problems — valid parentheses, min stack, sliding window maximum, with C# solutions and patterns.">
+  <meta name="keywords" content="stacks, queues, FAANG interview, valid parentheses, min stack, C#">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat04-stacks-queues.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat04-stacks-queues.html">
+  <meta property="og:title" content="Stacks & Queues – FAANG Interview Book">
+  <meta property="og:description" content="Stack and queue FAANG problems — valid parentheses, min stack, sliding window maximum, with C# solutions and patterns.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat04-stacks-queues.html">
+  <meta name="twitter:title" content="Stacks & Queues – FAANG Interview Book">
+  <meta name="twitter:description" content="Stack and queue FAANG problems — valid parentheses, min stack, sliding window maximum, with C# solutions and patterns.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Stacks & Queues \u2013 FAANG Interview Book",
+  "description": "Stack and queue FAANG problems \u2014 valid parentheses, min stack, sliding window maximum, with C# solutions and patterns.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/cat04-stacks-queues.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+  <title>Stacks & Queues – FAANG Interview Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* SHARED CSS TEMPLATE */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    :root{
+      --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+      --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+      --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+      --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+      --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+      --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+      --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+      --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+    }
+    body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+    nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+    .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+    .nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+    .nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+    .nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+    .nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+    .wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+    .hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+    .eyebrow-line{width:28px;height:2px;background:var(--acc)}
+    .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+    .hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+    .hero h1 em{font-style:normal;color:var(--acc)}
+    .hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+    .stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content}
+    .stat{padding:14px 26px;border-right:1px solid var(--rule)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+    .stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+    .toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+    .toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+    .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+    .toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+    .toc-grid a:hover{color:var(--acc)}
+    .toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+    .section{padding-top:72px}
+    .sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+    .sec-line{flex:1;height:1px;background:var(--rule)}
+    .section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+    .section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+    .section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+    .section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+    .algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+    .algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+    .algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+    .algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+    .algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+    .algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+    .algo-body{padding:28px 32px}
+    .cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+    .cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+    .cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+    .cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+    .steps{margin-bottom:26px}
+    .step{display:flex}
+    .step-left{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0}
+    .step-num{width:28px;height:28px;border-radius:50%;background:var(--acc-l);border:1.5px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0}
+    .step-vline{width:1.5px;flex:1;background:var(--rule);margin:4px 0}
+    .step:last-child .step-vline{display:none}
+    .step-body{padding:3px 0 22px 14px;font-size:14px;color:var(--ink2);line-height:1.68}
+    .step-body strong{color:var(--ink);font-weight:600}
+    code.il{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 7px;border-radius:4px;color:var(--acc)}
+    .code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+    .code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+    .copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+    .copy-btn:hover{color:#d4d0c8}
+    pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+    .kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+    .callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+    .callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+    .callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+    .callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+    .callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+    .callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+    .callout strong{color:inherit;font-weight:600}
+    .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+    .b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+    .b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+    .b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+    .b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+    .b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+    .tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--rule);margin-bottom:26px}
+    table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+    thead tr{background:var(--bg2)}
+    th{text-align:left;padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule)}
+    td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+    td:first-child{font-weight:600;color:var(--ink)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--bg)}
+    .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+    .vs-box{border-radius:10px;padding:18px 20px;border:1px solid}
+    .vs-box.good{background:var(--green-l);border-color:var(--green-b)}
+    .vs-box.bad{background:var(--red-l);border-color:var(--red-b)}
+    .vs-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+    .vs-box.good .vs-title{color:var(--green)}.vs-box.bad .vs-title{color:var(--red)}
+    .vs-item{font-size:13px;color:var(--ink2);padding:4px 0;display:flex;gap:8px;line-height:1.5}
+    .vs-item::before{content:'—';color:var(--ink4);flex-shrink:0}
+    .tips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
+    .tip-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+    .tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc)}
+    .tip-card.g::before{background:var(--green)}.tip-card.b::before{background:var(--blue)}.tip-card.a::before{background:var(--amber)}
+    .tip-n{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-bottom:8px}
+    .tip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+    .tip-body{font-size:13px;color:var(--ink2);line-height:1.65}
+    footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+    .footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+    footer p{font-size:13px;color:var(--ink3)}
+    footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+    @media(max-width:700px){
+      .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+      .vs{grid-template-columns:1fr}
+      .toc-grid{grid-template-columns:1fr}
+      .tips{grid-template-columns:1fr}
+      .stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid var(--rule)}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand"><span class="pill">FAANG</span>Interview Book</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#intro">Intro</a>
+      <a href="#problems">Problems</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Chapter 04</span>
+    </div>
+    <h1>Stacks & <em>Queues</em></h1>
+    <p class="hero-sub">Master LIFO and FIFO patterns with 12 essential problems. Learn monotonic stacks, two-pointer queue patterns, and when to reach for each data structure in real interviews.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-n">12</div>
+        <div class="stat-l">Problems</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">1400+</div>
+        <div class="stat-l">Lines of C#</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">6</div>
+        <div class="stat-l">Companies</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-head">Table of Contents</div>
+    <div class="toc-grid">
+      <a href="#intro"><span class="toc-n">→</span> Introduction</a>
+      <a href="#p1"><span class="toc-n">1</span> Valid Parentheses</a>
+      <a href="#p2"><span class="toc-n">2</span> Min Stack</a>
+      <a href="#p3"><span class="toc-n">3</span> Evaluate RPN</a>
+      <a href="#p4"><span class="toc-n">4</span> Generate Parentheses</a>
+      <a href="#p5"><span class="toc-n">5</span> Daily Temperatures</a>
+      <a href="#p6"><span class="toc-n">6</span> Largest Rectangle</a>
+      <a href="#p7"><span class="toc-n">7</span> Car Fleet</a>
+      <a href="#p8"><span class="toc-n">8</span> Queue via Stacks</a>
+      <a href="#p9"><span class="toc-n">9</span> Stack via Queues</a>
+      <a href="#p10"><span class="toc-n">10</span> Next Greater Element</a>
+      <a href="#p11"><span class="toc-n">11</span> Decode String</a>
+      <a href="#p12"><span class="toc-n">12</span> Basic Calculator II</a>
+    </div>
+  </div>
+
+  <section id="intro" class="section">
+    <div class="sec-tag">
+      <span class="sec-num">INTRO</span>
+      <div class="sec-line"></div>
+    </div>
+    <h2>Introduction: Stack & Queue Essentials</h2>
+    <p class="lead">Stacks and queues are linear data structures defined by how you access elements. Understanding when to use each, and mastering the monotonic stack pattern, will accelerate your interview performance.</p>
+
+    <h3>Stack&lt;T&gt; in C#</h3>
+    <p>Last-In-First-Out (LIFO). Elements added and removed from the same end (the top).</p>
+    <div class="code-block">
+      <div class="code-bar">
+        <span class="code-lang">C#</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      <pre><span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt;();
+<span class="va">stack</span>.<span class="fn">Push</span>(<span class="num">5</span>);     <span class="cm">// O(1)</span>
+<span class="ty">int</span> <span class="va">top</span> = <span class="va">stack</span>.<span class="fn">Pop</span>();  <span class="cm">// O(1), throws if empty</span>
+<span class="ty">int</span> <span class="va">peek</span> = <span class="va">stack</span>.<span class="fn">Peek</span>();  <span class="cm">// O(1), throws if empty</span>
+<span class="ty">int</span> <span class="va">count</span> = <span class="va">stack</span>.<span class="prop">Count</span>;  <span class="cm">// O(1)</span>
+<span class="ty">bool</span> <span class="va">empty</span> = <span class="va">stack</span>.<span class="prop">Count</span> == <span class="num">0</span>;</pre>
+    </div>
+
+    <h3>Queue&lt;T&gt; in C#</h3>
+    <p>First-In-First-Out (FIFO). Elements added to the rear, removed from the front.</p>
+    <div class="code-block">
+      <div class="code-bar">
+        <span class="code-lang">C#</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      <pre><span class="kw">var</span> <span class="va">queue</span> = <span class="kw">new</span> <span class="fn">Queue</span>&lt;<span class="ty">int</span>&gt;();
+<span class="va">queue</span>.<span class="fn">Enqueue</span>(<span class="num">5</span>);     <span class="cm">// O(1) amortized</span>
+<span class="ty">int</span> <span class="va">front</span> = <span class="va">queue</span>.<span class="fn">Dequeue</span>();  <span class="cm">// O(1) amortized, throws if empty</span>
+<span class="ty">int</span> <span class="va">peek</span> = <span class="va">queue</span>.<span class="fn">Peek</span>();  <span class="cm">// O(1), throws if empty</span>
+<span class="ty">int</span> <span class="va">count</span> = <span class="va">queue</span>.<span class="prop">Count</span>;  <span class="cm">// O(1)</span></pre>
+    </div>
+
+    <h3>Monotonic Stack Pattern</h3>
+    <p>A stack that maintains elements in a specific order (increasing or decreasing). Useful for "next greater/smaller element" problems and span problems.</p>
+    <div class="code-block">
+      <div class="code-bar">
+        <span class="code-lang">C# (Template)</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+      <pre><span class="cm">// Find next greater element for each element</span>
+<span class="ty">int</span>[] <span class="va">nums</span> = <span class="kw">new</span>[] { <span class="num">1</span>, <span class="num">3</span>, <span class="num">2</span>, <span class="num">4</span> };
+<span class="ty">int</span>[] <span class="va">result</span> = <span class="kw">new</span> <span class="ty">int</span>[<span class="va">nums</span>.<span class="prop">Length</span>];
+<span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt;(); <span class="cm">// store indices</span>
+
+<span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="va">nums</span>.<span class="prop">Length</span> - <span class="num">1</span>; <span class="va">i</span> &gt;= <span class="num">0</span>; <span class="va">i</span>--) {
+    <span class="cm">// Pop smaller elements</span>
+    <span class="kw">while</span> (<span class="va">stack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span> &amp;&amp; <span class="va">nums</span>[<span class="va">stack</span>.<span class="fn">Peek</span>()] &lt;= <span class="va">nums</span>[<span class="va">i</span>]) {
+        <span class="va">stack</span>.<span class="fn">Pop</span>();
+    }
+    <span class="va">result</span>[<span class="va">i</span>] = <span class="va">stack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span> ? <span class="va">nums</span>[<span class="va">stack</span>.<span class="fn">Peek</span>()] : -<span class="num">1</span>;
+    <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">i</span>);
+}</pre>
+    </div>
+
+    <div class="tips">
+      <div class="tip-card g">
+        <div class="tip-n">When to use Stack</div>
+        <div class="tip-title">LIFO Access</div>
+        <div class="tip-body">Matching pairs (parentheses), undo/redo, DFS, backtracking, evaluating expressions.</div>
+      </div>
+      <div class="tip-card b">
+        <div class="tip-n">When to use Queue</div>
+        <div class="tip-title">FIFO Access</div>
+        <div class="tip-body">Level-order traversal, BFS, task scheduling, buffering data streams.</div>
+      </div>
+      <div class="tip-card a">
+        <div class="tip-n">Monotonic Stack</div>
+        <div class="tip-title">Optimize Span Queries</div>
+        <div class="tip-body">Next/previous greater/smaller, histogram area, stock span. Reduces O(n²) to O(n).</div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="problems" class="section">
+    <div class="sec-tag">
+      <span class="sec-num">PROBLEMS 1–12</span>
+      <div class="sec-line"></div>
+    </div>
+    <h2>12 Core Stack & Queue Problems</h2>
+
+    <!-- Problem 1: Valid Parentheses -->
+    <div id="p1" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Valid Parentheses</div>
+          <p class="algo-desc">Given a string containing only '(', ')', '{', '}', '[', ']', determine if it is valid. A valid string has every opening bracket matched by a closing bracket of the same type in the correct order.</p>
+          <div class="algo-tags">
+            <span class="badge b-green">Easy</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+            <span class="badge b-orange">Amazon</span>
+          </div>
+        </div>
+        <div class="algo-idx">1</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Given a string <code class="il">s</code> containing characters '(', ')', '{', '}', '[', and ']', return <code class="il">true</code> if the string is valid, false otherwise.</p>
+
+        <h3>Approach: Stack</h3>
+        <p>Push opening brackets onto a stack. When you encounter a closing bracket, check if the stack top matches. If yes, pop; if no or stack is empty, return false. At the end, stack must be empty.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">bool</span> <span class="fn">IsValid</span>(<span class="ty">string</span> <span class="va">s</span>) {
+    <span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">char</span>&gt;();
+
+    <span class="kw">foreach</span> (<span class="ty">char</span> <span class="va">c</span> <span class="kw">in</span> <span class="va">s</span>) {
+        <span class="kw">if</span> (<span class="va">c</span> == <span class="str">'('</span> || <span class="va">c</span> == <span class="str">'{'</span> || <span class="va">c</span> == <span class="str">'['</span>) {
+            <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">c</span>);
+        } <span class="kw">else</span> {
+            <span class="kw">if</span> (<span class="va">stack</span>.<span class="prop">Count</span> == <span class="num">0</span>) <span class="kw">return</span> <span class="kw">false</span>;
+            <span class="ty">char</span> <span class="va">top</span> = <span class="va">stack</span>.<span class="fn">Pop</span>();
+            <span class="kw">if</span> ((<span class="va">c</span> == <span class="str">')'</span> &amp;&amp; <span class="va">top</span> != <span class="str">'('</span>) ||
+                (<span class="va">c</span> == <span class="str">'}'</span> &amp;&amp; <span class="va">top</span> != <span class="str">'{'</span>) ||
+                (<span class="va">c</span> == <span class="str">']'</span> &amp;&amp; <span class="va">top</span> != <span class="str">'['</span>)) {
+                <span class="kw">return</span> <span class="kw">false</span>;
+            }
+        }
+    }
+
+    <span class="kw">return</span> <span class="va">stack</span>.<span class="prop">Count</span> == <span class="num">0</span>;
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: s = "{[]}"</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">c='{': opening, push. Stack=['{']</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">c='[': opening, push. Stack=['{', '[']</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">c=']': closing, pop '[', matches. Stack=['{']</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">c='}': closing, pop '{', matches. Stack=[]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">Stack empty → return true</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Single closing bracket → return false (stack empty when popping)</li>
+          <li>Mismatched closing bracket → return false (top doesn't match)</li>
+          <li>Unclosed opening bracket → return false (stack not empty at end)</li>
+          <li>Empty string → return true (vacuously valid)</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> Mention using a HashMap to map closing to opening brackets for cleaner matching. This scales better if you add new bracket types.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 2: Min Stack -->
+    <div id="p2" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Min Stack</div>
+          <p class="algo-desc">Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Apple</span>
+          </div>
+        </div>
+        <div class="algo-idx">2</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Implement a MinStack class with methods <code class="il">Push(val)</code>, <code class="il">Pop()</code>, <code class="il">Top()</code>, and <code class="il">GetMin()</code>. All operations must run in O(1).</p>
+
+        <h3>Approach: Dual Stack</h3>
+        <p>Maintain two stacks: one for all values, one for minimums. When pushing, also push the new minimum (min of current value and previous minimum) to the min stack.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">class</span> <span class="fn">MinStack</span> {
+    <span class="kw">private</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt; <span class="va">stack</span>;
+    <span class="kw">private</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt; <span class="va">minStack</span>;
+
+    <span class="kw">public</span> <span class="fn">MinStack</span>() {
+        <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt;();
+        <span class="va">minStack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt;();
+    }
+
+    <span class="kw">public</span> <span class="ty">void</span> <span class="fn">Push</span>(<span class="ty">int</span> <span class="va">val</span>) {
+        <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">val</span>);
+        <span class="ty">int</span> <span class="va">minVal</span> = <span class="va">minStack</span>.<span class="prop">Count</span> == <span class="num">0</span>
+            ? <span class="va">val</span>
+            : <span class="fn">Math</span>.<span class="fn">Min</span>(<span class="va">val</span>, <span class="va">minStack</span>.<span class="fn">Peek</span>());
+        <span class="va">minStack</span>.<span class="fn">Push</span>(<span class="va">minVal</span>);
+    }
+
+    <span class="kw">public</span> <span class="ty">void</span> <span class="fn">Pop</span>() {
+        <span class="va">stack</span>.<span class="fn">Pop</span>();
+        <span class="va">minStack</span>.<span class="fn">Pop</span>();
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">Top</span>() =&gt; <span class="va">stack</span>.<span class="fn">Peek</span>();
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">GetMin</span>() =&gt; <span class="va">minStack</span>.<span class="fn">Peek</span>();
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(1) each</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: Push 3, 1, 4, 1, 5; GetMin(); Pop</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">Push(3): stack=[3], minStack=[3]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">Push(1): stack=[3,1], minStack=[3,1]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">Push(4): stack=[3,1,4], minStack=[3,1,1]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">GetMin(): minStack.Peek()=1 ✓</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">Pop(): stack=[3,1], minStack=[3,1]</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Single element → getMin equals that element</li>
+          <li>Duplicates → minStack stores each duplicate</li>
+          <li>Negative numbers → minStack handles correctly</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> Can optimize space by only pushing to minStack when value ≤ current min. Requires storing the value in the main pop logic.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 3: Evaluate RPN -->
+    <div id="p3" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Evaluate Reverse Polish Notation</div>
+          <p class="algo-desc">Given an array of tokens representing a mathematical expression in Reverse Polish Notation (RPN), evaluate and return the result.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Microsoft</span>
+            <span class="badge b-orange">Apple</span>
+          </div>
+        </div>
+        <div class="algo-idx">3</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>In RPN, the operator follows the operands. For example, "3 4 +" means 3 + 4. Evaluate the expression and return the result as an integer.</p>
+
+        <h3>Approach: Stack</h3>
+        <p>Iterate through tokens. Push numbers; when you see an operator, pop two operands, apply the operation, and push the result back. Final stack contains one element: the answer.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span> <span class="fn">EvalRPN</span>(<span class="ty">string</span>[] <span class="va">tokens</span>) {
+    <span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">long</span>&gt;();
+    <span class="ty">var</span> <span class="va">ops</span> = <span class="kw">new</span> <span class="fn">HashSet</span>&lt;<span class="ty">string</span>&gt;() { <span class="str">"+"</span>, <span class="str">"-"</span>, <span class="str">"*"</span>, <span class="str">"/"</span> };
+
+    <span class="kw">foreach</span> (<span class="ty">string</span> <span class="va">token</span> <span class="kw">in</span> <span class="va">tokens</span>) {
+        <span class="kw">if</span> (<span class="va">ops</span>.<span class="fn">Contains</span>(<span class="va">token</span>)) {
+            <span class="ty">long</span> <span class="va">b</span> = <span class="va">stack</span>.<span class="fn">Pop</span>();
+            <span class="ty">long</span> <span class="va">a</span> = <span class="va">stack</span>.<span class="fn">Pop</span>();
+            <span class="ty">long</span> <span class="va">result</span> = <span class="va">token</span> <span class="kw">switch</span> {
+                <span class="str">"+"</span> =&gt; <span class="va">a</span> + <span class="va">b</span>,
+                <span class="str">"-"</span> =&gt; <span class="va">a</span> - <span class="va">b</span>,
+                <span class="str">"*"</span> =&gt; <span class="va">a</span> * <span class="va">b</span>,
+                <span class="str">"/"</span> =&gt; <span class="va">a</span> / <span class="va">b</span>,
+                _ =&gt; <span class="num">0</span>
+            };
+            <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">result</span>);
+        } <span class="kw">else</span> {
+            <span class="va">stack</span>.<span class="fn">Push</span>(<span class="ty">long</span>.<span class="fn">Parse</span>(<span class="va">token</span>));
+        }
+    }
+
+    <span class="kw">return</span> (<span class="ty">int</span>)<span class="va">stack</span>.<span class="fn">Peek</span>();
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: ["2", "1", "+", "3", "*"]</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">Push 2: stack=[2]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">Push 1: stack=[2, 1]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">Op '+': pop 1, pop 2, push 2+1=3. stack=[3]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">Push 3: stack=[3, 3]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">Op '*': pop 3, pop 3, push 3*3=9. Result=9</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Division by zero → undefined (assume valid input)</li>
+          <li>Integer overflow in intermediate results → use long</li>
+          <li>Negative operands → handle correctly with subtraction/division</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> Use long to avoid overflow before casting back to int. Mention division truncates towards zero in C#, which differs from Python.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 4: Generate Parentheses -->
+    <div id="p4" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Generate Parentheses</div>
+          <p class="algo-desc">Given n pairs of parentheses, generate all combinations of well-formed parentheses.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Facebook</span>
+          </div>
+        </div>
+        <div class="algo-idx">4</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Given an integer <code class="il">n</code>, generate all combinations of <code class="il">n</code> pairs of well-matched parentheses as a list of strings.</p>
+
+        <h3>Approach: Backtracking</h3>
+        <p>Use a recursive helper that tracks open and close counts. Add '(' if open < n, add ')' if close < open. This ensures we never close more than we open and always have valid parentheses.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="fn">IList</span>&lt;<span class="ty">string</span>&gt; <span class="fn">GenerateParenthesis</span>(<span class="ty">int</span> <span class="va">n</span>) {
+    <span class="kw">var</span> <span class="va">result</span> = <span class="kw">new</span> <span class="fn">List</span>&lt;<span class="ty">string</span>&gt;();
+    <span class="fn">Backtrack</span>(<span class="va">result</span>, <span class="str">""</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="va">n</span>);
+    <span class="kw">return</span> <span class="va">result</span>;
+}
+
+<span class="kw">private</span> <span class="ty">void</span> <span class="fn">Backtrack</span>(<span class="fn">IList</span>&lt;<span class="ty">string</span>&gt; <span class="va">result</span>, <span class="ty">string</span> <span class="va">current</span>,
+                        <span class="ty">int</span> <span class="va">open</span>, <span class="ty">int</span> <span class="va">close</span>, <span class="ty">int</span> <span class="va">n</span>) {
+    <span class="kw">if</span> (<span class="va">open</span> == <span class="va">n</span> &amp;&amp; <span class="va">close</span> == <span class="va">n</span>) {
+        <span class="va">result</span>.<span class="fn">Add</span>(<span class="va">current</span>);
+        <span class="kw">return</span>;
+    }
+
+    <span class="kw">if</span> (<span class="va">open</span> &lt; <span class="va">n</span>) {
+        <span class="fn">Backtrack</span>(<span class="va">result</span>, <span class="va">current</span> + <span class="str">"("</span>, <span class="va">open</span> + <span class="num">1</span>, <span class="va">close</span>, <span class="va">n</span>);
+    }
+
+    <span class="kw">if</span> (<span class="va">close</span> &lt; <span class="va">open</span>) {
+        <span class="fn">Backtrack</span>(<span class="va">result</span>, <span class="va">current</span> + <span class="str">")"</span>, <span class="va">open</span>, <span class="va">close</span> + <span class="num">1</span>, <span class="va">n</span>);
+    }
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(4^n / √n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: n=2</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">Start: "", open=0, close=0</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">Add '(': "(", open=1, close=0</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">Add '(': "((", open=2, close=0</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">Add ')': "(()", open=2, close=1 → "())" → valid</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">Backtrack, try "()" → "()()" valid</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>n=0 → empty string (one valid combination)</li>
+          <li>n=1 → one valid combination "()"</li>
+          <li>n=3 → 5 valid combinations (Catalan number C_3)</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> The count of valid parentheses strings of length n is the nth Catalan number. This grows exponentially; mention why optimization via memoization isn't helpful here (state space is huge).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 5: Daily Temperatures -->
+    <div id="p5" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Daily Temperatures</div>
+          <p class="algo-desc">Given daily temperatures, for each day find the number of days you have to wait until you get a warmer temperature. If no future day is warmer, put 0.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">5</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Given an array of daily temperatures, return an array where each element is the number of days you have to wait from that day to get a warmer temperature.</p>
+
+        <h3>Approach: Monotonic Stack</h3>
+        <p>Traverse from right to left, maintaining a decreasing stack of indices. For each temperature, pop all smaller temperatures (they're blocked by the current one), then the stack top is the next warmer day.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span>[] <span class="fn">DailyTemperatures</span>(<span class="ty">int</span>[] <span class="va">temperatures</span>) {
+    <span class="ty">int</span> <span class="va">n</span> = <span class="va">temperatures</span>.<span class="prop">Length</span>;
+    <span class="ty">int</span>[] <span class="va">result</span> = <span class="kw">new</span> <span class="ty">int</span>[<span class="va">n</span>];
+    <span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt;(); <span class="cm">// store indices</span>
+
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="va">n</span> - <span class="num">1</span>; <span class="va">i</span> &gt;= <span class="num">0</span>; <span class="va">i</span>--) {
+        <span class="cm">// Pop all indices with smaller or equal temperatures</span>
+        <span class="kw">while</span> (<span class="va">stack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span> &amp;&amp;
+               <span class="va">temperatures</span>[<span class="va">stack</span>.<span class="fn">Peek</span>()] &lt;= <span class="va">temperatures</span>[<span class="va">i</span>]) {
+            <span class="va">stack</span>.<span class="fn">Pop</span>();
+        }
+
+        <span class="cm">// Stack top is next warmer day (or empty if none)</span>
+        <span class="va">result</span>[<span class="va">i</span>] = <span class="va">stack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span> ? <span class="va">stack</span>.<span class="fn">Peek</span>() - <span class="va">i</span> : <span class="num">0</span>;
+        <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">i</span>);
+    }
+
+    <span class="kw">return</span> <span class="va">result</span>;
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: [73, 74, 75, 71, 69, 72, 76, 73]</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">i=7 (73): stack empty → result[7]=0. Push 7. stack=[7]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">i=6 (76): 73 &lt; 76, pop. stack empty → result[6]=0. Push 6. stack=[6]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">i=5 (72): 76 &gt; 72, don't pop → result[5]=6-5=1. Push 5. stack=[6,5]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">Continue rightward...</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">Final: [1, 1, 4, 2, 1, 1, 0, 0]</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Strictly increasing temperatures → stack grows, all pops happen right-to-left</li>
+          <li>Strictly decreasing temperatures → all results 0 (no warmer day)</li>
+          <li>All equal temperatures → all results 0</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> This is the canonical monotonic stack problem. Emphasize the right-to-left traversal and the invariant that the stack is always decreasing.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 6: Largest Rectangle in Histogram -->
+    <div id="p6" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Largest Rectangle in Histogram</div>
+          <p class="algo-desc">Given an array of bar heights, find the largest area of a rectangle that can be formed.</p>
+          <div class="algo-tags">
+            <span class="badge b-red">Hard</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Microsoft</span>
+          </div>
+        </div>
+        <div class="algo-idx">6</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Given an array <code class="il">heights</code> representing bar heights, find the maximal area of a rectangle that can be formed by selecting contiguous bars.</p>
+
+        <h3>Approach: Monotonic Stack</h3>
+        <p>For each bar, find the leftmost and rightmost bars that are at least as tall. Use a monotonic stack to track indices. For each bar popped, calculate the area with that bar's height using the span between the popped index and current index.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span> <span class="fn">LargestRectangleArea</span>(<span class="ty">int</span>[] <span class="va">heights</span>) {
+    <span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt;();
+    <span class="ty">int</span> <span class="va">maxArea</span> = <span class="num">0</span>;
+    <span class="ty">int</span> <span class="va">n</span> = <span class="va">heights</span>.<span class="prop">Length</span>;
+
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="num">0</span>; <span class="va">i</span> &lt;= <span class="va">n</span>; <span class="va">i</span>++) {
+        <span class="ty">int</span> <span class="va">h</span> = <span class="va">i</span> == <span class="va">n</span> ? <span class="num">0</span> : <span class="va">heights</span>[<span class="va">i</span>];
+
+        <span class="cm">// Pop and calculate area for all taller bars</span>
+        <span class="kw">while</span> (<span class="va">stack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span> &amp;&amp; <span class="va">heights</span>[<span class="va">stack</span>.<span class="fn">Peek</span>()] &gt; <span class="h">h</span>) {
+            <span class="ty">int</span> <span class="va">idx</span> = <span class="va">stack</span>.<span class="fn">Pop</span>();
+            <span class="ty">int</span> <span class="va">width</span> = <span class="va">stack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span> ? <span class="va">i</span> - <span class="va">stack</span>.<span class="fn">Peek</span>() - <span class="num">1</span> : <span class="va">i</span>;
+            <span class="ty">int</span> <span class="va">area</span> = <span class="va">heights</span>[<span class="va">idx</span>] * <span class="va">width</span>;
+            <span class="va">maxArea</span> = <span class="fn">Math</span>.<span class="fn">Max</span>(<span class="va">maxArea</span>, <span class="va">area</span>);
+        }
+
+        <span class="kw">if</span> (<span class="va">i</span> &lt; <span class="va">n</span>) <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">i</span>);
+    }
+
+    <span class="kw">return</span> <span class="va">maxArea</span>;
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: [2, 1, 5, 6, 2, 3]</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">Push 0 (h=2). stack=[0]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">i=1 (h=1): 2&gt;1, pop 0. Width=1, area=2. Push 1. stack=[1]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">i=2 (h=5): 1&lt;5, push 2. stack=[1,2]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">i=3 (h=6): 5&lt;6, push 3. stack=[1,2,3]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">i=4 (h=2): pop 3,2; max area=10 (h=6, w=1; h=5, w=2)</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Single bar → area = height of that bar</li>
+          <li>All equal heights → area = height × length</li>
+          <li>Empty array → area = 0</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> The key insight is adding a sentinel 0 at the end to flush the stack. When you pop, the width spans from the new stack top to current index.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 7: Car Fleet -->
+    <div id="p7" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Car Fleet</div>
+          <p class="algo-desc">N cars are heading to a destination. Each car has a position and speed. A car catches up to the car in front and they form a fleet. Find the number of fleets.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">7</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Given target distance, positions, and speeds of N cars, determine how many car fleets will reach the target. Cars that catch up form a single fleet.</p>
+
+        <h3>Approach: Sort & Stack</h3>
+        <p>Sort by position. For each car from right to left, compute time to target. If a car's time is greater than the previous (slower) car's time, it's a new fleet. Use a stack to track fleet times.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span> <span class="fn">CarFleet</span>(<span class="ty">int</span> <span class="va">target</span>, <span class="ty">int</span>[] <span class="va">position</span>, <span class="ty">int</span>[] <span class="va">speed</span>) {
+    <span class="kw">if</span> (<span class="va">position</span>.<span class="prop">Length</span> == <span class="num">0</span>) <span class="kw">return</span> <span class="num">0</span>;
+
+    <span class="cm">// Create array of (position, speed) and sort by position</span>
+    <span class="kw">var</span> <span class="va">cars</span> = <span class="kw">new</span> <span class="fn">List</span>&lt;(<span class="ty">int</span>, <span class="ty">int</span>)&gt;();
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="num">0</span>; <span class="va">i</span> &lt; <span class="va">position</span>.<span class="prop">Length</span>; <span class="va">i</span>++) {
+        <span class="va">cars</span>.<span class="fn">Add</span>((<span class="va">position</span>[<span class="va">i</span>], <span class="va">speed</span>[<span class="va">i</span>]));
+    }
+    <span class="va">cars</span>.<span class="fn">Sort</span>();
+
+    <span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">double</span>&gt;(); <span class="cm">// store times</span>
+
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="va">cars</span>.<span class="prop">Count</span> - <span class="num">1</span>; <span class="va">i</span> &gt;= <span class="num">0</span>; <span class="va">i</span>--) {
+        <span class="ty">double</span> <span class="va">time</span> = (<span class="ty">double</span>)(<span class="va">target</span> - <span class="va">cars</span>[<span class="va">i</span>].<span class="fn">Item1</span>) / <span class="va">cars</span>[<span class="va">i</span>].<span class="fn">Item2</span>;
+
+        <span class="cm">// If faster than car ahead, it's a new fleet</span>
+        <span class="kw">if</span> (<span class="va">stack</span>.<span class="prop">Count</span> == <span class="num">0</span> || <span class="va">time</span> &gt; <span class="va">stack</span>.<span class="fn">Peek</span>()) {
+            <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">time</span>);
+        }
+    }
+
+    <span class="kw">return</span> <span class="va">stack</span>.<span class="prop">Count</span>;
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n log n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: target=12, position=[10,8,0,5,3], speed=[2,4,1,1,3]</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">Sort cars by position: [(0,1), (3,3), (5,1), (8,4), (10,2)]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">From right: (10,2) time=1. stack=[1]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">(8,4) time=1. 1≤1, merge. stack=[1]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">(5,1) time=7. 7&gt;1, new fleet. stack=[1,7]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">Result: 3 fleets</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Single car → 1 fleet</li>
+          <li>All cars have same speed → 1 fleet (if sorted by position)</li>
+          <li>Car already at target → time = 0</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> The stack stores times. A new fleet is formed only if the current car's time exceeds the previous (slower) fleet's time.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 8: Implement Queue using Stacks -->
+    <div id="p8" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Implement Queue using Stacks</div>
+          <p class="algo-desc">Implement a queue using two stacks. Support enqueue, dequeue, peek, and empty operations.</p>
+          <div class="algo-tags">
+            <span class="badge b-green">Easy</span>
+            <span class="badge b-orange">Apple</span>
+            <span class="badge b-orange">Meta</span>
+          </div>
+        </div>
+        <div class="algo-idx">8</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Design a queue class that uses two stacks. Enqueue should be O(1), and amortized dequeue should be O(1).</p>
+
+        <h3>Approach: Two Stacks</h3>
+        <p>Use one stack for enqueue, and flip everything to another stack for dequeue. On dequeue, if the dequeue stack is empty, reverse the enqueue stack into it.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">class</span> <span class="fn">MyQueue</span> {
+    <span class="kw">private</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt; <span class="va">inStack</span>;   <span class="cm">// for enqueue</span>
+    <span class="kw">private</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt; <span class="va">outStack</span>;  <span class="cm">// for dequeue</span>
+
+    <span class="kw">public</span> <span class="fn">MyQueue</span>() {
+        <span class="va">inStack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt;();
+        <span class="va">outStack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt;();
+    }
+
+    <span class="kw">public</span> <span class="ty">void</span> <span class="fn">Push</span>(<span class="ty">int</span> <span class="va">x</span>) {
+        <span class="va">inStack</span>.<span class="fn">Push</span>(<span class="va">x</span>);
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">Pop</span>() {
+        <span class="fn">Peek</span>(); <span class="cm">// Ensure outStack is filled</span>
+        <span class="kw">return</span> <span class="va">outStack</span>.<span class="fn">Pop</span>();
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">Peek</span>() {
+        <span class="kw">if</span> (<span class="va">outStack</span>.<span class="prop">Count</span> == <span class="num">0</span>) {
+            <span class="cm">// Transfer all from inStack to outStack</span>
+            <span class="kw">while</span> (<span class="va">inStack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span>) {
+                <span class="va">outStack</span>.<span class="fn">Push</span>(<span class="va">inStack</span>.<span class="fn">Pop</span>());
+            }
+        }
+        <span class="kw">return</span> <span class="va">outStack</span>.<span class="fn">Peek</span>();
+    }
+
+    <span class="kw">public</span> <span class="ty">bool</span> <span class="fn">Empty</span>() {
+        <span class="kw">return</span> <span class="va">inStack</span>.<span class="prop">Count</span> == <span class="num">0</span> &amp;&amp; <span class="va">outStack</span>.<span class="prop">Count</span> == <span class="num">0</span>;
+    }
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Push</div>
+            <div class="cx-v">O(1)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Pop</div>
+            <div class="cx-v">O(1) amortized</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: Push 1,2,3; Pop; Pop</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">Push(1): inStack=[1], outStack=[]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">Push(2): inStack=[1,2], outStack=[]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">Push(3): inStack=[1,2,3], outStack=[]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">Pop(): Peek() flips. inStack=[], outStack=[3,2,1]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">Return 1, Pop outStack</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Queue with one element → Pop returns it</li>
+          <li>Multiple Peek calls → outStack unchanged after first flip</li>
+          <li>Interleaved Push/Pop → both stacks can be non-empty</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> Each element is pushed once and popped once. The amortized analysis gives O(1) per operation. Explain why flipping is lazy (only done when outStack empties).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 9: Implement Stack using Queues -->
+    <div id="p9" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Implement Stack using Queues</div>
+          <p class="algo-desc">Implement a stack using one or two queues. Support push, pop, top, and empty operations.</p>
+          <div class="algo-tags">
+            <span class="badge b-green">Easy</span>
+            <span class="badge b-orange">Google</span>
+          </div>
+        </div>
+        <div class="algo-idx">9</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Design a stack class using queue(s). Push, pop, top, and empty must work correctly.</p>
+
+        <h3>Approach: Single Queue</h3>
+        <p>Use one queue. On push, add the element and rotate the queue so the new element is at the front. On pop, simply dequeue. This makes pop O(1) but push O(n).</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">class</span> <span class="fn">MyStack</span> {
+    <span class="kw">private</span> <span class="fn">Queue</span>&lt;<span class="ty">int</span>&gt; <span class="va">queue</span>;
+
+    <span class="kw">public</span> <span class="fn">MyStack</span>() {
+        <span class="va">queue</span> = <span class="kw">new</span> <span class="fn">Queue</span>&lt;<span class="ty">int</span>&gt;();
+    }
+
+    <span class="kw">public</span> <span class="ty">void</span> <span class="fn">Push</span>(<span class="ty">int</span> <span class="va">x</span>) {
+        <span class="va">queue</span>.<span class="fn">Enqueue</span>(<span class="va">x</span>);
+        <span class="cm">// Rotate so new element is at front</span>
+        <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="num">0</span>; <span class="va">i</span> &lt; <span class="va">queue</span>.<span class="prop">Count</span> - <span class="num">1</span>; <span class="va">i</span>++) {
+            <span class="va">queue</span>.<span class="fn">Enqueue</span>(<span class="va">queue</span>.<span class="fn">Dequeue</span>());
+        }
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">Pop</span>() {
+        <span class="kw">return</span> <span class="va">queue</span>.<span class="fn">Dequeue</span>();
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">Top</span>() {
+        <span class="kw">return</span> <span class="va">queue</span>.<span class="fn">Peek</span>();
+    }
+
+    <span class="kw">public</span> <span class="ty">bool</span> <span class="fn">Empty</span>() {
+        <span class="kw">return</span> <span class="va">queue</span>.<span class="prop">Count</span> == <span class="num">0</span>;
+    }
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Push</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Pop</div>
+            <div class="cx-v">O(1)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: Push 1, 2; Pop; Top</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">Push(1): queue=[1]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">Push(2): enqueue 2, queue=[1,2]. Rotate: queue=[2,1]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">Pop(): dequeue from queue=[2,1]. Return 2</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">Top(): peek queue=[1]. Return 1</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Single element → Pop and Top work correctly</li>
+          <li>Empty stack → Pop/Top throw (inherit Queue behavior)</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> Trade-off: push is expensive (O(n)) but pop is cheap (O(1)). Contrast with a two-queue solution where push is O(1) but pop is O(n).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 10: Next Greater Element I -->
+    <div id="p10" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Next Greater Element I</div>
+          <p class="algo-desc">Given two arrays, find the next greater element in the second array for each element in the first array.</p>
+          <div class="algo-tags">
+            <span class="badge b-green">Easy</span>
+            <span class="badge b-orange">Google</span>
+          </div>
+        </div>
+        <div class="algo-idx">10</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Given two arrays (first is a subset of second), find the next greater element in the second array for each element in the first array. If no such element exists, return -1.</p>
+
+        <h3>Approach: Monotonic Stack + HashMap</h3>
+        <p>Process the second array right-to-left using a decreasing stack. For each element, pop all smaller elements, then the stack top (if exists) is the next greater. Store results in a HashMap.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span>[] <span class="fn">NextGreaterElement</span>(<span class="ty">int</span>[] <span class="va">nums1</span>, <span class="ty">int</span>[] <span class="va">nums2</span>) {
+    <span class="kw">var</span> <span class="va">map</span> = <span class="kw">new</span> <span class="fn">Dictionary</span>&lt;<span class="ty">int</span>, <span class="ty">int</span>&gt;();
+    <span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">int</span>&gt;();
+
+    <span class="cm">// Process nums2 from right to left</span>
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="va">nums2</span>.<span class="prop">Length</span> - <span class="num">1</span>; <span class="va">i</span> &gt;= <span class="num">0</span>; <span class="va">i</span>--) {
+        <span class="cm">// Pop all smaller elements</span>
+        <span class="kw">while</span> (<span class="va">stack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span> &amp;&amp; <span class="va">stack</span>.<span class="fn">Peek</span>() &lt;= <span class="va">nums2</span>[<span class="va">i</span>]) {
+            <span class="va">stack</span>.<span class="fn">Pop</span>();
+        }
+
+        <span class="cm">// Stack top is next greater (or -1 if empty)</span>
+        <span class="va">map</span>[<span class="va">nums2</span>[<span class="va">i</span>]] = <span class="va">stack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span> ? <span class="va">stack</span>.<span class="fn">Peek</span>() : -<span class="num">1</span>;
+        <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">nums2</span>[<span class="va">i</span>]);
+    }
+
+    <span class="cm">// Build result for nums1</span>
+    <span class="ty">int</span>[] <span class="va">result</span> = <span class="kw">new</span> <span class="ty">int</span>[<span class="va">nums1</span>.<span class="prop">Length</span>];
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="num">0</span>; <span class="va">i</span> &lt; <span class="va">nums1</span>.<span class="prop">Length</span>; <span class="va">i</span>++) {
+        <span class="va">result</span>[<span class="va">i</span>] = <span class="va">map</span>[<span class="va">nums1</span>[<span class="va">i</span>]];
+    }
+    <span class="kw">return</span> <span class="va">result</span>;
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n+m)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(m)</div>
+          </div>
+        </div>
+
+        <h3>Trace: nums1=[1,3,4], nums2=[1,3,4,2]</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">i=3 (2): stack empty, map[2]=-1. Push 2. stack=[2]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">i=2 (4): 2≤4, pop. stack empty, map[4]=-1. Push 4. stack=[4]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">i=1 (3): 4&gt;3, no pop. map[3]=4. Push 3. stack=[4,3]</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">i=0 (1): 3&gt;1, 4&gt;1, no pop. map[1]=4. Push 1.</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">Result: [4, 4, -1]</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>nums1 and nums2 are the same → all or mostly -1</li>
+          <li>nums2 is strictly decreasing → all -1</li>
+          <li>nums2 is strictly increasing → all have next greater (except last)</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> HashMap decouples the two arrays. You could also use TryGetValue for safe lookups if nums1 had elements not in nums2 (violates problem spec but good defensive coding).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 11: Decode String -->
+    <div id="p11" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Decode String</div>
+          <p class="algo-desc">Given an encoded string, decode it. For example, "3[a2[c]]" becomes "accaccacc".</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Facebook</span>
+          </div>
+        </div>
+        <div class="algo-idx">11</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>The pattern is k[encoded_string] where k is a number. Nested encodings are allowed. Decode and return the final string.</p>
+
+        <h3>Approach: Stack</h3>
+        <p>Use a stack of strings. Iterate through characters: push non-bracket characters, push strings when hitting ']' by popping and reconstructing with the multiplier.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">string</span> <span class="fn">DecodeString</span>(<span class="ty">string</span> <span class="va">s</span>) {
+    <span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">string</span>&gt;();
+    <span class="ty">string</span> <span class="va">current</span> = <span class="str">""</span>;
+    <span class="ty">int</span> <span class="va">num</span> = <span class="num">0</span>;
+
+    <span class="kw">foreach</span> (<span class="ty">char</span> <span class="va">c</span> <span class="kw">in</span> <span class="va">s</span>) {
+        <span class="kw">if</span> (<span class="ty">char</span>.<span class="fn">IsDigit</span>(<span class="va">c</span>)) {
+            <span class="va">num</span> = <span class="va">num</span> * <span class="num">10</span> + (<span class="va">c</span> - <span class="str">'0'</span>);
+        } <span class="kw">else</span> <span class="kw">if</span> (<span class="va">c</span> == <span class="str">'['</span>) {
+            <span class="cm">// Push current string and number to stack</span>
+            <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">current</span>);
+            <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">num</span>.<span class="fn">ToString</span>());
+            <span class="va">current</span> = <span class="str">""</span>;
+            <span class="va">num</span> = <span class="num">0</span>;
+        } <span class="kw">else</span> <span class="kw">if</span> (<span class="va">c</span> == <span class="str">']'</span>) {
+            <span class="cm">// Pop multiplier and previous string</span>
+            <span class="ty">int</span> <span class="va">count</span> = <span class="ty">int</span>.<span class="fn">Parse</span>(<span class="va">stack</span>.<span class="fn">Pop</span>());
+            <span class="ty">string</span> <span class="va">prev</span> = <span class="va">stack</span>.<span class="fn">Pop</span>();
+            <span class="va">current</span> = <span class="va">prev</span> + <span class="fn">Repeat</span>(<span class="va">current</span>, <span class="va">count</span>);
+        } <span class="kw">else</span> {
+            <span class="va">current</span> += <span class="va">c</span>;
+        }
+    }
+
+    <span class="kw">return</span> <span class="va">current</span>;
+}
+
+<span class="kw">private</span> <span class="ty">string</span> <span class="fn">Repeat</span>(<span class="ty">string</span> <span class="va">s</span>, <span class="ty">int</span> <span class="va">count</span>) {
+    <span class="ty">var</span> <span class="va">sb</span> = <span class="kw">new</span> <span class="fn">StringBuilder</span>();
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="num">0</span>; <span class="va">i</span> &lt; <span class="va">count</span>; <span class="va">i</span>++) {
+        <span class="va">sb</span>.<span class="fn">Append</span>(<span class="va">s</span>);
+    }
+    <span class="kw">return</span> <span class="va">sb</span>.<span class="fn">ToString</span>();
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n×m)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: "3[a2[c]]"</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">See '3': num=3</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">See '[': push "", push "3". current="", num=0</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">See 'a': current="a"</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">See '2': num=2</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">See '[': push "a", push "2". current="", num=0</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">6</div></div>
+            <div class="step-body">See 'c': current="c"</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">7</div></div>
+            <div class="step-body">See ']': pop 2, pop "a". current="a"+"cc"="acc"</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">8</div></div>
+            <div class="step-body">See ']': pop 3, pop "". current=""+repeat("acc",3)="accaccacc"</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Multi-digit numbers (e.g., "23[a]") → parse correctly with num*10+digit</li>
+          <li>Deeply nested (e.g., "2[2[2[a]]]") → stack handles recursion</li>
+          <li>No brackets (e.g., "abc") → return as-is</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> Use StringBuilder for repeated string concatenation to avoid O(n²) quadratic time. The stack of strings interleaves multipliers and decoded substrings elegantly.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem 12: Basic Calculator II -->
+    <div id="p12" class="algo">
+      <div class="algo-head">
+        <div>
+          <div class="algo-name">Basic Calculator II</div>
+          <p class="algo-desc">Implement a basic calculator supporting +, -, *, / with correct operator precedence. No parentheses.</p>
+          <div class="algo-tags">
+            <span class="badge b-amber">Medium</span>
+            <span class="badge b-orange">Google</span>
+            <span class="badge b-orange">Microsoft</span>
+          </div>
+        </div>
+        <div class="algo-idx">12</div>
+      </div>
+      <div class="algo-body">
+        <h3>Problem Statement</h3>
+        <p>Given a string expression with integers and operators (+, -, *, /), evaluate and return the result respecting operator precedence (* and / before + and -).</p>
+
+        <h3>Approach: Stack</h3>
+        <p>Parse the expression left-to-right. Track the last operator. For +/-, push the number (or its negation) to the stack. For */, pop the stack, compute, and push back. At the end, sum the stack.</p>
+
+        <h3>C# Solution</h3>
+        <div class="code-block">
+          <div class="code-bar">
+            <span class="code-lang">C#</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><span class="kw">public</span> <span class="ty">int</span> <span class="fn">Calculate</span>(<span class="ty">string</span> <span class="va">s</span>) {
+    <span class="kw">var</span> <span class="va">stack</span> = <span class="kw">new</span> <span class="fn">Stack</span>&lt;<span class="ty">long</span>&gt;();
+    <span class="ty">long</span> <span class="va">num</span> = <span class="num">0</span>;
+    <span class="ty">char</span> <span class="va">op</span> = <span class="str">'+'</span>;
+
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="num">0</span>; <span class="va">i</span> &lt; <span class="va">s</span>.<span class="prop">Length</span>; <span class="va">i</span>++) {
+        <span class="ty">char</span> <span class="va">c</span> = <span class="va">s</span>[<span class="va">i</span>];
+
+        <span class="cm">// Parse number</span>
+        <span class="kw">if</span> (<span class="ty">char</span>.<span class="fn">IsDigit</span>(<span class="va">c</span>)) {
+            <span class="va">num</span> = <span class="va">num</span> * <span class="num">10</span> + (<span class="va">c</span> - <span class="str">'0'</span>);
+        }
+
+        <span class="cm">// Process when we hit an operator or end of string</span>
+        <span class="kw">if</span> (!<span class="ty">char</span>.<span class="fn">IsDigit</span>(<span class="va">c</span>) &amp;&amp; <span class="va">c</span> != <span class="str">' '</span> || <span class="va">i</span> == <span class="va">s</span>.<span class="prop">Length</span> - <span class="num">1</span>) {
+            <span class="kw">switch</span> (<span class="va">op</span>) {
+                <span class="kw">case</span> <span class="str">'+'</span>:
+                    <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">num</span>);
+                    <span class="kw">break</span>;
+                <span class="kw">case</span> <span class="str">'-'</span>:
+                    <span class="va">stack</span>.<span class="fn">Push</span>(-<span class="va">num</span>);
+                    <span class="kw">break</span>;
+                <span class="kw">case</span> <span class="str">'*'</span>:
+                    <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">stack</span>.<span class="fn">Pop</span>() * <span class="va">num</span>);
+                    <span class="kw">break</span>;
+                <span class="kw">case</span> <span class="str">'/'</span>:
+                    <span class="va">stack</span>.<span class="fn">Push</span>(<span class="va">stack</span>.<span class="fn">Pop</span>() / <span class="va">num</span>);
+                    <span class="kw">break</span>;
+            }
+            <span class="va">num</span> = <span class="num">0</span>;
+            <span class="kw">if</span> (<span class="va">c</span> == <span class="str">'+'</span> || <span class="va">c</span> == <span class="str">'-'</span> || <span class="va">c</span> == <span class="str">'*'</span> || <span class="va">c</span> == <span class="str">'/'</span>) {
+                <span class="va">op</span> = <span class="va">c</span>;
+            }
+        }
+    }
+
+    <span class="cm">// Sum the stack</span>
+    <span class="ty">long</span> <span class="va">result</span> = <span class="num">0</span>;
+    <span class="kw">while</span> (<span class="va">stack</span>.<span class="prop">Count</span> &gt; <span class="num">0</span>) {
+        <span class="va">result</span> += <span class="va">stack</span>.<span class="fn">Pop</span>();
+    }
+    <span class="kw">return</span> (<span class="ty">int</span>)<span class="va">result</span>;
+}</span></pre>
+        </div>
+
+        <div class="cx-row">
+          <div class="cx">
+            <div class="cx-l">Time</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+          <div class="cx">
+            <div class="cx-l">Space</div>
+            <div class="cx-v">O(n)</div>
+          </div>
+        </div>
+
+        <h3>Trace: "14-12/2"</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-num">1</div></div>
+            <div class="step-body">Parse 1, num=1</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">2</div></div>
+            <div class="step-body">Parse 4, num=14. See '-': push +14, op='-'</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">3</div></div>
+            <div class="step-body">Parse 12, num=12. See '/': push -12 (op was '-'), op='/'</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">4</div></div>
+            <div class="step-body">Parse 2, num=2. End: pop, 12/2=6, push 6</div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-num">5</div></div>
+            <div class="step-body">Sum: 14 + (-12) + 6 = 8</div>
+          </div>
+        </div>
+
+        <h3>Edge Cases</h3>
+        <ul style="color:var(--ink2);margin-bottom:16px;padding-left:24px;">
+          <li>Spaces in input (e.g., "3 + 5") → skip them</li>
+          <li>Multi-digit numbers → parse with num*10+digit</li>
+          <li>Integer division → truncates towards zero (use long and cast)</li>
+          <li>Leading zeros (e.g., "007") → parsed as 7</li>
+        </ul>
+
+        <div class="callout tip">
+          <div class="callout-icon">→</div>
+          <div><strong>FAANG Tip:</strong> The trick is processing * and / immediately (by popping and re-pushing) while deferring + and - to the final summation. This elegantly handles precedence. Use long to avoid overflow.</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p><strong>FAANG Interview Book: Stacks & Queues</strong></p>
+    <p>Master data structures with curated problems from Google, Meta, Amazon, Microsoft, and Apple.</p>
+  </div>
+</footer>
+
+<script>
+function copyCode(btn) {
+  const codeBlock = btn.closest('.code-block');
+  const preText = codeBlock.querySelector('pre').textContent;
+  navigator.clipboard.writeText(preText).then(() => {
+    const originalText = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => {
+      btn.textContent = originalText;
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

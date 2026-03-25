@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="FAANG mock interview practice — timed problem sets simulating real interviews at Google, Amazon, Meta, Apple, and Microsoft.">
+  <meta name="keywords" content="mock interview, FAANG practice, timed coding test, interview simulation, C#">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/mock-interviews.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/mock-interviews.html">
+  <meta property="og:title" content="5 Full Mock Interviews | FAANG Interview Book">
+  <meta property="og:description" content="FAANG mock interview practice — timed problem sets simulating real interviews at Google, Amazon, Meta, Apple, and Microsoft.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/mock-interviews.html">
+  <meta name="twitter:title" content="5 Full Mock Interviews | FAANG Interview Book">
+  <meta name="twitter:description" content="FAANG mock interview practice — timed problem sets simulating real interviews at Google, Amazon, Meta, Apple, and Microsoft.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "5 Full Mock Interviews | FAANG Interview Book",
+  "description": "FAANG mock interview practice \u2014 timed problem sets simulating real interviews at Google, Amazon, Meta, Apple, and Microsoft.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/mock-interviews.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+  <title>5 Full Mock Interviews | FAANG Interview Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    :root{
+      --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+      --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+      --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+      --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+      --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+      --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+      --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+      --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+    }
+    body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+    nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+    .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+    .nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+    .nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+    .nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+    .nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+    .wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+    .hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+    .eyebrow-line{width:28px;height:2px;background:var(--acc)}
+    .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+    .hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+    .hero h1 em{font-style:normal;color:var(--acc)}
+    .hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+    .stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content}
+    .stat{padding:14px 26px;border-right:1px solid var(--rule)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+    .stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+    .toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+    .toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+    .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+    .toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+    .toc-grid a:hover{color:var(--acc)}
+    .toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+    .section{padding-top:72px}
+    .sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+    .sec-line{flex:1;height:1px;background:var(--rule)}
+    .section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+    .section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+    .section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+    .section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+    .algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+    .algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+    .algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+    .algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+    .algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+    .algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+    .algo-body{padding:28px 32px}
+    .cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+    .cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+    .cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+    .cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+    .steps{margin-bottom:26px}
+    .step{display:flex}
+    .step-left{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0}
+    .step-num{width:28px;height:28px;border-radius:50%;background:var(--acc-l);border:1.5px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0}
+    .step-vline{width:1.5px;flex:1;background:var(--rule);margin:4px 0}
+    .step:last-child .step-vline{display:none}
+    .step-body{padding:3px 0 22px 14px;font-size:14px;color:var(--ink2);line-height:1.68}
+    .step-body strong{color:var(--ink);font-weight:600}
+    code.il{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 7px;border-radius:4px;color:var(--acc)}
+    .code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+    .code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+    .copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+    .copy-btn:hover{color:#d4d0c8}
+    pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+    .kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+    .callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+    .callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+    .callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+    .callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+    .callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+    .callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+    .callout strong{color:inherit;font-weight:600}
+    .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+    .b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+    .b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+    .b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+    .b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+    .b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+    .tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--rule);margin-bottom:26px}
+    table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+    thead tr{background:var(--bg2)}
+    th{text-align:left;padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule)}
+    td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+    td:first-child{font-weight:600;color:var(--ink)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--bg)}
+    .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+    .vs-box{border-radius:10px;padding:18px 20px;border:1px solid}
+    .vs-box.good{background:var(--green-l);border-color:var(--green-b)}
+    .vs-box.bad{background:var(--red-l);border-color:var(--red-b)}
+    .vs-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+    .vs-box.good .vs-title{color:var(--green)}.vs-box.bad .vs-title{color:var(--red)}
+    .vs-item{font-size:13px;color:var(--ink2);padding:4px 0;display:flex;gap:8px;line-height:1.5}
+    .vs-item::before{content:'—';color:var(--ink4);flex-shrink:0}
+    .tips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
+    .tip-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+    .tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc)}
+    .tip-card.g::before{background:var(--green)}.tip-card.b::before{background:var(--blue)}.tip-card.a::before{background:var(--amber)}
+    .tip-n{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-bottom:8px}
+    .tip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+    .tip-body{font-size:13px;color:var(--ink2);line-height:1.65}
+    .mock-intro{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:22px 26px;margin-bottom:32px}
+    .mock-time{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+    .mock-title{font-size:19px;font-weight:700;margin-bottom:8px}
+    .mock-detail{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:6px}
+    .timer{display:inline-block;background:var(--acc-l);color:var(--acc);padding:3px 9px;border-radius:4px;font-family:var(--mono);font-size:12px;font-weight:600}
+    .problem-set{background:var(--blue-l);border-left:4px solid var(--blue);padding:18px;border-radius:8px;margin-bottom:22px}
+    .problem-title{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:6px}
+    .problem-tag{display:inline-block;background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;margin-bottom:10px}
+    .eval-box{background:var(--bg2);border:1px solid var(--rule);border-radius:10px;padding:18px;margin-bottom:22px}
+    .eval-head{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+    .eval-item{font-size:13px;color:var(--ink2);padding:8px 0;padding-left:18px;position:relative}
+    .eval-item::before{content:'✓';position:absolute;left:0;color:var(--acc)}
+    .mock-problem{margin-bottom:44px}
+    footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+    .footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+    footer p{font-size:13px;color:var(--ink3)}
+    footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+    @media(max-width:700px){
+      .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+      .vs{grid-template-columns:1fr}
+      .toc-grid{grid-template-columns:1fr}
+      .tips{grid-template-columns:1fr}
+      .stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid var(--rule)}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <span style="color:var(--acc)">◇</span> FAANG <span class="pill">Interview</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">← Index</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Final Preparation</span>
+      </div>
+      <h1>5 Full <em>Mock Interviews</em></h1>
+      <p class="hero-sub">Complete, timed simulations of real FAANG interview formats. Master the pace, manage stress, and practice under interview conditions. Each mock is 45 minutes of pure coding + behavioral practice, with detailed solutions and company-specific evaluation rubrics.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-n">5</div>
+          <div class="stat-l">Full Mocks</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">45m</div>
+          <div class="stat-l">Each Round</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">Timed</div>
+          <div class="stat-l">Pressure</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="toc">
+      <div class="toc-head">Quick Navigation</div>
+      <div class="toc-grid">
+        <a href="#mock-01"><span class="toc-n">01</span> Google Onsite</a>
+        <a href="#mock-02"><span class="toc-n">02</span> Amazon Loop</a>
+        <a href="#mock-03"><span class="toc-n">03</span> Meta Onsite</a>
+        <a href="#mock-04"><span class="toc-n">04</span> Microsoft Virtual</a>
+        <a href="#mock-05"><span class="toc-n">05</span> System Design</a>
+      </div>
+    </section>
+
+    <!-- MOCK 1: GOOGLE ONSITE -->
+    <section class="section" id="mock-01">
+      <div class="sec-tag">
+        <span class="sec-num">01</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Google Onsite Simulation</h2>
+      <p class="lead">Two-round coding interview. 45 minutes total. One Medium (20 min) and one Hard (25 min) problem. Google emphasizes problem-solving approach, code cleanliness, and edge case handling.</p>
+
+      <div class="mock-intro">
+        <div class="mock-time">Mock Format</div>
+        <div class="mock-title">Google Coding Round</div>
+        <div class="mock-detail"><span class="timer">20 min</span> Problem A (Medium) — Longest Substring with At Most K Distinct Characters</div>
+        <div class="mock-detail"><span class="timer">25 min</span> Problem B (Hard) — Alien Dictionary</div>
+        <div class="mock-detail"><strong>Total:</strong> 45 minutes | <strong>Difficulty:</strong> Medium + Hard | <strong>Focus:</strong> Efficiency, clean code, communication</div>
+      </div>
+
+      <h3>Problem A: Longest Substring with At Most K Distinct Characters (20 min)</h3>
+
+      <div class="problem-set">
+        <div class="problem-tag">SLIDING WINDOW</div>
+        <div class="problem-title">Given a string s and integer k, return the length of the longest substring containing at most k distinct characters.</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>Example:</strong> s = "eceba", k = 2 → Output: 3 ("ece")</p>
+      </div>
+
+      <div class="algo">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Solution Walkthrough</div>
+            <div class="algo-desc">Use a sliding window with hash map to track character frequencies. Expand right pointer, contract left when distinct count exceeds k.</div>
+            <div class="algo-tags">
+              <span class="badge b-blue">Sliding Window</span>
+              <span class="badge b-green">HashMap</span>
+              <span class="badge b-orange">Two Pointers</span>
+            </div>
+          </div>
+          <div class="algo-idx">A</div>
+        </div>
+        <div class="algo-body">
+          <div class="steps">
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">1</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body"><strong>Initialize window:</strong> Two pointers left=0, right=0. HashMap to track char frequencies in current window.</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">2</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body"><strong>Expand window:</strong> Move right pointer, add char to map. Update max length if valid.</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">3</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body"><strong>Contract when needed:</strong> If distinct chars > k, shrink from left until valid again.</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">4</div>
+              </div>
+              <div class="step-body"><strong>Return max length:</strong> Tracking maximum valid window size throughout.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="ty">int</span> <span class="fn">LengthOfLongestSubstringKDistinct</span>(<span class="ty">string</span> s, <span class="ty">int</span> k) {
+    <span class="kw">if</span> (k == <span class="num">0</span> || s.Length == <span class="num">0</span>) <span class="kw">return</span> <span class="num">0</span>;
+
+    <span class="kw">var</span> charCount = <span class="kw">new</span> Dictionary&lt;<span class="ty">char</span>, <span class="ty">int</span>&gt;();
+    <span class="ty">int</span> left = <span class="num">0</span>, maxLen = <span class="num">0</span>;
+
+    <span class="kw">for</span> (<span class="ty">int</span> right = <span class="num">0</span>; right &lt; s.Length; right++) {
+        <span class="cm">// Add right char to window</span>
+        <span class="kw">if</span> (!charCount.ContainsKey(s[right])) {
+            charCount[s[right]] = <span class="num">0</span>;
+        }
+        charCount[s[right]]++;
+
+        <span class="cm">// Shrink if too many distinct chars</span>
+        <span class="kw">while</span> (charCount.Count &gt; k) {
+            charCount[s[left]]--;
+            <span class="kw">if</span> (charCount[s[left]] == <span class="num">0</span>) {
+                charCount.Remove(s[left]);
+            }
+            left++;
+        }
+
+        <span class="cm">// Update max length</span>
+        maxLen = Math.Max(maxLen, right - left + <span class="num">1</span>);
+    }
+
+    <span class="kw">return</span> maxLen;
+}</pre>
+      </div>
+
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(k)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Sliding Window</div>
+        </div>
+      </div>
+
+      <h3>Problem B: Alien Dictionary (25 min)</h3>
+
+      <div class="problem-set">
+        <div class="problem-tag">GRAPH / TOPOLOGICAL SORT</div>
+        <div class="problem-title">Given a list of words sorted in an alien language, derive the order of characters in that language.</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>Example:</strong> words = ["wrt", "wrf", "er", "ett", "rftt"] → "wertf"</p>
+      </div>
+
+      <div class="algo">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">Solution Walkthrough</div>
+            <div class="algo-desc">Build a directed graph from character ordering constraints. Use topological sort (DFS + visited set) to determine character order.</div>
+            <div class="algo-tags">
+              <span class="badge b-blue">Topological Sort</span>
+              <span class="badge b-green">Graph</span>
+              <span class="badge b-orange">DFS</span>
+            </div>
+          </div>
+          <div class="algo-idx">B</div>
+        </div>
+        <div class="algo-body">
+          <div class="steps">
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">1</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body"><strong>Build graph:</strong> Compare adjacent words character-by-character. First difference = ordering constraint (edge).</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">2</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body"><strong>Collect all chars:</strong> Add all characters from all words as nodes in graph.</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">3</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body"><strong>Topological sort:</strong> DFS with visited tracking. Add to result after processing all neighbors (post-order).</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">4</div>
+              </div>
+              <div class="step-body"><strong>Validate & return:</strong> Check for cycles. If cycle exists, invalid ordering (return "").</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="ty">string</span> <span class="fn">AlienOrder</span>(<span class="ty">string</span>[] words) {
+    <span class="kw">var</span> graph = <span class="kw">new</span> Dictionary&lt;<span class="ty">char</span>, HashSet&lt;<span class="ty">char</span>&gt;&gt;();
+    <span class="kw">var</span> indegree = <span class="kw">new</span> Dictionary&lt;<span class="ty">char</span>, <span class="ty">int</span>&gt;();
+
+    <span class="cm">// Initialize all chars with indegree 0</span>
+    <span class="kw">foreach</span> (<span class="ty">var</span> word <span class="kw">in</span> words) {
+        <span class="kw">foreach</span> (<span class="ty">char</span> c <span class="kw">in</span> word) {
+            <span class="kw">if</span> (!indegree.ContainsKey(c)) {
+                indegree[c] = <span class="num">0</span>;
+                graph[c] = <span class="kw">new</span> HashSet&lt;<span class="ty">char</span>&gt;();
+            }
+        }
+    }
+
+    <span class="cm">// Build graph: compare adjacent words</span>
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; words.Length - <span class="num">1</span>; i++) {
+        <span class="ty">string</span> word1 = words[i], word2 = words[i + <span class="num">1</span>];
+        <span class="ty">int</span> minLen = Math.Min(word1.Length, word2.Length);
+
+        <span class="kw">if</span> (word1.Length &gt; word2.Length &amp;&amp; word1.Substring(<span class="num">0</span>, minLen) == word2) {
+            <span class="kw">return</span> <span class="str">""</span>; <span class="cm">// Invalid: longer word before prefix</span>
+        }
+
+        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="num">0</span>; j &lt; minLen; j++) {
+            <span class="kw">if</span> (word1[j] != word2[j]) {
+                <span class="kw">if</span> (!graph[word1[j]].Contains(word2[j])) {
+                    graph[word1[j]].Add(word2[j]);
+                    indegree[word2[j]]++;
+                }
+                <span class="kw">break</span>;
+            }
+        }
+    }
+
+    <span class="cm">// Topological sort using Kahn's algorithm</span>
+    <span class="kw">var</span> queue = <span class="kw">new</span> Queue&lt;<span class="ty">char</span>&gt;();
+    <span class="kw">foreach</span> (<span class="ty">var</span> kvp <span class="kw">in</span> indegree) {
+        <span class="kw">if</span> (kvp.Value == <span class="num">0</span>) queue.Enqueue(kvp.Key);
+    }
+
+    <span class="ty">string</span> result = <span class="str">""</span>;
+    <span class="kw">while</span> (queue.Count &gt; <span class="num">0</span>) {
+        <span class="ty">char</span> c = queue.Dequeue();
+        result += c;
+
+        <span class="kw">foreach</span> (<span class="ty">char</span> neighbor <span class="kw">in</span> graph[c]) {
+            indegree[neighbor]--;
+            <span class="kw">if</span> (indegree[neighbor] == <span class="num">0</span>) queue.Enqueue(neighbor);
+        }
+    }
+
+    <span class="kw">return</span> result.Length == indegree.Count ? result : <span class="str">""</span>;
+}</pre>
+      </div>
+
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n·L + k)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(k)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Topological Sort</div>
+        </div>
+      </div>
+
+      <div class="eval-box">
+        <div class="eval-head">What Google Evaluates</div>
+        <div class="eval-item">Problem-solving approach (think out loud)</div>
+        <div class="eval-item">Edge case awareness (empty, duplicates, cycles)</div>
+        <div class="eval-item">Code quality (naming, structure, readability)</div>
+        <div class="eval-item">Optimization path (naive → optimal trade-offs)</div>
+        <div class="eval-item">Communication (explain complexity, trade-offs)</div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Google Interview Tips:</strong> Google values clean, efficient code and communicating your thinking. Don't just code—talk through edge cases. They care about understanding graph structures and topological sort deeply.</div>
+      </div>
+    </section>
+
+    <!-- MOCK 2: AMAZON LOOP -->
+    <section class="section" id="mock-02">
+      <div class="sec-tag">
+        <span class="sec-num">02</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Amazon Loop Simulation</h2>
+      <p class="lead">One 45-minute coding round + behavioral component. Coding: one Medium problem with follow-up questions. Behavioral: 3 Leadership Principle questions (STAR method). Amazon emphasizes customer obsession, scalability, and pragmatic problem-solving.</p>
+
+      <div class="mock-intro">
+        <div class="mock-time">Mock Format</div>
+        <div class="mock-title">Amazon Bar Raiser Loop</div>
+        <div class="mock-detail"><span class="timer">25 min</span> Problem — Design LRU Cache (Medium)</div>
+        <div class="mock-detail"><span class="timer">15 min</span> Follow-up & Optimization Discussion</div>
+        <div class="mock-detail"><span class="timer">5 min</span> 3 Behavioral Questions (STAR)</div>
+        <div class="mock-detail"><strong>Total:</strong> 45 minutes | <strong>Difficulty:</strong> Medium | <strong>Focus:</strong> Scalability, pragmatism, LP alignment</div>
+      </div>
+
+      <h3>Coding Problem: Design LRU Cache (25 min)</h3>
+
+      <div class="problem-set">
+        <div class="problem-tag">LINKED LIST + DICTIONARY</div>
+        <div class="problem-title">Implement an LRU (Least Recently Used) Cache with O(1) get() and put() operations. Capacity is fixed. Evict least recently used item when full.</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>Methods:</strong> get(key) → value, put(key, value) → void</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="kw">class</span> <span class="ty">LRUCache</span> {
+    <span class="kw">private</span> <span class="ty">int</span> capacity;
+    <span class="kw">private</span> Dictionary&lt;<span class="ty">int</span>, Node&gt; cache;
+    <span class="kw">private</span> Node head, tail;
+
+    <span class="kw">private</span> <span class="kw">class</span> <span class="ty">Node</span> {
+        <span class="kw">public</span> <span class="ty">int</span> key, value;
+        <span class="kw">public</span> Node prev, next;
+        <span class="kw">public</span> <span class="fn">Node</span>(<span class="ty">int</span> k, <span class="ty">int</span> v) { key = k; value = v; }
+    }
+
+    <span class="kw">public</span> <span class="fn">LRUCache</span>(<span class="ty">int</span> capacity) {
+        <span class="kw">this</span>.capacity = capacity;
+        <span class="kw">this</span>.cache = <span class="kw">new</span> Dictionary&lt;<span class="ty">int</span>, Node&gt;();
+
+        <span class="cm">// Sentinel nodes for easy removal</span>
+        head = <span class="kw">new</span> Node(<span class="num">0</span>, <span class="num">0</span>);
+        tail = <span class="kw">new</span> Node(<span class="num">0</span>, <span class="num">0</span>);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">Get</span>(<span class="ty">int</span> key) {
+        <span class="kw">if</span> (!cache.ContainsKey(key)) <span class="kw">return</span> -<span class="num">1</span>;
+
+        Node node = cache[key];
+        <span class="fn">RemoveNode</span>(node);
+        <span class="fn">AddToHead</span>(node);
+        <span class="kw">return</span> node.value;
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">Put</span>(<span class="ty">int</span> key, <span class="ty">int</span> value) {
+        <span class="kw">if</span> (cache.ContainsKey(key)) {
+            Node node = cache[key];
+            node.value = value;
+            <span class="fn">RemoveNode</span>(node);
+            <span class="fn">AddToHead</span>(node);
+        } <span class="kw">else</span> {
+            <span class="kw">if</span> (cache.Count == capacity) {
+                <span class="fn">RemoveNode</span>(tail.prev);
+                cache.Remove(tail.prev.key);
+            }
+            Node newNode = <span class="kw">new</span> Node(key, value);
+            cache[key] = newNode;
+            <span class="fn">AddToHead</span>(newNode);
+        }
+    }
+
+    <span class="kw">private</span> <span class="kw">void</span> <span class="fn">RemoveNode</span>(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    <span class="kw">private</span> <span class="kw">void</span> <span class="fn">AddToHead</span>(Node node) {
+        node.next = head.next;
+        node.prev = head;
+        head.next.prev = node;
+        head.next = node;
+    }
+}</pre>
+      </div>
+
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Get Time</div>
+          <div class="cx-v">O(1)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Put Time</div>
+          <div class="cx-v">O(1)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(capacity)</div>
+        </div>
+      </div>
+
+      <h3>Follow-up Questions (15 min)</h3>
+      <p style="margin-bottom: 16px;"><strong>Q1: How would you handle concurrent access?</strong></p>
+      <p style="color: var(--ink2); margin-bottom: 22px;">Add lock/synchronization for thread-safe operations. Consider ReaderWriterLockSlim for better read performance. Trade-off: complexity vs. concurrency.</p>
+
+      <p style="margin-bottom: 16px;"><strong>Q2: How to scale this to distributed systems?</strong></p>
+      <p style="color: var(--ink2); margin-bottom: 22px;">Use consistent hashing to partition cache across servers. Each server owns subset of keys. Trade-off: network latency vs. fault tolerance.</p>
+
+      <h3>Behavioral Questions (5 min)</h3>
+
+      <div class="problem-set">
+        <div class="problem-tag">LEADERSHIP PRINCIPLE</div>
+        <div class="problem-title">Q1: Tell me about a time when you had to make a difficult tradeoff decision. What was the impact?</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>LP Alignment:</strong> Bias for Action | Customer Obsession</p>
+      </div>
+
+      <p style="color: var(--ink2); line-height: 1.8; margin: 16px 0;"><strong>STAR Answer:</strong>
+      <br><strong>Situation:</strong> "At my previous company, we were building a payment system. We could implement a highly secure but slow solution (2-second latency) or a faster one (200ms) with acceptable but slightly higher fraud risk."
+      <br><strong>Task:</strong> "I needed to recommend which approach to take."
+      <br><strong>Action:</strong> "I analyzed customer behavior data. 70% of users abandoned carts with >1s latency. Fraud was <0.1% historically. I recommended the faster approach with additional monitoring."
+      <br><strong>Result:</strong> "Conversion increased 18%, fraud stayed <0.2%. This bias for action reduced time-to-market by 3 weeks."</p>
+
+      <div class="problem-set">
+        <div class="problem-tag">LEADERSHIP PRINCIPLE</div>
+        <div class="problem-title">Q2: Describe a time when you were asked to do something and you pushed back. Why?</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>LP Alignment:</strong> Have Backbone | Deliver Results</p>
+      </div>
+
+      <p style="color: var(--ink2); line-height: 1.8; margin: 16px 0;"><strong>STAR Answer:</strong>
+      <br><strong>Situation:</strong> "Product manager asked to ship a feature without automated tests to meet a deadline."
+      <br><strong>Task:</strong> "I had to balance speed with quality."
+      <br><strong>Action:</strong> "I proposed a 3-day compromise: ship core feature with tests, delay secondary features by 1 week. Showed data that untested code would create 2x more bugs in production."
+      <br><strong>Result:</strong> "We shipped on time (nearly), with 95% fewer production issues. Manager appreciated the transparency. Earned trust for future negotiations."</p>
+
+      <div class="problem-set">
+        <div class="problem-tag">LEADERSHIP PRINCIPLE</div>
+        <div class="problem-title">Q3: Tell me about a time when you learned something new to solve a problem.</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>LP Alignment:</strong> Learn and Be Curious | Ownership</p>
+      </div>
+
+      <p style="color: var(--ink2); line-height: 1.8; margin: 16px 0;"><strong>STAR Answer:</strong>
+      <br><strong>Situation:</strong> "A system was having performance issues. Root cause was unclear."
+      <br><strong>Task:</strong> "I needed to diagnose and fix the bottleneck."
+      <br><strong>Action:</strong> "Learned distributed tracing (Jaeger) in 2 days. Discovered database query was the culprit. Optimized with proper indexing and caching."
+      <br><strong>Result:</strong> "Reduced latency 65%. Became the go-to expert for tracing in the team. Mentored others."</p>
+
+      <div class="eval-box">
+        <div class="eval-head">What Amazon Evaluates</div>
+        <div class="eval-item">Scalability mindset (how to handle millions of users)</div>
+        <div class="eval-item">Pragmatic tradeoffs (code fast, not perfect)</div>
+        <div class="eval-item">Leadership Principle alignment (ownership, backbone, bias for action)</div>
+        <div class="eval-item">Communication & clarity (explain decisions)</div>
+        <div class="eval-item">Data-driven thinking (use metrics, not hunches)</div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Amazon Interview Tips:</strong> Amazon "gets things done." Code pragmatically, not perfection. Reference scalability early. Show ownership. Align your answers to their 14 Leadership Principles (bias for action, customer obsession, have backbone, etc.). Be ready to defend tradeoffs with data.</div>
+      </div>
+    </section>
+
+    <!-- MOCK 3: META ONSITE -->
+    <section class="section" id="mock-03">
+      <div class="sec-tag">
+        <span class="sec-num">03</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Meta Onsite Simulation</h2>
+      <p class="lead">Two medium-difficulty problems in 45 minutes. Meta values speed and correctness. Focus on product thinking and being pragmatic. Problems typically require BFS, binary search, or probability.</p>
+
+      <div class="mock-intro">
+        <div class="mock-time">Mock Format</div>
+        <div class="mock-title">Meta Coding Interview</div>
+        <div class="mock-detail"><span class="timer">22 min</span> Problem A (Medium) — Binary Tree Right Side View</div>
+        <div class="mock-detail"><span class="timer">23 min</span> Problem B (Medium) — Random Pick with Weight</div>
+        <div class="mock-detail"><strong>Total:</strong> 45 minutes | <strong>Difficulty:</strong> Medium + Medium | <strong>Focus:</strong> Speed, correctness, product sense</div>
+      </div>
+
+      <h3>Problem A: Binary Tree Right Side View (22 min)</h3>
+
+      <div class="problem-set">
+        <div class="problem-tag">BFS / LEVEL ORDER</div>
+        <div class="problem-title">Given a binary tree, return the values of nodes visible from the right side (rightmost node of each level).</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>Example:</strong> Tree [1,2,3,null,5,null,4] → [1,3,4]</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> IList&lt;<span class="ty">int</span>&gt; <span class="fn">RightSideView</span>(TreeNode root) {
+    <span class="kw">var</span> result = <span class="kw">new</span> List&lt;<span class="ty">int</span>&gt;();
+    <span class="kw">if</span> (root == <span class="kw">null</span>) <span class="kw">return</span> result;
+
+    <span class="kw">var</span> queue = <span class="kw">new</span> Queue&lt;TreeNode&gt;();
+    queue.Enqueue(root);
+
+    <span class="kw">while</span> (queue.Count &gt; <span class="num">0</span>) {
+        <span class="ty">int</span> levelSize = queue.Count;
+
+        <span class="cm">// Process all nodes at current level</span>
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; levelSize; i++) {
+            TreeNode node = queue.Dequeue();
+
+            <span class="cm">// Add rightmost node of level</span>
+            <span class="kw">if</span> (i == levelSize - <span class="num">1</span>) {
+                result.Add(node.val);
+            }
+
+            <span class="cm">// Add children for next level</span>
+            <span class="kw">if</span> (node.left != <span class="kw">null</span>) queue.Enqueue(node.left);
+            <span class="kw">if</span> (node.right != <span class="kw">null</span>) queue.Enqueue(node.right);
+        }
+    }
+
+    <span class="kw">return</span> result;
+}</pre>
+      </div>
+
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(w)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">BFS Level Order</div>
+        </div>
+      </div>
+
+      <h3>Problem B: Random Pick with Weight (23 min)</h3>
+
+      <div class="problem-set">
+        <div class="problem-tag">PREFIX SUM + BINARY SEARCH</div>
+        <div class="problem-title">Given an array of weights, implement pickIndex() that returns a random index weighted by the values.</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>Example:</strong> w = [1,3] → pickIndex() returns 1 with 75% probability, 0 with 25%</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="kw">class</span> <span class="ty">Solution</span> {
+    <span class="kw">private</span> <span class="ty">int</span>[] prefixSum;
+    <span class="kw">private</span> Random random;
+    <span class="kw">private</span> <span class="ty">int</span> totalWeight;
+
+    <span class="kw">public</span> <span class="fn">Solution</span>(<span class="ty">int</span>[] w) {
+        random = <span class="kw">new</span> Random();
+        prefixSum = <span class="kw">new</span> <span class="ty">int</span>[w.Length];
+        totalWeight = <span class="num">0</span>;
+
+        <span class="cm">// Build prefix sum array</span>
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">0</span>; i &lt; w.Length; i++) {
+            totalWeight += w[i];
+            prefixSum[i] = totalWeight;
+        }
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> <span class="fn">PickIndex</span>() {
+        <span class="cm">// Generate random number in [1, totalWeight]</span>
+        <span class="ty">int</span> target = random.Next(<span class="num">1</span>, totalWeight + <span class="num">1</span>);
+
+        <span class="cm">// Binary search for first index where prefixSum[i] >= target</span>
+        <span class="ty">int</span> left = <span class="num">0</span>, right = prefixSum.Length - <span class="num">1</span>;
+        <span class="kw">while</span> (left &lt; right) {
+            <span class="ty">int</span> mid = left + (right - left) / <span class="num">2</span>;
+            <span class="kw">if</span> (prefixSum[mid] &lt; target) {
+                left = mid + <span class="num">1</span>;
+            } <span class="kw">else</span> {
+                right = mid;
+            }
+        }
+
+        <span class="kw">return</span> left;
+    }
+}</pre>
+      </div>
+
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Constructor</div>
+          <div class="cx-v">O(n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">PickIndex</div>
+          <div class="cx-v">O(log n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(n)</div>
+        </div>
+      </div>
+
+      <div class="eval-box">
+        <div class="eval-head">What Meta Evaluates</div>
+        <div class="eval-item">Speed (2 Medium problems in 45 min = efficiency)</div>
+        <div class="eval-item">Correctness (no bugs, handles edge cases)</div>
+        <div class="eval-item">Communication (explain approach before coding)</div>
+        <div class="eval-item">Code quality (clean, readable, testable)</div>
+        <div class="eval-item">Product thinking (how to scale, optimize for users)</div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>Meta Interview Tips:</strong> Meta moves fast. They expect clean code quickly. Practice coding without hesitation. Mention edge cases early. Be product-minded: "What if we had millions of users?" Show you can balance speed and quality.</div>
+      </div>
+    </section>
+
+    <!-- MOCK 4: MICROSOFT VIRTUAL -->
+    <section class="section" id="mock-04">
+      <div class="sec-tag">
+        <span class="sec-num">04</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Microsoft Virtual Simulation</h2>
+      <p class="lead">One medium problem + system design discussion. 45 minutes total. Microsoft emphasizes clean code, design patterns, and scalability questions. After coding, be ready to discuss real-world application and optimization.</p>
+
+      <div class="mock-intro">
+        <div class="mock-time">Mock Format</div>
+        <div class="mock-title">Microsoft Coding + Design</div>
+        <div class="mock-detail"><span class="timer">30 min</span> Problem — Meeting Rooms II (Medium)</div>
+        <div class="mock-detail"><span class="timer">15 min</span> Follow-up: System Design & Scalability</div>
+        <div class="mock-detail"><strong>Total:</strong> 45 minutes | <strong>Difficulty:</strong> Medium | <strong>Focus:</strong> Clean code, design, scalability</div>
+      </div>
+
+      <h3>Problem: Meeting Rooms II (30 min)</h3>
+
+      <div class="problem-set">
+        <div class="problem-tag">MIN-HEAP / PRIORITY QUEUE</div>
+        <div class="problem-title">Given meeting times (start, end), find minimum number of conference rooms needed to host all meetings without overlap.</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>Example:</strong> [[0,30],[5,10],[15,20]] → 2 rooms needed</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="ty">int</span> <span class="fn">MinMeetingRooms</span>(<span class="ty">int</span>[][] intervals) {
+    <span class="cm">// Sort meetings by start time</span>
+    Array.Sort(intervals, (a, b) =&gt; a[<span class="num">0</span>].CompareTo(b[<span class="num">0</span>]));
+
+    <span class="cm">// Min heap to track room end times</span>
+    <span class="kw">var</span> minHeap = <span class="kw">new</span> PriorityQueue&lt;<span class="ty">int</span>, <span class="ty">int</span>&gt;();
+    minHeap.Enqueue(intervals[<span class="num">0</span>][<span class="num">1</span>], intervals[<span class="num">0</span>][<span class="num">1</span>]);
+
+    <span class="cm">// Process each meeting</span>
+    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="num">1</span>; i &lt; intervals.Length; i++) {
+        <span class="cm">// If earliest ending room is free, reuse it</span>
+        <span class="kw">if</span> (minHeap.Peek() &lt;= intervals[i][<span class="num">0</span>]) {
+            minHeap.Dequeue();
+        }
+
+        <span class="cm">// Add new meeting end time to heap</span>
+        minHeap.Enqueue(intervals[i][<span class="num">1</span>], intervals[i][<span class="num">1</span>]);
+    }
+
+    <span class="cm">// Heap size = minimum rooms needed</span>
+    <span class="kw">return</span> minHeap.Count;
+}</pre>
+      </div>
+
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n log n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Min Heap</div>
+        </div>
+      </div>
+
+      <h3>System Design Follow-up: Calendar System (15 min)</h3>
+
+      <p style="margin-bottom: 16px;"><strong>Q: How would you design a calendar system that schedules millions of meetings?</strong></p>
+
+      <p style="color: var(--ink2); line-height: 1.8; margin-bottom: 22px;"><strong>High-Level Design:</strong>
+      <br>1. <strong>User Service:</strong> Authentication, user management
+      <br>2. <strong>Calendar Service:</strong> Create/update/delete events
+      <br>3. <strong>Meeting Room Service:</strong> Allocate rooms, check availability
+      <br>4. <strong>Notification Service:</strong> Reminders via email/SMS
+      <br>5. <strong>Database:</strong> PostgreSQL (events, users), Redis (room availability cache)
+      <br>6. <strong>Message Queue:</strong> Kafka for event notifications</p>
+
+      <p style="margin-bottom: 16px;"><strong>Q: What about conflict detection at scale?</strong></p>
+      <p style="color: var(--ink2); line-height: 1.8; margin-bottom: 22px;">Use optimistic locking with version numbers. When creating event, check version hasn't changed. If conflict, retry. For high-concurrency: use distributed locks (Redis) or event sourcing (Kafka log all updates, compute state).</p>
+
+      <div class="callout info">
+        <div class="callout-icon">ℹ</div>
+        <div><strong>Microsoft Values:</strong> They want to see real-world thinking. Don't over-engineer, but show you understand trade-offs. Mention monitoring, caching, failover strategies. Show knowledge of Azure services (if interviewing for Microsoft cloud).</div>
+      </div>
+    </section>
+
+    <!-- MOCK 5: FULL SYSTEM DESIGN -->
+    <section class="section" id="mock-05">
+      <div class="sec-tag">
+        <span class="sec-num">05</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Full System Design Mock</h2>
+      <p class="lead">Complete 45-minute system design interview. Design a URL Shortener (like bit.ly). Requirements gathering → high-level design → deep dive into bottlenecks. This tests architectural thinking, trade-off analysis, and scalability mindset.</p>
+
+      <div class="mock-intro">
+        <div class="mock-time">Mock Format</div>
+        <div class="mock-title">System Design: URL Shortener</div>
+        <div class="mock-detail"><span class="timer">5 min</span> Requirements Gathering & Clarification</div>
+        <div class="mock-detail"><span class="timer">10 min</span> High-Level Architecture</div>
+        <div class="mock-detail"><span class="timer">20 min</span> Deep Dive: Database, Caching, Hashing</div>
+        <div class="mock-detail"><span class="timer">10 min</span> Bottlenecks, Scaling, Trade-offs</div>
+        <div class="mock-detail"><strong>Total:</strong> 45 minutes | <strong>Focus:</strong> Scalability, trade-offs, real-world constraints</div>
+      </div>
+
+      <h3>Step 1: Requirements Gathering (5 min)</h3>
+
+      <div class="eval-box">
+        <div class="eval-head">Functional Requirements</div>
+        <div class="eval-item">POST /shorten → input long URL → output short code</div>
+        <div class="eval-item">GET /{code} → redirect to original URL</div>
+        <div class="eval-item">Optional: DELETE, UPDATE endpoints</div>
+        <div class="eval-item">Custom short codes (user-specified alias)</div>
+      </div>
+
+      <div class="eval-box">
+        <div class="eval-head">Non-Functional Requirements</div>
+        <div class="eval-item">Scale: 100M new URLs/day, 1B redirects/day</div>
+        <div class="eval-item">Latency: Redirect <50ms p99, Shorten <200ms p99</div>
+        <div class="eval-item">Availability: 99.9% uptime</div>
+        <div class="eval-item">Durability: Data survives hardware failures</div>
+        <div class="eval-item">URL expiration: TTL support (7 days, 1 year, never)</div>
+      </div>
+
+      <h3>Step 2: High-Level Architecture (10 min)</h3>
+
+      <div class="algo">
+        <div class="algo-head">
+          <div>
+            <div class="algo-name">System Architecture</div>
+            <div class="algo-desc">Client → Load Balancer → API Gateway → Service Cluster (shorten, redirect) → Cache (Redis) → Database (PostgreSQL) → Blob Storage (optional)</div>
+          </div>
+          <div class="algo-idx">★</div>
+        </div>
+        <div class="algo-body">
+          <div class="steps">
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">1</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body"><strong>Load Balancer:</strong> Nginx/HAProxy distributes traffic across API servers. Health checks every 5s.</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">2</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body"><strong>API Service:</strong> Stateless microservices. Shorten (write) and Redirect (read) services separate.</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">3</div>
+                <div class="step-vline"></div>
+              </div>
+              <div class="step-body"><strong>Cache Layer:</strong> Redis (TinyURL → long URL). TTL matches database. 80% hit rate expected.</div>
+            </div>
+            <div class="step">
+              <div class="step-left">
+                <div class="step-num">4</div>
+              </div>
+              <div class="step-body"><strong>Database:</strong> PostgreSQL with read replicas. Sharding by hash(code) for horizontal scale.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Step 3: Deep Dive — Hashing Algorithm (20 min)</h3>
+
+      <p style="margin-bottom: 16px;"><strong>How to generate short codes?</strong></p>
+
+      <div class="vs">
+        <div class="vs-box good">
+          <div class="vs-title">Approach A: Counter + Base62</div>
+          <div class="vs-item">Generate unique auto-increment ID from database</div>
+          <div class="vs-item">Convert ID to base62 (0-9, a-z, A-Z)</div>
+          <div class="vs-item">Fast, deterministic, collision-free</div>
+          <div class="vs-item">Issue: Predictable (sequential codes)</div>
+        </div>
+        <div class="vs-box good">
+          <div class="vs-title">Approach B: Random Base62</div>
+          <div class="vs-item">Generate random 6-8 character string</div>
+          <div class="vs-item">Check if exists in DB (collision handling)</div>
+          <div class="vs-item">Harder to reverse-engineer URLs</div>
+          <div class="vs-item">Issue: Collision overhead at scale</div>
+        </div>
+      </div>
+
+      <p style="color: var(--ink2); line-height: 1.8; margin-bottom: 22px;"><strong>Recommended: Hybrid Approach</strong>
+      <br>1. Use Zookeeper/Consul to allocate ID ranges to each server
+      <br>2. Each server generates IDs locally (no DB bottleneck)
+      <br>3. Convert to base62
+      <br>4. Result: Predictable but distributed, no collisions, minimal latency</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public</span> <span class="ty">string</span> <span class="fn">IdToBase62</span>(<span class="ty">long</span> id) {
+    <span class="ty">const</span> <span class="ty">string</span> chars = <span class="str">"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>;
+    <span class="ty">string</span> result = <span class="str">""</span>;
+
+    <span class="kw">while</span> (id &gt; <span class="num">0</span>) {
+        result = chars[(<span class="ty">int</span>)(id % <span class="num">62</span>)] + result;
+        id /= <span class="num">62</span>;
+    }
+
+    <span class="kw">return</span> result.Length == <span class="num">0</span> ? <span class="str">"0"</span> : result;
+}
+
+<span class="kw">public</span> <span class="ty">long</span> <span class="fn">Base62ToId</span>(<span class="ty">string</span> code) {
+    <span class="ty">const</span> <span class="ty">string</span> chars = <span class="str">"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>;
+    <span class="ty">long</span> id = <span class="num">0</span>;
+
+    <span class="kw">foreach</span> (<span class="ty">char</span> c <span class="kw">in</span> code) {
+        id = id * <span class="num">62</span> + chars.IndexOf(c);
+    }
+
+    <span class="kw">return</span> id;
+}</pre>
+      </div>
+
+      <h3>Step 4: Database Design & Scaling (10 min)</h3>
+
+      <div class="problem-set">
+        <div class="problem-tag">DATABASE SCHEMA</div>
+        <div class="problem-title">Shorten URLs Table</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;">
+          id (BIGINT, PK) | code (VARCHAR(8), UNIQUE, indexed) | long_url (TEXT) | created_at (TIMESTAMP) | expires_at (TIMESTAMP) | user_id (BIGINT, indexed) | click_count (INT)
+        </p>
+      </div>
+
+      <p style="color: var(--ink2); line-height: 1.8; margin-bottom: 22px;"><strong>Sharding Strategy:</strong>
+      <br>Shard by hash(code) % 256. Each shard = separate database instance.
+      <br><strong>Write Path:</strong> API gets ID range from Zookeeper → converts to base62 → writes to shard → caches in Redis
+      <br><strong>Read Path:</strong> GET /{code} → check Redis → if miss, query appropriate shard → return 301 redirect</p>
+
+      <div class="eval-box">
+        <div class="eval-head">Bottleneck Analysis</div>
+        <div class="eval-item">Read hot URLs: Solution → Hot shard in separate cache, bloom filter</div>
+        <div class="eval-item">Database write bottleneck: Solution → Batch writes, use write-ahead log</div>
+        <div class="eval-item">Cache stampede: Solution → Cache warming, probabilistic early expiry</div>
+        <div class="eval-item">Zookeeper SPOF: Solution → Zookeeper cluster (3-5 nodes), consensus</div>
+      </div>
+
+      <h3>Capacity Estimation</h3>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Calculation</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Daily New URLs</td>
+              <td>100M</td>
+              <td>1,157 req/s (peak 10K req/s)</td>
+            </tr>
+            <tr>
+              <td>Daily Redirects</td>
+              <td>1B</td>
+              <td>11,574 req/s (peak 100K req/s)</td>
+            </tr>
+            <tr>
+              <td>Storage (1 yr)</td>
+              <td>100M URLs × 500 bytes</td>
+              <td>50 GB (easily fits on 1 server)</td>
+            </tr>
+            <tr>
+              <td>Database Servers</td>
+              <td>100K writes/s → 10 servers per shard</td>
+              <td>256 shards × 10 = 2,560 servers</td>
+            </tr>
+            <tr>
+              <td>Cache (Redis)</td>
+              <td>80% hit rate, 24h expiry, ~50GB peak</td>
+              <td>2-3 Redis clusters (primary + replica)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn">
+        <div class="callout-icon">⚠</div>
+        <div><strong>Common Mistakes in System Design:</strong> Not asking clarifying questions, over-engineering (not needed at 100M scale), ignoring caching, not thinking about sharding key, forgetting monitoring/logging, assuming no data loss is acceptable.</div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div><strong>System Design Interview Tips:</strong> Start with requirements. Draw diagrams. Justify every component (why cache? why sharding?). Show you understand trade-offs (consistency vs. availability, latency vs. cost). Ask "What's the bottleneck at 10x scale?" to show you think ahead.</div>
+      </div>
+    </section>
+
+    <!-- FINAL TIPS -->
+    <section class="section">
+      <div class="sec-tag">
+        <span class="sec-num">06</span>
+        <div class="sec-line"></div>
+      </div>
+      <h2>Interview Day Checklist</h2>
+
+      <div class="tips">
+        <div class="tip-card">
+          <div class="tip-n">BEFORE</div>
+          <div class="tip-title">1 Hour Before</div>
+          <div class="tip-body">Join 10 min early. Test audio/video. Take 3 deep breaths. Don't review solutions—trust your practice. Have water nearby.</div>
+        </div>
+        <div class="tip-card g">
+          <div class="tip-n">DURING</div>
+          <div class="tip-title">Problem Solving</div>
+          <div class="tip-body">Read problem twice. Ask clarifying questions. Outline approach before coding. Code clean. Test with examples. Walk interviewer through logic.</div>
+        </div>
+        <div class="tip-card b">
+          <div class="tip-n">AFTER</div>
+          <div class="tip-title">Wrap-up</div>
+          <div class="tip-body">Ask "Any edge cases I missed?" Test edge cases live. Discuss optimization if time. Thank interviewer. Ask about feedback (optional).</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 40px;">Mental Framework for Each Round</h3>
+
+      <div class="problem-set">
+        <div class="problem-tag">CODING ROUNDS</div>
+        <div class="problem-title">3-Step Approach</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>1. Clarify:</strong> Constraints? Input size? Edge cases? (2 min)
+        <br><strong>2. Design:</strong> Data structure? Algorithm? Complexity? (3 min)
+        <br><strong>3. Implement:</strong> Code carefully. Test. Optimize if time. (30-40 min)</p>
+      </div>
+
+      <div class="problem-set">
+        <div class="problem-tag">SYSTEM DESIGN ROUNDS</div>
+        <div class="problem-title">5-Step Approach</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>1. Requirements:</strong> Functional + non-functional (5 min)
+        <br><strong>2. Architecture:</strong> Components, APIs, data flow (10 min)
+        <br><strong>3. Deep Dive:</strong> Pick 1-2 hardest problems. Solve (20 min)
+        <br><strong>4. Bottlenecks:</strong> What breaks at 10x? 100x? Solutions? (5 min)
+        <br><strong>5. Q&A:</strong> Answer follow-up questions (5 min)</p>
+      </div>
+
+      <div class="problem-set">
+        <div class="problem-tag">BEHAVIORAL ROUNDS</div>
+        <div class="problem-title">STAR Framework</div>
+        <p style="font-size: 13px; color: var(--ink2); margin-top: 10px;"><strong>Situation:</strong> Context (2-3 sentences)
+        <br><strong>Task:</strong> Your responsibility (1 sentence)
+        <br><strong>Action:</strong> What you did (3-5 sentences)
+        <br><strong>Result:</strong> Impact with numbers (2-3 sentences)</p>
+      </div>
+    </section>
+
+    <!-- FINAL WISDOM -->
+    <div class="callout tip" style="margin-top:60px;margin-bottom:60px">
+      <div class="callout-icon">🎯</div>
+      <div><strong>Final Wisdom:</strong> You've done 5 full mocks, practiced 200+ problems, studied system design. You're ready. On interview day, stay calm, communicate clearly, and trust your preparation. Every interviewer was once where you are. Show them you're thoughtful, humble, and ready to solve hard problems. You've got this.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p><strong>5 Full Mock Interviews — FAANG Interview Book</strong></p>
+      <p>45-minute timed simulations for Google, Amazon, Meta, Microsoft + System Design. Complete with solutions, evaluation rubrics, and company-specific tips.</p>
+      <p style="margin-top:14px;font-size:12px">Practice under pressure. Master the format. Ace the interview.</p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(button) {
+      const codeBlock = button.closest('.code-block');
+      const preElement = codeBlock.querySelector('pre');
+      const text = preElement.textContent;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+      });
+    }
+  </script>
+</body>
+</html>

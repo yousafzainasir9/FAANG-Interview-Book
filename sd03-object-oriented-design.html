@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Object-oriented design for FAANG interviews — SOLID principles, design patterns, parking lot, library system with C# solutions.">
+  <meta name="keywords" content="object-oriented design, OOD, SOLID principles, design patterns, C#, FAANG interview">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/sd03-object-oriented-design.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/sd03-object-oriented-design.html">
+  <meta property="og:title" content="Object-Oriented Design — FAANG Interview Book">
+  <meta property="og:description" content="Object-oriented design for FAANG interviews — SOLID principles, design patterns, parking lot, library system with C# solutions.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/sd03-object-oriented-design.html">
+  <meta name="twitter:title" content="Object-Oriented Design — FAANG Interview Book">
+  <meta name="twitter:description" content="Object-oriented design for FAANG interviews — SOLID principles, design patterns, parking lot, library system with C# solutions.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Object-Oriented Design \u2014 FAANG Interview Book",
+  "description": "Object-oriented design for FAANG interviews \u2014 SOLID principles, design patterns, parking lot, library system with C# solutions.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/sd03-object-oriented-design.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+<title>Object-Oriented Design — FAANG Interview Book</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+  --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+  --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+  --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+  --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+  --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+  --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+  --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+.nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+.nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+.nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+.wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+.hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--acc)}
+.eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+.stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content}
+.stat{padding:14px 26px;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:none}
+.stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+.stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+.toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+.toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+.toc-grid a:hover{color:var(--acc)}
+.toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+.section{padding-top:72px}
+.sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+.sec-line{flex:1;height:1px;background:var(--rule)}
+.section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+.section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+.section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+.section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+.algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+.algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+.algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+.algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+.algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+.algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.algo-body{padding:28px 32px}
+.cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+.cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+.cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+.steps{margin-bottom:26px}
+.step{display:flex}
+.step-left{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--acc-l);border:1.5px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0}
+.step-vline{width:1.5px;flex:1;background:var(--rule);margin:4px 0}
+.step:last-child .step-vline{display:none}
+.step-body{padding:3px 0 22px 14px;font-size:14px;color:var(--ink2);line-height:1.68}
+.step-body strong{color:var(--ink);font-weight:600}
+code.il{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 7px;border-radius:4px;color:var(--acc)}
+.code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+.code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+.copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+.copy-btn:hover{color:#d4d0c8}
+pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+.kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+.callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+.callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+.callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+.callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+.callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+.callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+.callout strong{color:inherit;font-weight:600}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+.b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+.b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+.b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+.b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+.b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--rule);margin-bottom:26px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white)}
+thead tr{background:var(--bg2)}
+th{text-align:left;padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule)}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+td:first-child{font-weight:600;color:var(--ink)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+.vs-box{border-radius:10px;padding:18px 20px;border:1px solid}
+.vs-box.good{background:var(--green-l);border-color:var(--green-b)}
+.vs-box.bad{background:var(--red-l);border-color:var(--red-b)}
+.vs-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.vs-box.good .vs-title{color:var(--green)}.vs-box.bad .vs-title{color:var(--red)}
+.vs-item{font-size:13px;color:var(--ink2);padding:4px 0;display:flex;gap:8px;line-height:1.5}
+.vs-item::before{content:'—';color:var(--ink4);flex-shrink:0}
+.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+.proof-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px 22px}
+.proof-title{font-size:15px;font-weight:700;margin-bottom:8px}
+.proof-body{font-size:13.5px;color:var(--ink2);line-height:1.7}
+.proof-note{margin-top:12px;font-size:12px;color:var(--ink3)}
+.proof-note strong{color:var(--ink2)}
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
+.tip-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+.tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc)}
+.tip-card.g::before{background:var(--green)}.tip-card.b::before{background:var(--blue)}.tip-card.a::before{background:var(--amber)}
+.tip-n{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-bottom:8px}
+.tip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.tip-body{font-size:13px;color:var(--ink2);line-height:1.65}
+footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+.footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+footer p{font-size:13px;color:var(--ink3)}
+footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+.fade{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fade.in{opacity:1;transform:none}
+@media(max-width:700px){
+  .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+  .vs,.proof-grid,.tips{grid-template-columns:1fr}
+  .toc-grid{grid-template-columns:1fr}
+  .stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid var(--rule)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+<a href="index.html" class="nav-brand">FAANG Interview Book <span class="pill">C# Edition</span></a>
+</div>
+</nav>
+
+<div class="wrap">
+
+<div class="hero">
+<div class="eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">System Design Part 3</div></div>
+<h1>Object-Oriented <em>Design</em></h1>
+<p class="hero-sub">Master OOP principles, SOLID design, and 8 canonical OOD interview problems. From Parking Lot to Elevator System: learn how to structure complex systems with clean, maintainable C# code. Design patterns, class hierarchies, and real-world trade-offs.</p>
+<div class="stats">
+<div class="stat"><div class="stat-n">8</div><div class="stat-l">OOD Problems</div></div>
+<div class="stat"><div class="stat-n">5</div><div class="stat-l">SOLID Principles</div></div>
+<div class="stat"><div class="stat-n">6</div><div class="stat-l">Design Patterns</div></div>
+<div class="stat"><div class="stat-n">20+</div><div class="stat-l">Complete Code Examples</div></div>
+</div>
+</div>
+
+<div class="toc">
+<div class="toc-head">In This Chapter</div>
+<div class="toc-grid">
+<a href="#framework"><span class="toc-n">1</span> OOD Interview Framework</a>
+<a href="#solid"><span class="toc-n">2</span> SOLID Principles</a>
+<a href="#patterns"><span class="toc-n">3</span> Design Patterns (6)</a>
+<a href="#parking"><span class="toc-n">4</span> Parking Lot System</a>
+<a href="#lru"><span class="toc-n">5</span> LRU Cache</a>
+<a href="#cards"><span class="toc-n">6</span> Deck of Cards</a>
+<a href="#elevator"><span class="toc-n">7</span> Elevator System</a>
+<a href="#library"><span class="toc-n">8</span> Library Management</a>
+<a href="#chess"><span class="toc-n">9</span> Chess Game</a>
+<a href="#filesystem"><span class="toc-n">10</span> File System</a>
+<a href="#restaurant"><span class="toc-n">11</span> Restaurant Reservation</a>
+</div>
+</div>
+
+</div>
+
+<div class="wrap">
+
+<!-- Framework -->
+<div class="section" id="framework">
+<div class="sec-tag"><div class="sec-num">01</div><div class="sec-line"></div></div>
+<h2>OOD Interview Framework</h2>
+<p class="lead">A systematic 4-step approach to designing object-oriented systems in 45-60 minutes.</p>
+
+<h3>The 4-Step Process</h3>
+<div class="steps">
+<div class="step">
+<div class="step-left"><div class="step-num">1</div><div class="step-vline"></div></div>
+<div class="step-body"><strong>Clarify Requirements</strong><br>Ask clarifying questions to understand scope, constraints, and user flows. What features are in scope? What are the scale and performance requirements?</div>
+</div>
+<div class="step">
+<div class="step-left"><div class="step-num">2</div><div class="step-vline"></div></div>
+<div class="step-body"><strong>Identify Objects & Relationships</strong><br>List entities (classes), their attributes, and how they interact. Draw a class diagram. Identify parent-child relationships, composition, aggregation.</div>
+</div>
+<div class="step">
+<div class="step-left"><div class="step-num">3</div><div class="step-vline"></div></div>
+<div class="step-body"><strong>Define Core Methods & APIs</strong><br>Write method signatures with parameters and return types. Focus on the most important operations. Show relationships with code.</div>
+</div>
+<div class="step">
+<div class="step-left"><div class="step-num">4</div></div>
+<div class="step-body"><strong>Code Key Implementations</strong><br>Implement the most complex or interesting methods. Show error handling, edge cases, and design trade-offs. Be ready to discuss alternatives.</div>
+</div>
+</div>
+
+<p style="margin-top:28px"><strong>Interview Tips:</strong></p>
+<ul style="margin-left:20px;margin-bottom:16px">
+<li>Think out loud. Explain your design decisions.</li>
+<li>Ask follow-up questions to clarify scope.</li>
+<li>Draw diagrams (class relationships, data structures).</li>
+<li>Discuss trade-offs: simplicity vs. flexibility, memory vs. speed.</li>
+<li>Code is secondary to design. Show good OOP structure first.</li>
+<li>Be ready to extend your design based on new requirements.</li>
+</ul>
+
+</div>
+
+<!-- SOLID Principles -->
+<div class="section" id="solid">
+<div class="sec-tag"><div class="sec-num">02</div><div class="sec-line"></div></div>
+<h2>SOLID Principles</h2>
+<p class="lead">Five design principles for writing maintainable, testable, and flexible code. Each principle prevents a specific type of problem.</p>
+
+<h3>1. Single Responsibility Principle (SRP)</h3>
+<p>A class should have only one reason to change. Each class should be responsible for a single aspect of the system.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// ❌ BAD: User class has multiple responsibilities
+public class User {
+  public string Name { get; set; }
+  public string Email { get; set; }
+
+  public void SaveToDatabase() { }      // Database responsibility
+  public void SendEmail() { }            // Email responsibility
+  public void ValidateEmail() { }        // Validation responsibility
+}
+
+// ✓ GOOD: Separated concerns
+public class User {
+  public string Name { get; set; }
+  public string Email { get; set; }
+}
+
+public class UserRepository {
+  public void Save(User user) { }
+}
+
+public class EmailService {
+  public void SendEmail(string email, string message) { }
+}
+
+public class EmailValidator {
+  public bool IsValid(string email) { }
+}</pre>
+</div>
+
+<h3>2. Open/Closed Principle (OCP)</h3>
+<p>Classes should be open for extension but closed for modification. Use inheritance and interfaces instead of modifying existing code.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// ❌ BAD: Adding new shape types requires modifying AreaCalculator
+public class AreaCalculator {
+  public double CalculateArea(Shape shape) {
+    if (shape is Circle c) return Math.PI * c.Radius * c.Radius;
+    if (shape is Rectangle r) return r.Width * r.Height;
+    if (shape is Triangle t) return 0.5 * t.Base * t.Height;
+    throw new Exception("Unknown shape");
+  }
+}
+
+// ✓ GOOD: Use polymorphism; extend without modifying
+public abstract class Shape {
+  public abstract double Area();
+}
+
+public class Circle : Shape {
+  public double Radius { get; set; }
+  public override double Area() => Math.PI * Radius * Radius;
+}
+
+public class Rectangle : Shape {
+  public double Width { get; set; }
+  public double Height { get; set; }
+  public override double Area() => Width * Height;
+}
+
+public class AreaCalculator {
+  public double CalculateArea(Shape shape) => shape.Area();
+  // No changes needed when adding new shapes!
+}</pre>
+</div>
+
+<h3>3. Liskov Substitution Principle (LSP)</h3>
+<p>Derived classes should be substitutable for their base classes. If <code class="il">B</code> is a subtype of <code class="il">A</code>, then objects of type <code class="il">A</code> can be replaced with objects of type <code class="il">B</code> without breaking the system.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// ❌ BAD: Penguin violates LSP (can't fly)
+public class Bird {
+  public virtual void Fly() { }
+}
+
+public class Penguin : Bird {
+  public override void Fly() {
+    throw new InvalidOperationException("Penguins can't fly!");
+  }
+}
+
+// Client code breaks with Penguin
+List&lt;Bird&gt; birds = new List&lt;Bird&gt; { new Eagle(), new Penguin() };
+foreach (var bird in birds) {
+  bird.Fly(); // Exception for Penguin!
+}
+
+// ✓ GOOD: Separate flying behavior
+public abstract class Bird { }
+
+public interface IFlyable {
+  void Fly();
+}
+
+public class Eagle : Bird, IFlyable {
+  public void Fly() { Console.WriteLine("Eagle flying"); }
+}
+
+public class Penguin : Bird {
+  // No Fly() method
+}
+
+public class BirdWatcher {
+  public void MakeBirdsFly(List&lt;IFlyable&gt; birds) {
+    foreach (var bird in birds) bird.Fly();
+  }
+}</pre>
+</div>
+
+<h3>4. Interface Segregation Principle (ISP)</h3>
+<p>Clients should not depend on interfaces they don't use. Break large interfaces into smaller, specific ones.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// ❌ BAD: Fat interface forces unnecessary implementations
+public interface IWorker {
+  void Work();
+  void Eat();
+  void Code();
+  void Sleep();
+}
+
+public class Human : IWorker {
+  public void Work() { }
+  public void Eat() { }
+  public void Code() { }
+  public void Sleep() { }
+}
+
+public class Robot : IWorker {
+  public void Work() { }
+  public void Eat() { } // Robot doesn't eat!
+  public void Code() { }
+  public void Sleep() { } // Robot doesn't sleep!
+}
+
+// ✓ GOOD: Segregate interfaces by responsibility
+public interface IWorker {
+  void Work();
+}
+
+public interface IEater {
+  void Eat();
+}
+
+public interface IDeveloper {
+  void Code();
+}
+
+public interface ISleeper {
+  void Sleep();
+}
+
+public class Human : IWorker, IEater, IDeveloper, ISleeper {
+  public void Work() { }
+  public void Eat() { }
+  public void Code() { }
+  public void Sleep() { }
+}
+
+public class Robot : IWorker, IDeveloper {
+  public void Work() { }
+  public void Code() { }
+}</pre>
+</div>
+
+<h3>5. Dependency Inversion Principle (DIP)</h3>
+<p>High-level modules should not depend on low-level modules. Both should depend on abstractions. Depend on interfaces, not concrete implementations.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// ❌ BAD: PaymentProcessor depends on concrete MySQLDatabase
+public class MySQLDatabase {
+  public void Save(string data) { }
+}
+
+public class PaymentProcessor {
+  private MySQLDatabase _db = new MySQLDatabase();
+
+  public void ProcessPayment(decimal amount) {
+    _db.Save($"Payment: {amount}");
+  }
+}
+
+// Can't swap database without changing PaymentProcessor!
+
+// ✓ GOOD: PaymentProcessor depends on IDatabase abstraction
+public interface IDatabase {
+  void Save(string data);
+}
+
+public class MySQLDatabase : IDatabase {
+  public void Save(string data) { }
+}
+
+public class MongoDatabase : IDatabase {
+  public void Save(string data) { }
+}
+
+public class PaymentProcessor {
+  private IDatabase _db;
+
+  // Inject dependency via constructor
+  public PaymentProcessor(IDatabase db) {
+    _db = db;
+  }
+
+  public void ProcessPayment(decimal amount) {
+    _db.Save($"Payment: {amount}");
+  }
+}
+
+// Now we can use any IDatabase implementation:
+IDatabase db1 = new MySQLDatabase();
+IDatabase db2 = new MongoDatabase();
+var processor1 = new PaymentProcessor(db1);
+var processor2 = new PaymentProcessor(db2);</pre>
+</div>
+
+</div>
+
+<!-- Design Patterns -->
+<div class="section" id="patterns">
+<div class="sec-tag"><div class="sec-num">03</div><div class="sec-line"></div></div>
+<h2>Common Design Patterns</h2>
+<p class="lead">Six essential patterns frequently asked in OOD interviews. Recognize when to use each one.</p>
+
+<h3>1. Singleton Pattern</h3>
+<p>Ensure a class has only one instance and provide a global point of access to it.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>public class Logger {
+  private static Logger _instance;
+  private static readonly object _lock = new object();
+
+  private Logger() { } // Private constructor
+
+  public static Logger GetInstance() {
+    if (_instance == null) {
+      lock (_lock) {
+        if (_instance == null) {
+          _instance = new Logger();
+        }
+      }
+    }
+    return _instance;
+  }
+
+  public void Log(string message) {
+    Console.WriteLine($"[LOG] {message}");
+  }
+}
+
+// Usage
+Logger logger1 = Logger.GetInstance();
+Logger logger2 = Logger.GetInstance();
+// logger1 and logger2 are the same object</pre>
+</div>
+
+<h3>2. Factory Pattern</h3>
+<p>Create objects without specifying their exact classes. Useful when object creation logic is complex or varies by type.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// Abstract product
+public abstract class Vehicle {
+  public abstract void Drive();
+}
+
+public class Car : Vehicle {
+  public override void Drive() { Console.WriteLine("Driving car"); }
+}
+
+public class Truck : Vehicle {
+  public override void Drive() { Console.WriteLine("Driving truck"); }
+}
+
+public class Bike : Vehicle {
+  public override void Drive() { Console.WriteLine("Riding bike"); }
+}
+
+// Factory class
+public class VehicleFactory {
+  public static Vehicle CreateVehicle(string type) {
+    return type.ToLower() switch {
+      "car" => new Car(),
+      "truck" => new Truck(),
+      "bike" => new Bike(),
+      _ => throw new ArgumentException("Unknown vehicle type")
+    };
+  }
+}
+
+// Usage
+Vehicle car = VehicleFactory.CreateVehicle("car");
+car.Drive(); // "Driving car"</pre>
+</div>
+
+<h3>3. Strategy Pattern</h3>
+<p>Define a family of algorithms and make them interchangeable. Let the client choose the algorithm at runtime.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// Strategy interface
+public interface ISortingStrategy {
+  void Sort(int[] arr);
+}
+
+public class QuickSort : ISortingStrategy {
+  public void Sort(int[] arr) {
+    Console.WriteLine("Sorting with QuickSort");
+  }
+}
+
+public class MergeSort : ISortingStrategy {
+  public void Sort(int[] arr) {
+    Console.WriteLine("Sorting with MergeSort");
+  }
+}
+
+// Context class
+public class DataProcessor {
+  private ISortingStrategy _strategy;
+
+  public void SetSortStrategy(ISortingStrategy strategy) {
+    _strategy = strategy;
+  }
+
+  public void ProcessData(int[] data) {
+    _strategy.Sort(data);
+  }
+}
+
+// Usage
+var processor = new DataProcessor();
+processor.SetSortStrategy(new QuickSort());
+processor.ProcessData(new int[] { 3, 1, 4, 1, 5 }); // "Sorting with QuickSort"
+
+processor.SetSortStrategy(new MergeSort());
+processor.ProcessData(new int[] { 3, 1, 4, 1, 5 }); // "Sorting with MergeSort"</pre>
+</div>
+
+<h3>4. Observer Pattern</h3>
+<p>Define a one-to-many relationship where multiple observers listen for changes in a subject.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// Observer interface
+public interface IObserver {
+  void Update(string message);
+}
+
+// Concrete observer
+public class EmailObserver : IObserver {
+  public void Update(string message) {
+    Console.WriteLine($"Email sent: {message}");
+  }
+}
+
+public class LogObserver : IObserver {
+  public void Update(string message) {
+    Console.WriteLine($"Logged: {message}");
+  }
+}
+
+// Subject
+public class EventPublisher {
+  private List&lt;IObserver&gt; _observers = new List&lt;IObserver&gt;();
+
+  public void Subscribe(IObserver observer) {
+    _observers.Add(observer);
+  }
+
+  public void Unsubscribe(IObserver observer) {
+    _observers.Remove(observer);
+  }
+
+  public void PublishEvent(string message) {
+    foreach (var observer in _observers) {
+      observer.Update(message);
+    }
+  }
+}
+
+// Usage
+var publisher = new EventPublisher();
+publisher.Subscribe(new EmailObserver());
+publisher.Subscribe(new LogObserver());
+publisher.PublishEvent("System started");
+// Output: Email sent: System started
+//         Logged: System started</pre>
+</div>
+
+<h3>5. Decorator Pattern</h3>
+<p>Add behavior to objects dynamically without modifying their structure.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// Component interface
+public interface IDataSource {
+  string Read();
+}
+
+// Concrete component
+public class FileDataSource : IDataSource {
+  private string _filename;
+  public FileDataSource(string filename) { _filename = filename; }
+  public string Read() => $"Reading from {_filename}";
+}
+
+// Decorator base
+public abstract class DataSourceDecorator : IDataSource {
+  protected IDataSource _dataSource;
+  public DataSourceDecorator(IDataSource dataSource) {
+    _dataSource = dataSource;
+  }
+  public virtual string Read() => _dataSource.Read();
+}
+
+// Concrete decorators
+public class EncryptionDecorator : DataSourceDecorator {
+  public EncryptionDecorator(IDataSource dataSource) : base(dataSource) { }
+  public override string Read() => $"Encrypted({_dataSource.Read()})";
+}
+
+public class CompressionDecorator : DataSourceDecorator {
+  public CompressionDecorator(IDataSource dataSource) : base(dataSource) { }
+  public override string Read() => $"Compressed({_dataSource.Read()})";
+}
+
+// Usage
+IDataSource source = new FileDataSource("data.txt");
+source = new EncryptionDecorator(source);
+source = new CompressionDecorator(source);
+Console.WriteLine(source.Read());
+// Output: Compressed(Encrypted(Reading from data.txt))</pre>
+</div>
+
+<h3>6. Builder Pattern</h3>
+<p>Construct complex objects step-by-step. Useful when objects have many optional parameters.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>public class House {
+  public string Foundation { get; set; }
+  public string Walls { get; set; }
+  public string Roof { get; set; }
+  public string Interior { get; set; }
+  public string Garage { get; set; }
+
+  public override string ToString() =>
+    $"House: {Foundation}, {Walls}, {Roof}, {Interior}, {Garage}";
+}
+
+public class HouseBuilder {
+  private House _house = new House();
+
+  public HouseBuilder WithFoundation(string foundation) {
+    _house.Foundation = foundation;
+    return this;
+  }
+
+  public HouseBuilder WithWalls(string walls) {
+    _house.Walls = walls;
+    return this;
+  }
+
+  public HouseBuilder WithRoof(string roof) {
+    _house.Roof = roof;
+    return this;
+  }
+
+  public HouseBuilder WithInterior(string interior) {
+    _house.Interior = interior;
+    return this;
+  }
+
+  public HouseBuilder WithGarage(string garage) {
+    _house.Garage = garage;
+    return this;
+  }
+
+  public House Build() => _house;
+}
+
+// Usage
+var house = new HouseBuilder()
+  .WithFoundation("concrete")
+  .WithWalls("brick")
+  .WithRoof("wood")
+  .WithInterior("modern")
+  .WithGarage("2-car")
+  .Build();
+Console.WriteLine(house);</pre>
+</div>
+
+</div>
+
+<!-- Problem 1: Parking Lot -->
+<div class="section" id="parking">
+<div class="sec-tag"><div class="sec-num">04</div><div class="sec-line"></div></div>
+
+<div class="algo">
+<div class="algo-head">
+<div>
+<div class="algo-name">Problem 1: Parking Lot System</div>
+<div class="algo-desc">Design a parking lot that supports multiple vehicle types, reservation, and payment. Users can search for available spots, park vehicles, and exit with payment.</div>
+</div>
+<div class="algo-idx">1</div>
+</div>
+<div class="algo-body">
+
+<h3>Requirements</h3>
+<ul style="margin-left:20px;margin-bottom:16px">
+<li>Support multiple vehicle types: Car, Motorcycle, Truck, van</li>
+<li>Support multiple levels in the parking lot</li>
+<li>Find the nearest available spot for a vehicle</li>
+<li>Track occupancy and generate reports</li>
+<li>Handle payment at exit</li>
+<li>Implement hourly rates based on vehicle type</li>
+</ul>
+
+<h3>Key Classes & Design</h3>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// Enums
+public enum VehicleType {
+  Motorcycle = 0,
+  Car = 1,
+  Truck = 2
+}
+
+public enum ParkingSpotType {
+  Motorcycle = 0,
+  Compact = 1,
+  Large = 2
+}
+
+public enum ParkingTicketStatus {
+  Active = 0,
+  Paid = 1,
+  Lost = 2
+}
+
+// Vehicle hierarchy
+public abstract class Vehicle {
+  public string LicensePlate { get; set; }
+  public abstract VehicleType GetType();
+  public abstract ParkingSpotType GetRequiredSpotType();
+}
+
+public class Car : Vehicle {
+  public override VehicleType GetType() => VehicleType.Car;
+  public override ParkingSpotType GetRequiredSpotType() => ParkingSpotType.Compact;
+}
+
+public class Motorcycle : Vehicle {
+  public override VehicleType GetType() => VehicleType.Motorcycle;
+  public override ParkingSpotType GetRequiredSpotType() => ParkingSpotType.Motorcycle;
+}
+
+public class Truck : Vehicle {
+  public override VehicleType GetType() => VehicleType.Truck;
+  public override ParkingSpotType GetRequiredSpotType() => ParkingSpotType.Large;
+}
+
+// Parking spot
+public class ParkingSpot {
+  public int Id { get; set; }
+  public int Level { get; set; }
+  public ParkingSpotType SpotType { get; set; }
+  public Vehicle ParkedVehicle { get; set; }
+  public bool IsAvailable => ParkedVehicle == null;
+
+  public bool CanFitVehicle(Vehicle vehicle) =>
+    IsAvailable && CanFitType(vehicle.GetRequiredSpotType());
+
+  private bool CanFitType(ParkingSpotType requiredType) =>
+    SpotType >= requiredType; // Larger spots can fit smaller vehicles
+}
+
+// Parking ticket
+public class ParkingTicket {
+  public int Id { get; set; }
+  public Vehicle Vehicle { get; set; }
+  public ParkingSpot Spot { get; set; }
+  public DateTime IssuedTime { get; set; }
+  public DateTime ExitTime { get; set; }
+  public decimal Price { get; set; }
+  public ParkingTicketStatus Status { get; set; }
+}
+
+// Main parking lot class
+public class ParkingLot {
+  private List&lt;ParkingLevel&gt; _levels;
+  private Dictionary&lt;string, ParkingTicket&gt; _ticketsByPlate;
+  private PaymentProcessor _paymentProcessor;
+
+  public ParkingLot(int numLevels, int spotsPerLevel) {
+    _levels = new List&lt;ParkingLevel&gt;();
+    _ticketsByPlate = new Dictionary&lt;string, ParkingTicket&gt;();
+
+    for (int i = 0; i < numLevels; i++) {
+      _levels.Add(new ParkingLevel(i, spotsPerLevel));
+    }
+
+    _paymentProcessor = new PaymentProcessor();
+  }
+
+  public ParkingTicket ParkVehicle(Vehicle vehicle) {
+    var spot = FindAvailableSpot(vehicle);
+    if (spot == null) {
+      throw new Exception("No available spot for this vehicle");
+    }
+
+    spot.ParkedVehicle = vehicle;
+    var ticket = new ParkingTicket {
+      Id = Guid.NewGuid().GetHashCode(),
+      Vehicle = vehicle,
+      Spot = spot,
+      IssuedTime = DateTime.Now,
+      Status = ParkingTicketStatus.Active
+    };
+
+    _ticketsByPlate[vehicle.LicensePlate] = ticket;
+    return ticket;
+  }
+
+  public decimal UnparkVehicle(string licensePlate) {
+    if (!_ticketsByPlate.ContainsKey(licensePlate)) {
+      throw new Exception("No ticket found for this vehicle");
+    }
+
+    var ticket = _ticketsByPlate[licensePlate];
+    ticket.ExitTime = DateTime.Now;
+    ticket.Price = CalculatePrice(ticket);
+    ticket.Status = ParkingTicketStatus.Paid;
+
+    ticket.Spot.ParkedVehicle = null;
+    _ticketsByPlate.Remove(licensePlate);
+
+    return ticket.Price;
+  }
+
+  private ParkingSpot FindAvailableSpot(Vehicle vehicle) {
+    foreach (var level in _levels) {
+      var spot = level.FindAvailableSpot(vehicle);
+      if (spot != null) return spot;
+    }
+    return null;
+  }
+
+  private decimal CalculatePrice(ParkingTicket ticket) {
+    var duration = ticket.ExitTime - ticket.IssuedTime;
+    var hours = Math.Ceiling(duration.TotalHours);
+
+    decimal hourlyRate = ticket.Vehicle.GetType() switch {
+      VehicleType.Motorcycle => 2m,
+      VehicleType.Car => 5m,
+      VehicleType.Truck => 10m,
+      _ => 0m
+    };
+
+    return (decimal)hours * hourlyRate;
+  }
+}
+
+// Parking level
+public class ParkingLevel {
+  private int _id;
+  private List&lt;ParkingSpot&gt; _spots;
+
+  public ParkingLevel(int id, int numSpots) {
+    _id = id;
+    _spots = new List&lt;ParkingSpot&gt;();
+
+    for (int i = 0; i < numSpots; i++) {
+      var spotType = i % 3 switch {
+        0 => ParkingSpotType.Motorcycle,
+        1 => ParkingSpotType.Compact,
+        _ => ParkingSpotType.Large
+      };
+
+      _spots.Add(new ParkingSpot {
+        Id = i,
+        Level = _id,
+        SpotType = spotType
+      });
+    }
+  }
+
+  public ParkingSpot FindAvailableSpot(Vehicle vehicle) {
+    foreach (var spot in _spots) {
+      if (spot.CanFitVehicle(vehicle)) {
+        return spot;
+      }
+    }
+    return null;
+  }
+}
+
+// Payment processor
+public class PaymentProcessor {
+  public bool ProcessPayment(decimal amount) {
+    // Simplified: assume payment always succeeds
+    Console.WriteLine($"Processing payment of ${amount}");
+    return true;
+  }
+}</pre>
+</div>
+
+<h3>Usage Example</h3>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>var lot = new ParkingLot(3, 10);
+
+var car = new Car { LicensePlate = "ABC123" };
+var ticket = lot.ParkVehicle(car);
+Console.WriteLine($"Vehicle parked. Ticket ID: {ticket.Id}");
+
+System.Threading.Thread.Sleep(5000); // Simulate parking time
+
+var price = lot.UnparkVehicle("ABC123");
+Console.WriteLine($"Exit fee: ${price}");</pre>
+</div>
+
+<h3>Design Trade-offs</h3>
+
+<div class="vs">
+<div class="vs-box good">
+<div class="vs-title">Strengths</div>
+<div class="vs-item">Polymorphic vehicle types make it easy to add new vehicle types</div>
+<div class="vs-item">Spot type hierarchy allows flexible spot assignment</div>
+<div class="vs-item">Separate Level and Lot classes for scalability</div>
+<div class="vs-item">Price calculation strategy can be extended</div>
+</div>
+<div class="vs-box bad">
+<div class="vs-title">Limitations</div>
+<div class="vs-item">No reservation system (could add ReservationService)</div>
+<div class="vs-item">Payment validation is simplified (real system needs PCI compliance)</div>
+<div class="vs-item">No persistence (add database layer in production)</div>
+<div class="vs-item">Spot finding is O(n) (could add spatial indexing)</div>
+</div>
+</div>
+
+<h3>Follow-up Questions</h3>
+<ul style="margin-left:20px;margin-bottom:16px">
+<li><strong>Reservation System:</strong> How would you add advance reservations with hold times?</li>
+<li><strong>Discounts:</strong> How would you implement monthly passes or loyalty programs?</li>
+<li><strong>Pricing Strategy:</strong> What if rates vary by time of day or location?</li>
+<li><strong>Concurrency:</strong> How would you handle multiple vehicles parking simultaneously?</li>
+<li><strong>Reports:</strong> How would you generate occupancy reports by level and spot type?</li>
+</ul>
+
+</div>
+</div>
+
+<!-- Problem 2: LRU Cache -->
+<div class="section" id="lru">
+<div class="sec-tag"><div class="sec-num">05</div><div class="sec-line"></div></div>
+
+<div class="algo">
+<div class="algo-head">
+<div>
+<div class="algo-name">Problem 2: LRU Cache</div>
+<div class="algo-desc">Implement a cache with <code class="il">GET</code> and <code class="il">PUT</code> operations in O(1) time and space. Evict least-recently-used items when capacity is exceeded.</div>
+</div>
+<div class="algo-idx">2</div>
+</div>
+<div class="algo-body">
+
+<h3>Requirements</h3>
+<ul style="margin-left:20px;margin-bottom:16px">
+<li><code class="il">Get(key)</code>: Return value in O(1), mark as recently used</li>
+<li><code class="il">Put(key, value)</code>: Insert/update in O(1)</li>
+<li>When capacity exceeded, evict least-recently-used</li>
+<li>Both ops must be constant time</li>
+</ul>
+
+<h3>Key Data Structures</h3>
+
+<div class="callout info">
+<div class="callout-icon">ℹ</div>
+<div><strong>DoublyLinkedList + Dictionary:</strong> Dictionary gives O(1) lookup; DoublyLinkedList maintains insertion/access order with O(1) move operations.</div>
+</div>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>public class LRUCache {
+  private class Node {
+    public int Key { get; set; }
+    public int Value { get; set; }
+    public Node Prev { get; set; }
+    public Node Next { get; set; }
+
+    public Node(int key, int value) {
+      Key = key;
+      Value = value;
+    }
+  }
+
+  private int _capacity;
+  private Dictionary&lt;int, Node&gt; _cache;
+  private Node _head; // Most recently used
+  private Node _tail; // Least recently used
+
+  public LRUCache(int capacity) {
+    _capacity = capacity;
+    _cache = new Dictionary&lt;int, Node&gt;();
+
+    // Sentinel nodes to simplify edge cases
+    _head = new Node(0, 0);
+    _tail = new Node(0, 0);
+    _head.Next = _tail;
+    _tail.Prev = _head;
+  }
+
+  public int Get(int key) {
+    if (!_cache.ContainsKey(key)) {
+      return -1;
+    }
+
+    var node = _cache[key];
+    MoveToHead(node); // Mark as recently used
+    return node.Value;
+  }
+
+  public void Put(int key, int value) {
+    if (_cache.ContainsKey(key)) {
+      // Update existing node
+      var node = _cache[key];
+      node.Value = value;
+      MoveToHead(node);
+    } else {
+      // Create new node
+      var newNode = new Node(key, value);
+      _cache[key] = newNode;
+      AddToHead(newNode);
+
+      // Evict if over capacity
+      if (_cache.Count > _capacity) {
+        var evicted = RemoveTail();
+        _cache.Remove(evicted.Key);
+      }
+    }
+  }
+
+  private void MoveToHead(Node node) {
+    RemoveNode(node);
+    AddToHead(node);
+  }
+
+  private void AddToHead(Node node) {
+    node.Prev = _head;
+    node.Next = _head.Next;
+    _head.Next.Prev = node;
+    _head.Next = node;
+  }
+
+  private void RemoveNode(Node node) {
+    var prev = node.Prev;
+    var next = node.Next;
+    prev.Next = next;
+    next.Prev = prev;
+  }
+
+  private Node RemoveTail() {
+    var lru = _tail.Prev;
+    RemoveNode(lru);
+    return lru;
+  }
+}
+
+// Usage
+var cache = new LRUCache(2);
+cache.Put(1, 1);
+cache.Put(2, 2);
+Console.WriteLine(cache.Get(1)); // 1
+cache.Put(3, 3); // Evicts key 2
+Console.WriteLine(cache.Get(2)); // -1 (evicted)</pre>
+</div>
+
+<h3>Complexity Analysis</h3>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>Operation</th><th>Time</th><th>Space</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Get</td><td>O(1)</td><td>—</td><td>Dictionary lookup + O(1) list move</td></tr>
+<tr><td>Put</td><td>O(1)</td><td>—</td><td>Dictionary insert + list manipulation</td></tr>
+<tr><td>Space</td><td>—</td><td>O(capacity)</td><td>Dictionary + DoublyLinkedList nodes</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Alternative Approach: OrderedDictionary (C# 6.0+)</h3>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// .NET 6+ has OrderedDictionary that maintains insertion order
+using System.Collections.Generic;
+
+public class SimpleLRUCache {
+  private int _capacity;
+  private Dictionary&lt;int, int&gt; _cache;
+
+  public SimpleLRUCache(int capacity) {
+    _capacity = capacity;
+    _cache = new Dictionary&lt;int, int&gt;();
+  }
+
+  public int Get(int key) {
+    if (!_cache.ContainsKey(key)) return -1;
+
+    // Remove and re-add to move to end (most recent)
+    var value = _cache[key];
+    _cache.Remove(key);
+    _cache[key] = value;
+    return value;
+  }
+
+  public void Put(int key, int value) {
+    if (_cache.ContainsKey(key)) {
+      _cache.Remove(key);
+    } else if (_cache.Count >= _capacity) {
+      // Remove first key (least recently used)
+      var lruKey = _cache.Keys.First();
+      _cache.Remove(lruKey);
+    }
+
+    _cache[key] = value;
+  }
+}</pre>
+</div>
+
+<h3>Design Trade-offs</h3>
+
+<div class="vs">
+<div class="vs-box good">
+<div class="vs-title">DoublyLinkedList Approach</div>
+<div class="vs-item">True O(1) for all operations</div>
+<div class="vs-item">More efficient in production</div>
+<div class="vs-item">Full control over data structure</div>
+</div>
+<div class="vs-box bad">
+<div class="vs-title">Dictionary.First() Approach</div>
+<div class="vs-item">Simpler code, fewer bugs</div>
+<div class="vs-item">Requires .NET 6+</div>
+<div class="vs-item">Slightly slower (First() is O(1) but less optimal)</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- Problem 3: Deck of Cards -->
+<div class="section" id="cards">
+<div class="sec-tag"><div class="sec-num">06</div><div class="sec-line"></div></div>
+
+<div class="algo">
+<div class="algo-head">
+<div>
+<div class="algo-name">Problem 3: Design a Deck of Cards</div>
+<div class="algo-desc">Implement a card deck and game (e.g., Blackjack). Support shuffling, dealing, and checking hand values with polymorphic card and game logic.</div>
+</div>
+<div class="algo-idx">3</div>
+</div>
+<div class="algo-body">
+
+<h3>Requirements</h3>
+<ul style="margin-left:20px;margin-bottom:16px">
+<li>Standard 52-card deck (4 suits, 13 ranks)</li>
+<li>Shuffle deck randomly</li>
+<li>Deal cards to players</li>
+<li>Support Blackjack-specific rules</li>
+<li>Calculate hand value (Ace=1 or 11)</li>
+<li>Extensible for other card games</li>
+</ul>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// Enums
+public enum Suit {
+  Hearts,
+  Diamonds,
+  Clubs,
+  Spades
+}
+
+public enum Rank {
+  Ace = 1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten,
+  Jack, Queen, King
+}
+
+// Card class
+public class Card {
+  public Suit Suit { get; set; }
+  public Rank Rank { get; set; }
+
+  public Card(Suit suit, Rank rank) {
+    Suit = suit;
+    Rank = rank;
+  }
+
+  public int GetValue() {
+    return Rank switch {
+      Rank.Ace => 1,        // Ace can be 1 or 11 (handled in Hand)
+      Rank.Two => 2,
+      Rank.Three => 3,
+      Rank.Four => 4,
+      Rank.Five => 5,
+      Rank.Six => 6,
+      Rank.Seven => 7,
+      Rank.Eight => 8,
+      Rank.Nine => 9,
+      Rank.Ten or Rank.Jack or Rank.Queen or Rank.King => 10,
+      _ => 0
+    };
+  }
+
+  public override string ToString() => $"{Rank} of {Suit}";
+}
+
+// Deck class
+public class Deck {
+  private List&lt;Card&gt; _cards;
+  private Random _random;
+
+  public Deck() {
+    _cards = new List&lt;Card&gt;();
+    _random = new Random();
+    Initialize();
+  }
+
+  private void Initialize() {
+    foreach (Suit suit in Enum.GetValues(typeof(Suit))) {
+      foreach (Rank rank in Enum.GetValues(typeof(Rank))) {
+        _cards.Add(new Card(suit, rank));
+      }
+    }
+  }
+
+  public void Shuffle() {
+    for (int i = _cards.Count - 1; i > 0; i--) {
+      int randomIndex = _random.Next(i + 1);
+      (_cards[i], _cards[randomIndex]) = (_cards[randomIndex], _cards[i]);
+    }
+  }
+
+  public Card DealCard() {
+    if (_cards.Count == 0) {
+      throw new Exception("No cards left in deck");
+    }
+    var card = _cards[0];
+    _cards.RemoveAt(0);
+    return card;
+  }
+
+  public int GetRemainingCards() => _cards.Count;
+}
+
+// Hand class
+public class Hand {
+  private List&lt;Card&gt; _cards;
+
+  public Hand() {
+    _cards = new List&lt;Card&gt;();
+  }
+
+  public void AddCard(Card card) {
+    _cards.Add(card);
+  }
+
+  public List&lt;Card&gt; GetCards() => new List&lt;Card&gt;(_cards);
+
+  public int GetValue() {
+    int value = 0;
+    int aces = 0;
+
+    // Sum all cards
+    foreach (var card in _cards) {
+      value += card.GetValue();
+      if (card.Rank == Rank.Ace) {
+        aces++;
+      }
+    }
+
+    // Adjust for Aces (make one Ace = 11 if possible)
+    while (value + 10 <= 21 && aces > 0) {
+      value += 10;
+      aces--;
+    }
+
+    return value;
+  }
+
+  public bool IsBlackjack() => _cards.Count == 2 && GetValue() == 21;
+
+  public bool IsBust() => GetValue() > 21;
+}
+
+// Blackjack game
+public class BlackjackGame {
+  private Deck _deck;
+  private Hand _playerHand;
+  private Hand _dealerHand;
+
+  public BlackjackGame() {
+    _deck = new Deck();
+    _deck.Shuffle();
+    _playerHand = new Hand();
+    _dealerHand = new Hand();
+  }
+
+  public void DealInitialCards() {
+    _playerHand.AddCard(_deck.DealCard());
+    _dealerHand.AddCard(_deck.DealCard());
+    _playerHand.AddCard(_deck.DealCard());
+    _dealerHand.AddCard(_deck.DealCard());
+  }
+
+  public void PlayerHit() {
+    _playerHand.AddCard(_deck.DealCard());
+  }
+
+  public void DealerHit() {
+    while (_dealerHand.GetValue() < 17) {
+      _dealerHand.AddCard(_deck.DealCard());
+    }
+  }
+
+  public string GetGameResult() {
+    int playerValue = _playerHand.GetValue();
+    int dealerValue = _dealerHand.GetValue();
+
+    if (_playerHand.IsBlackjack() && !_dealerHand.IsBlackjack()) {
+      return "Player wins with Blackjack!";
+    }
+
+    if (_playerHand.IsBust()) {
+      return "Player busts. Dealer wins!";
+    }
+
+    if (_dealerHand.IsBust()) {
+      return "Dealer busts. Player wins!";
+    }
+
+    if (playerValue > dealerValue) {
+      return "Player wins!";
+    } else if (playerValue < dealerValue) {
+      return "Dealer wins!";
+    } else {
+      return "Push (tie)!";
+    }
+  }
+
+  public void PrintGameState() {
+    Console.WriteLine($"Player hand: {string.Join(", ", _playerHand.GetCards())} (Value: {_playerHand.GetValue()})");
+    Console.WriteLine($"Dealer hand: {string.Join(", ", _dealerHand.GetCards())} (Value: {_dealerHand.GetValue()})");
+  }
+}
+
+// Usage
+var game = new BlackjackGame();
+game.DealInitialCards();
+game.PrintGameState();
+
+game.PlayerHit();
+game.PrintGameState();
+
+game.DealerHit();
+Console.WriteLine(game.GetGameResult());</pre>
+</div>
+
+<h3>Polymorphism & Extension</h3>
+
+<p>To support other games (Poker, War, etc.):</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>// Abstract game base
+public abstract class CardGame {
+  protected Deck _deck;
+  protected List&lt;Hand&gt; _playerHands;
+
+  public CardGame() {
+    _deck = new Deck();
+    _playerHands = new List&lt;Hand&gt;();
+  }
+
+  public abstract void Deal();
+  public abstract void Play();
+  public abstract string GetResult();
+}
+
+// Blackjack extends CardGame
+public class BlackjackGame : CardGame {
+  public override void Deal() {
+    // Implementation
+  }
+
+  public override void Play() {
+    // Implementation
+  }
+
+  public override string GetResult() {
+    // Implementation
+    return "";
+  }
+}</pre>
+</div>
+
+</div>
+</div>
+
+<!-- Problem 4: Elevator System -->
+<div class="section" id="elevator">
+<div class="sec-tag"><div class="sec-num">07</div><div class="sec-line"></div></div>
+
+<div class="algo">
+<div class="algo-head">
+<div>
+<div class="algo-name">Problem 4: Design an Elevator System</div>
+<div class="algo-desc">Implement an elevator controller with scheduling, request queuing, and optimal floor selection. Handle up/down requests efficiently.</div>
+</div>
+<div class="algo-idx">4</div>
+</div>
+<div class="algo-body">
+
+<h3>Requirements</h3>
+<ul style="margin-left:20px;margin-bottom:16px">
+<li>Multiple elevators serving multiple floors</li>
+<li>External buttons (call from floor n)</li>
+<li>Internal buttons (destination floor inside elevator)</li>
+<li>Elevators move optimally to minimize wait time</li>
+<li>Handle requests from multiple floors simultaneously</li>
+</ul>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre">// Enums
+public enum Direction {
+  Up,
+  Down,
+  Idle
+}
+
+public enum ElevatorState {
+  Idle,
+  Moving,
+  DoorOpen
+}
+
+// Request class
+public class ElevatorRequest {
+  public int FromFloor { get; set; }
+  public int ToFloor { get; set; }
+  public Direction Direction { get; set; }
+
+  public ElevatorRequest(int fromFloor, int toFloor) {
+    FromFloor = fromFloor;
+    ToFloor = toFloor;
+    Direction = toFloor > fromFloor ? Direction.Up : Direction.Down;
+  }
+}
+
+// Elevator class
+public class Elevator {
+  public int Id { get; set; }
+  public int CurrentFloor { get; set; }
+  public Direction CurrentDirection { get; set; }
+  public ElevatorState State { get; set; }
+
+  private SortedSet&lt;int&gt; _upDestinations;
+  private SortedSet&lt;int&gt; _downDestinations;
+
+  public Elevator(int id, int startFloor = 0) {
+    Id = id;
+    CurrentFloor = startFloor;
+    CurrentDirection = Direction.Idle;
+    State = ElevatorState.Idle;
+    _upDestinations = new SortedSet&lt;int&gt;();
+    _downDestinations = new SortedSet&lt;int&gt;();
+  }
+
+  public void AddRequest(ElevatorRequest request) {
+    if (request.ToFloor > CurrentFloor) {
+      _upDestinations.Add(request.ToFloor);
+    } else {
+      _downDestinations.Add(request.ToFloor);
+    }
+
+    if (CurrentDirection == Direction.Idle) {
+      CurrentDirection = request.Direction;
+    }
+  }
+
+  public void Move() {
+    if (CurrentDirection == Direction.Up) {
+      if (_upDestinations.Count > 0) {
+        CurrentFloor++;
+        State = ElevatorState.Moving;
+
+        if (_upDestinations.Contains(CurrentFloor)) {
+          State = ElevatorState.DoorOpen;
+          _upDestinations.Remove(CurrentFloor);
+          Console.WriteLine($"Elevator {Id} stopped at floor {CurrentFloor} (UP)");
+        }
+      } else if (_downDestinations.Count > 0) {
+        CurrentDirection = Direction.Down;
+      } else {
+        CurrentDirection = Direction.Idle;
+        State = ElevatorState.Idle;
+      }
+    } else if (CurrentDirection == Direction.Down) {
+      if (_downDestinations.Count > 0) {
+        CurrentFloor--;
+        State = ElevatorState.Moving;
+
+        if (_downDestinations.Contains(CurrentFloor)) {
+          State = ElevatorState.DoorOpen;
+          _downDestinations.Remove(CurrentFloor);
+          Console.WriteLine($"Elevator {Id} stopped at floor {CurrentFloor} (DOWN)");
+        }
+      } else if (_upDestinations.Count > 0) {
+        CurrentDirection = Direction.Up;
+      } else {
+        CurrentDirection = Direction.Idle;
+        State = ElevatorState.Idle;
+      }
+    }
+  }
+
+  public bool IsIdle() => State == ElevatorState.Idle && _upDestinations.Count == 0 && _downDestinations.Count == 0;
+
+  public int GetDistance(ElevatorRequest request) {
+    return Math.Abs(CurrentFloor - request.FromFloor);
+  }
+}
+
+// Controller
+public class ElevatorController {
+  private List&lt;Elevator&gt; _elevators;
+  private Queue&lt;ElevatorRequest&gt; _requestQueue;
+
+  public ElevatorController(int numElevators, int numFloors = 10) {
+    _elevators = new List&lt;Elevator&gt;();
+    _requestQueue = new Queue&lt;ElevatorRequest&gt;();
+
+    for (int i = 0; i < numElevators; i++) {
+      _elevators.Add(new Elevator(i, 0));
+    }
+  }
+
+  public void RequestElevator(int fromFloor, int toFloor) {
+    var request = new ElevatorRequest(fromFloor, toFloor);
+    var bestElevator = FindBestElevator(request);
+
+    if (bestElevator != null) {
+      bestElevator.AddRequest(request);
+      Console.WriteLine($"Request ({fromFloor} -> {toFloor}) assigned to Elevator {bestElevator.Id}");
+    } else {
+      _requestQueue.Enqueue(request);
+    }
+  }
+
+  private Elevator FindBestElevator(ElevatorRequest request) {
+    Elevator best = null;
+    int minDistance = int.MaxValue;
+
+    foreach (var elevator in _elevators) {
+      if (elevator.IsIdle()) {
+        int distance = elevator.GetDistance(request);
+        if (distance < minDistance) {
+          minDistance = distance;
+          best = elevator;
+        }
+      }
+    }
+
+    return best;
+  }
+
+  public void Update() {
+    // Process all elevators
+    foreach (var elevator in _elevators) {
+      elevator.Move();
+    }
+
+    // Assign queued requests to idle elevators
+    while (_requestQueue.Count > 0) {
+      var request = _requestQueue.Peek();
+      var elevator = FindBestElevator(request);
+
+      if (elevator != null) {
+        _requestQueue.Dequeue();
+        elevator.AddRequest(request);
+      } else {
+        break;
+      }
+    }
+  }
+
+  public void SimulateDay() {
+    for (int t = 0; t < 100; t++) {
+      Update();
+    }
+  }
+}
+
+// Usage
+var controller = new ElevatorController(3, 10);
+controller.RequestElevator(0, 5);
+controller.RequestElevator(2, 8);
+controller.RequestElevator(3, 1);
+controller.SimulateDay();</pre>
+</div>
+
+<h3>Follow-up: Scheduling Algorithms</h3>
+
+<p><strong>SCAN (Elevator) Algorithm:</strong> Move up, pick all up requests; then move down, pick all down requests. Minimize wait times.</p>
+
+<p><strong>Closest Car First:</strong> Assign requests to nearest idle elevator.</p>
+
+<p><strong>Predictive Assignment:</strong> Use machine learning to predict future requests based on time of day.</p>
+
+</div>
+</div>
+
+<!-- Problem 5: Library Management -->
+<div class="section" id="library">
+<div class="sec-tag"><div class="sec-num">08</div><div class="sec-line"></div></div>
+
+<div class="algo">
+<div class="algo-head">
+<div>
+<div class="algo-name">Problem 5: Library Management System</div>
+<div class="algo-desc">Track books, members, checkouts, and returns. Handle fines, reservations, and search across catalog.</div>
+</div>
+<div class="algo-idx">5</div>
+</div>
+<div class="algo-body">
+
+<h3>Requirements</h3>
+<ul style="margin-left:20px;margin-bottom:16px">
+<li>Books with title, author, ISBN, copies available</li>
+<li>Members can checkout/return books</li>
+<li>Track due dates and calculate fines</li>
+<li>Search by title, author, ISBN</li>
+<li>Reservation system for unavailable books</li>
+</ul>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre">public enum CheckoutStatus {
+  Active,
+  Returned,
+  Overdue
+}
+
+// Book class
+public class Book {
+  public string Isbn { get; set; }
+  public string Title { get; set; }
+  public string Author { get; set; }
+  public int TotalCopies { get; set; }
+  public int AvailableCopies { get; set; }
+
+  public Book(string isbn, string title, string author, int totalCopies) {
+    Isbn = isbn;
+    Title = title;
+    Author = author;
+    TotalCopies = totalCopies;
+    AvailableCopies = totalCopies;
+  }
+
+  public bool CanCheckout() => AvailableCopies > 0;
+}
+
+// Member class
+public class Member {
+  public int Id { get; set; }
+  public string Name { get; set; }
+  public string Email { get; set; }
+  public List&lt;BookCheckout&gt; CheckoutHistory { get; set; }
+  public decimal Fine { get; set; }
+
+  public Member(int id, string name, string email) {
+    Id = id;
+    Name = name;
+    Email = email;
+    CheckoutHistory = new List&lt;BookCheckout&gt;();
+    Fine = 0;
+  }
+}
+
+// Checkout record
+public class BookCheckout {
+  public int Id { get; set; }
+  public Book Book { get; set; }
+  public Member Member { get; set; }
+  public DateTime CheckoutDate { get; set; }
+  public DateTime DueDate { get; set; }
+  public DateTime ReturnDate { get; set; }
+  public CheckoutStatus Status { get; set; }
+  public decimal Fine { get; set; }
+}
+
+// Library class
+public class Library {
+  private Dictionary&lt;string, Book&gt; _books;
+  private Dictionary&lt;int, Member&gt; _members;
+  private List&lt;BookCheckout&gt; _checkoutHistory;
+  private decimal _finePerDay = 0.50m;
+
+  public Library() {
+    _books = new Dictionary&lt;string, Book&gt;();
+    _members = new Dictionary&lt;int, Member&gt;();
+    _checkoutHistory = new List&lt;BookCheckout&gt;();
+  }
+
+  public void AddBook(Book book) {
+    _books[book.Isbn] = book;
+  }
+
+  public void RegisterMember(Member member) {
+    _members[member.Id] = member;
+  }
+
+  public BookCheckout CheckoutBook(int memberId, string isbn) {
+    if (!_members.ContainsKey(memberId)) {
+      throw new Exception("Member not found");
+    }
+
+    if (!_books.ContainsKey(isbn)) {
+      throw new Exception("Book not found");
+    }
+
+    var member = _members[memberId];
+    var book = _books[isbn];
+
+    if (!book.CanCheckout()) {
+      throw new Exception("Book not available");
+    }
+
+    if (member.Fine > 0) {
+      throw new Exception("Member has outstanding fines");
+    }
+
+    book.AvailableCopies--;
+
+    var checkout = new BookCheckout {
+      Id = Guid.NewGuid().GetHashCode(),
+      Book = book,
+      Member = member,
+      CheckoutDate = DateTime.Now,
+      DueDate = DateTime.Now.AddDays(14),
+      Status = CheckoutStatus.Active,
+      Fine = 0
+    };
+
+    _checkoutHistory.Add(checkout);
+    member.CheckoutHistory.Add(checkout);
+    return checkout;
+  }
+
+  public void ReturnBook(int checkoutId) {
+    var checkout = _checkoutHistory.FirstOrDefault(c => c.Id == checkoutId);
+    if (checkout == null) {
+      throw new Exception("Checkout record not found");
+    }
+
+    checkout.ReturnDate = DateTime.Now;
+    checkout.Status = CheckoutStatus.Returned;
+    checkout.Book.AvailableCopies++;
+
+    // Calculate fine
+    if (checkout.ReturnDate > checkout.DueDate) {
+      var daysOverdue = (int)(checkout.ReturnDate - checkout.DueDate).TotalDays;
+      checkout.Fine = daysOverdue * _finePerDay;
+      checkout.Status = CheckoutStatus.Overdue;
+      checkout.Member.Fine += checkout.Fine;
+    }
+
+    Console.WriteLine($"Book '{checkout.Book.Title}' returned. Fine: ${checkout.Fine}");
+  }
+
+  public Book SearchByTitle(string title) {
+    return _books.Values.FirstOrDefault(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
+  }
+
+  public Book SearchByAuthor(string author) {
+    return _books.Values.FirstOrDefault(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase));
+  }
+}
+
+// Usage
+var library = new Library();
+
+var book1 = new Book("978-0-13-468599-1", "Clean Code", "Robert Martin", 3);
+library.AddBook(book1);
+
+var member = new Member(1, "John Doe", "john@example.com");
+library.RegisterMember(member);
+
+var checkout = library.CheckoutBook(1, "978-0-13-468599-1");
+Console.WriteLine($"Book checked out. Due date: {checkout.DueDate}");
+
+// Simulate return after due date
+System.Threading.Thread.Sleep(1000);
+library.ReturnBook(checkout.Id);</pre>
+</div>
+
+</div>
+</div>
+
+<!-- Problem 6: Chess Game -->
+<div class="section" id="chess">
+<div class="sec-tag"><div class="sec-num">09</div><div class="sec-line"></div></div>
+
+<div class="algo">
+<div class="algo-head">
+<div>
+<div class="algo-name">Problem 6: Design a Chess Game</div>
+<div class="algo-desc">Model chess pieces, board, move validation, and game state. Implement polymorphic piece movement and check/checkmate detection.</div>
+</div>
+<div class="algo-idx">6</div>
+</div>
+<div class="algo-body">
+
+<h3>Core Concepts</h3>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre">public enum Color {
+  White,
+  Black
+}
+
+public enum PieceType {
+  Pawn,
+  Rook,
+  Knight,
+  Bishop,
+  Queen,
+  King
+}
+
+// Position on board
+public class Position {
+  public int Row { get; set; }
+  public int Col { get; set; }
+
+  public Position(int row, int col) {
+    Row = row;
+    Col = col;
+  }
+
+  public bool IsValid() => Row >= 0 && Row < 8 && Col >= 0 && Col < 8;
+
+  public override bool Equals(object obj) {
+    return obj is Position p && p.Row == Row && p.Col == Col;
+  }
+
+  public override int GetHashCode() => (Row, Col).GetHashCode();
+}
+
+// Abstract piece
+public abstract class Piece {
+  public Color Color { get; set; }
+  public PieceType Type { get; set; }
+
+  protected Piece(Color color, PieceType type) {
+    Color = color;
+    Type = type;
+  }
+
+  public abstract List&lt;Position&gt; GetValidMoves(Position current, Board board);
+
+  protected bool IsEnemyOrEmpty(Position pos, Board board) {
+    var piece = board.GetPiece(pos);
+    return piece == null || piece.Color != Color;
+  }
+
+  protected void AddMovesInDirection(Position current, int rowDir, int colDir,
+                                     Board board, List&lt;Position&gt; moves) {
+    var pos = new Position(current.Row + rowDir, current.Col + colDir);
+    while (pos.IsValid()) {
+      if (board.GetPiece(pos) != null) {
+        if (board.GetPiece(pos).Color != Color) {
+          moves.Add(pos);
+        }
+        break;
+      }
+      moves.Add(pos);
+      pos = new Position(pos.Row + rowDir, pos.Col + colDir);
+    }
+  }
+}
+
+// Concrete pieces
+public class Pawn : Piece {
+  public Pawn(Color color) : base(color, PieceType.Pawn) { }
+
+  public override List&lt;Position&gt; GetValidMoves(Position current, Board board) {
+    var moves = new List&lt;Position&gt;();
+    int direction = Color == Color.White ? -1 : 1;
+    int startRow = Color == Color.White ? 6 : 1;
+
+    // Forward move
+    var forward = new Position(current.Row + direction, current.Col);
+    if (forward.IsValid() && board.GetPiece(forward) == null) {
+      moves.Add(forward);
+
+      // Double move from start
+      if (current.Row == startRow) {
+        var doubleForward = new Position(current.Row + 2 * direction, current.Col);
+        if (board.GetPiece(doubleForward) == null) {
+          moves.Add(doubleForward);
+        }
+      }
+    }
+
+    // Diagonal capture
+    for (int colOffset = -1; colOffset <= 1; colOffset += 2) {
+      var diagonal = new Position(current.Row + direction, current.Col + colOffset);
+      if (diagonal.IsValid() && !IsEnemyOrEmpty(diagonal, board)) {
+        moves.Add(diagonal);
+      }
+    }
+
+    return moves;
+  }
+}
+
+public class Rook : Piece {
+  public Rook(Color color) : base(color, PieceType.Rook) { }
+
+  public override List&lt;Position&gt; GetValidMoves(Position current, Board board) {
+    var moves = new List&lt;Position&gt;();
+    int[][] directions = new int[][] {
+      new int[] { -1, 0 }, new int[] { 1, 0 },
+      new int[] { 0, -1 }, new int[] { 0, 1 }
+    };
+
+    foreach (var dir in directions) {
+      AddMovesInDirection(current, dir[0], dir[1], board, moves);
+    }
+
+    return moves;
+  }
+}
+
+public class Bishop : Piece {
+  public Bishop(Color color) : base(color, PieceType.Bishop) { }
+
+  public override List&lt;Position&gt; GetValidMoves(Position current, Board board) {
+    var moves = new List&lt;Position&gt;();
+    int[][] directions = new int[][] {
+      new int[] { -1, -1 }, new int[] { -1, 1 },
+      new int[] { 1, -1 }, new int[] { 1, 1 }
+    };
+
+    foreach (var dir in directions) {
+      AddMovesInDirection(current, dir[0], dir[1], board, moves);
+    }
+
+    return moves;
+  }
+}
+
+public class Queen : Piece {
+  public Queen(Color color) : base(color, PieceType.Queen) { }
+
+  public override List&lt;Position&gt; GetValidMoves(Position current, Board board) {
+    var moves = new List&lt;Position&gt;();
+    int[][] directions = new int[][] {
+      new int[] { -1, 0 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { 0, 1 },
+      new int[] { -1, -1 }, new int[] { -1, 1 }, new int[] { 1, -1 }, new int[] { 1, 1 }
+    };
+
+    foreach (var dir in directions) {
+      AddMovesInDirection(current, dir[0], dir[1], board, moves);
+    }
+
+    return moves;
+  }
+}
+
+public class King : Piece {
+  public King(Color color) : base(color, PieceType.King) { }
+
+  public override List&lt;Position&gt; GetValidMoves(Position current, Board board) {
+    var moves = new List&lt;Position&gt;();
+
+    for (int rowOffset = -1; rowOffset <= 1; rowOffset++) {
+      for (int colOffset = -1; colOffset <= 1; colOffset++) {
+        if (rowOffset == 0 && colOffset == 0) continue;
+
+        var newPos = new Position(current.Row + rowOffset, current.Col + colOffset);
+        if (newPos.IsValid() && IsEnemyOrEmpty(newPos, board)) {
+          moves.Add(newPos);
+        }
+      }
+    }
+
+    return moves;
+  }
+}
+
+public class Knight : Piece {
+  public Knight(Color color) : base(color, PieceType.Knight) { }
+
+  public override List&lt;Position&gt; GetValidMoves(Position current, Board board) {
+    var moves = new List&lt;Position&gt;();
+    int[][] knightMoves = new int[][] {
+      new int[] { -2, -1 }, new int[] { -2, 1 },
+      new int[] { -1, -2 }, new int[] { -1, 2 },
+      new int[] { 1, -2 }, new int[] { 1, 2 },
+      new int[] { 2, -1 }, new int[] { 2, 1 }
+    };
+
+    foreach (var move in knightMoves) {
+      var newPos = new Position(current.Row + move[0], current.Col + move[1]);
+      if (newPos.IsValid() && IsEnemyOrEmpty(newPos, board)) {
+        moves.Add(newPos);
+      }
+    }
+
+    return moves;
+  }
+}
+
+// Board
+public class Board {
+  private Piece[,] _board;
+
+  public Board() {
+    _board = new Piece[8, 8];
+    InitializeBoard();
+  }
+
+  private void InitializeBoard() {
+    // Place white pieces
+    _board[7, 0] = new Rook(Color.White);
+    _board[7, 1] = new Knight(Color.White);
+    _board[7, 2] = new Bishop(Color.White);
+    _board[7, 3] = new Queen(Color.White);
+    _board[7, 4] = new King(Color.White);
+    _board[7, 5] = new Bishop(Color.White);
+    _board[7, 6] = new Knight(Color.White);
+    _board[7, 7] = new Rook(Color.White);
+
+    for (int i = 0; i < 8; i++) {
+      _board[6, i] = new Pawn(Color.White);
+    }
+
+    // Place black pieces (similar, rows 0-1)
+    _board[0, 0] = new Rook(Color.Black);
+    _board[0, 1] = new Knight(Color.Black);
+    _board[0, 2] = new Bishop(Color.Black);
+    _board[0, 3] = new Queen(Color.Black);
+    _board[0, 4] = new King(Color.Black);
+    _board[0, 5] = new Bishop(Color.Black);
+    _board[0, 6] = new Knight(Color.Black);
+    _board[0, 7] = new Rook(Color.Black);
+
+    for (int i = 0; i < 8; i++) {
+      _board[1, i] = new Pawn(Color.Black);
+    }
+  }
+
+  public Piece GetPiece(Position pos) {
+    if (!pos.IsValid()) return null;
+    return _board[pos.Row, pos.Col];
+  }
+
+  public void MovePiece(Position from, Position to) {
+    if (!from.IsValid() || !to.IsValid()) {
+      throw new Exception("Invalid position");
+    }
+
+    var piece = _board[from.Row, from.Col];
+    if (piece == null) {
+      throw new Exception("No piece at source");
+    }
+
+    _board[to.Row, to.Col] = piece;
+    _board[from.Row, from.Col] = null;
+  }
+}
+
+// Game
+public class ChessGame {
+  private Board _board;
+  private Color _currentTurn;
+
+  public ChessGame() {
+    _board = new Board();
+    _currentTurn = Color.White;
+  }
+
+  public void MakeMove(Position from, Position to) {
+    var piece = _board.GetPiece(from);
+    if (piece == null || piece.Color != _currentTurn) {
+      throw new Exception("Invalid move or not your turn");
+    }
+
+    var validMoves = piece.GetValidMoves(from, _board);
+    if (!validMoves.Contains(to)) {
+      throw new Exception("Illegal move");
+    }
+
+    _board.MovePiece(from, to);
+    _currentTurn = _currentTurn == Color.White ? Color.Black : Color.White;
+    Console.WriteLine($"Moved {piece.Type} to ({to.Row}, {to.Col})");
+  }
+}</pre>
+</div>
+
+</div>
+</div>
+
+<!-- Problem 7: File System -->
+<div class="section" id="filesystem">
+<div class="sec-tag"><div class="sec-num">10</div><div class="sec-line"></div></div>
+
+<div class="algo">
+<div class="algo-head">
+<div>
+<div class="algo-name">Problem 7: Design a File System</div>
+<div class="algo-desc">Implement a hierarchical file system using the Composite pattern. Support files, directories, search, and size calculation.</div>
+</div>
+<div class="algo-idx">7</div>
+</div>
+<div class="algo-body">
+
+<h3>Composite Pattern</h3>
+
+<p>Use the Composite pattern to treat files and directories uniformly.</p>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre">// Abstract base
+public abstract class FileSystemEntry {
+  public string Name { get; set; }
+  public abstract long GetSize();
+  public abstract void Display(int indent = 0);
+}
+
+// File
+public class File : FileSystemEntry {
+  public long Size { get; set; }
+
+  public File(string name, long size) {
+    Name = name;
+    Size = size;
+  }
+
+  public override long GetSize() => Size;
+
+  public override void Display(int indent = 0) {
+    Console.WriteLine(new string(' ', indent) + $"📄 {Name} ({Size} bytes)");
+  }
+}
+
+// Directory
+public class Directory : FileSystemEntry {
+  private List&lt;FileSystemEntry&gt; _contents;
+
+  public Directory(string name) {
+    Name = name;
+    _contents = new List&lt;FileSystemEntry&gt;();
+  }
+
+  public void Add(FileSystemEntry entry) {
+    _contents.Add(entry);
+  }
+
+  public void Remove(FileSystemEntry entry) {
+    _contents.Remove(entry);
+  }
+
+  public FileSystemEntry Find(string name) {
+    foreach (var entry in _contents) {
+      if (entry.Name == name) return entry;
+
+      if (entry is Directory dir) {
+        var found = dir.Find(name);
+        if (found != null) return found;
+      }
+    }
+    return null;
+  }
+
+  public override long GetSize() {
+    long total = 0;
+    foreach (var entry in _contents) {
+      total += entry.GetSize();
+    }
+    return total;
+  }
+
+  public override void Display(int indent = 0) {
+    Console.WriteLine(new string(' ', indent) + $"📁 {Name}/ ({GetSize()} bytes)");
+    foreach (var entry in _contents) {
+      entry.Display(indent + 2);
+    }
+  }
+}
+
+// Usage
+var root = new Directory("root");
+var documents = new Directory("Documents");
+var pictures = new Directory("Pictures");
+
+root.Add(documents);
+root.Add(pictures);
+root.Add(new File("README.txt", 1024));
+
+documents.Add(new File("resume.pdf", 2048));
+documents.Add(new File("letter.doc", 512));
+
+pictures.Add(new File("photo1.jpg", 1024 * 500));
+pictures.Add(new File("photo2.jpg", 1024 * 600));
+
+root.Display();
+Console.WriteLine($"\nTotal size: {root.GetSize()} bytes");
+
+var found = root.Find("photo1.jpg");
+Console.WriteLine($"\nFound: {found?.Name}");</pre>
+</div>
+
+</div>
+</div>
+
+<!-- Problem 8: Restaurant Reservation -->
+<div class="section" id="restaurant">
+<div class="sec-tag"><div class="sec-num">11</div><div class="sec-line"></div></div>
+
+<div class="algo">
+<div class="algo-head">
+<div>
+<div class="algo-name">Problem 8: Design a Restaurant Reservation System</div>
+<div class="algo-desc">Manage tables, reservations, availability, and no-shows. Match party sizes to tables efficiently.</div>
+</div>
+<div class="algo-idx">8</div>
+</div>
+<div class="algo-body">
+
+<h3>Core Classes</h3>
+
+<div class="code-block">
+<div class="code-bar"><span class="code-lang">C#</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre">public enum ReservationStatus {
+  Pending,
+  Confirmed,
+  CancelledByCustomer,
+  CancelledByRestaurant,
+  Completed,
+  NoShow
+}
+
+// Table
+public class Table {
+  public int Id { get; set; }
+  public int Capacity { get; set; }
+  public List&lt;Reservation&gt; ReservationSlots { get; set; }
+
+  public Table(int id, int capacity) {
+    Id = id;
+    Capacity = capacity;
+    ReservationSlots = new List&lt;Reservation&gt;();
+  }
+
+  public bool IsAvailable(DateTime startTime, DateTime endTime) {
+    foreach (var reservation in ReservationSlots) {
+      if (reservation.Status == ReservationStatus.Confirmed) {
+        if (!(endTime <= reservation.ReservationTime ||
+              startTime >= reservation.ReservationTime.AddHours(2))) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+}
+
+// Reservation
+public class Reservation {
+  public int Id { get; set; }
+  public string CustomerName { get; set; }
+  public string Phone { get; set; }
+  public int PartySize { get; set; }
+  public DateTime ReservationTime { get; set; }
+  public Table Table { get; set; }
+  public ReservationStatus Status { get; set; }
+  public DateTime CreatedAt { get; set; }
+
+  public Reservation(string name, string phone, int partySize, DateTime time) {
+    Id = Guid.NewGuid().GetHashCode();
+    CustomerName = name;
+    Phone = phone;
+    PartySize = partySize;
+    ReservationTime = time;
+    Status = ReservationStatus.Pending;
+    CreatedAt = DateTime.Now;
+  }
+}
+
+// Restaurant reservation system
+public class RestaurantReservationSystem {
+  private List&lt;Table&gt; _tables;
+  private Dictionary&lt;int, Reservation&gt; _reservations;
+  private const int SEATING_DURATION = 2; // hours
+
+  public RestaurantReservationSystem() {
+    _tables = new List&lt;Table&gt;();
+    _reservations = new Dictionary&lt;int, Reservation&gt;();
+  }
+
+  public void AddTable(int capacity) {
+    int tableId = _tables.Count + 1;
+    _tables.Add(new Table(tableId, capacity));
+  }
+
+  public bool MakeReservation(string customerName, string phone, int partySize, DateTime time) {
+    var table = FindAvailableTable(partySize, time);
+    if (table == null) {
+      Console.WriteLine("No tables available");
+      return false;
+    }
+
+    var reservation = new Reservation(customerName, phone, partySize, time);
+    reservation.Table = table;
+    reservation.Status = ReservationStatus.Confirmed;
+
+    _reservations[reservation.Id] = reservation;
+    table.ReservationSlots.Add(reservation);
+
+    Console.WriteLine($"Reservation confirmed for {customerName} at table {table.Id}");
+    return true;
+  }
+
+  public void CancelReservation(int reservationId) {
+    if (!_reservations.ContainsKey(reservationId)) {
+      throw new Exception("Reservation not found");
+    }
+
+    var reservation = _reservations[reservationId];
+    reservation.Status = ReservationStatus.CancelledByCustomer;
+    Console.WriteLine($"Reservation {reservationId} cancelled");
+  }
+
+  public void CompleteReservation(int reservationId) {
+    if (!_reservations.ContainsKey(reservationId)) {
+      throw new Exception("Reservation not found");
+    }
+
+    var reservation = _reservations[reservationId];
+    reservation.Status = ReservationStatus.Completed;
+  }
+
+  private Table FindAvailableTable(int partySize, DateTime time) {
+    // Find smallest table that fits party size
+    Table bestTable = null;
+
+    foreach (var table in _tables.OrderBy(t => t.Capacity)) {
+      if (table.Capacity >= partySize && table.IsAvailable(time, time.AddHours(SEATING_DURATION))) {
+        bestTable = table;
+        break;
+      }
+    }
+
+    return bestTable;
+  }
+
+  public void DisplayReservations() {
+    foreach (var res in _reservations.Values) {
+      if (res.Status == ReservationStatus.Confirmed) {
+        Console.WriteLine($"ID: {res.Id}, Name: {res.CustomerName}, Party: {res.PartySize}, Time: {res.ReservationTime}, Table: {res.Table.Id}");
+      }
+    }
+  }
+}
+
+// Usage
+var system = new RestaurantReservationSystem();
+system.AddTable(2);
+system.AddTable(4);
+system.AddTable(6);
+
+var time = DateTime.Now.AddHours(2);
+system.MakeReservation("Alice", "555-1234", 2, time);
+system.MakeReservation("Bob", "555-5678", 4, time);
+system.MakeReservation("Charlie", "555-9999", 2, time);
+
+system.DisplayReservations();</pre>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<footer>
+<div class="footer-inner">
+<p><strong>FAANG Interview Book — Object-Oriented Design</strong></p>
+<p>Master OOD principles, SOLID design, and 8 canonical problems with full C# implementations.</p>
+<p style="margin-top:14px;font-size:12px"><a href="index.html" style="color:var(--acc);text-decoration:none">Back to Index</a></p>
+</div>
+</footer>
+
+<script>
+function copyCode(btn) {
+  const codeBlock = btn.closest('.code-block').querySelector('pre');
+  const text = codeBlock.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.innerText = 'Copied!';
+    setTimeout(() => { btn.innerText = 'Copy'; }, 2000);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const elements = document.querySelectorAll('.fade');
+  elements.forEach(el => setTimeout(() => el.classList.add('in'), 100));
+});
+</script>
+
+</body>
+</html>

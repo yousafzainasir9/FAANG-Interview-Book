@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Greedy and backtracking FAANG problems — jump game, permutations, subsets, N-Queens, with C# solutions.">
+  <meta name="keywords" content="greedy, backtracking, FAANG interview, jump game, permutations, N-Queens, C#">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat09-greedy-backtracking.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat09-greedy-backtracking.html">
+  <meta property="og:title" content="Ch. 9: Greedy & Backtracking – FAANG Interview Book">
+  <meta property="og:description" content="Greedy and backtracking FAANG problems — jump game, permutations, subsets, N-Queens, with C# solutions.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/cat09-greedy-backtracking.html">
+  <meta name="twitter:title" content="Ch. 9: Greedy & Backtracking – FAANG Interview Book">
+  <meta name="twitter:description" content="Greedy and backtracking FAANG problems — jump game, permutations, subsets, N-Queens, with C# solutions.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Ch. 9: Greedy & Backtracking \u2013 FAANG Interview Book",
+  "description": "Greedy and backtracking FAANG problems \u2014 jump game, permutations, subsets, N-Queens, with C# solutions.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/cat09-greedy-backtracking.html",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+  <title>Ch. 9: Greedy & Backtracking – FAANG Interview Book</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Outfit:wght@500;600;700;800&family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* SHARED CSS TEMPLATE */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    :root{
+      --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+      --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+      --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+      --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+      --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+      --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+      --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+      --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+    }
+    body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+    nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+    .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:54px}
+    .nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+    .nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+    .nav-links a{font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:0 12px;height:54px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:all .15s}
+    .nav-links a:hover{color:var(--ink);border-color:var(--acc)}
+    .wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+    .hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+    .eyebrow-line{width:28px;height:2px;background:var(--acc)}
+    .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+    .hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:18px}
+    .hero h1 em{font-style:normal;color:var(--acc)}
+    .hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:640px;margin-bottom:36px}
+    .stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content}
+    .stat{padding:14px 26px;border-right:1px solid var(--rule)}
+    .stat:last-child{border-right:none}
+    .stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+    .stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+    .toc{background:var(--white);border:1px solid var(--rule);border-radius:14px;padding:28px 32px;margin:44px 0}
+    .toc-head{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+    .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+    .toc-grid a{font-size:13.5px;color:var(--ink2);text-decoration:none;padding:8px 0;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);transition:color .15s}
+    .toc-grid a:hover{color:var(--acc)}
+    .toc-n{font-family:var(--mono);font-size:10px;color:var(--ink4);flex-shrink:0}
+    .section{padding-top:72px}
+    .sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+    .sec-line{flex:1;height:1px;background:var(--rule)}
+    .section h2{font-size:28px;font-weight:700;letter-spacing:-.025em;margin-bottom:14px}
+    .section h3{font-size:20px;font-weight:700;margin-bottom:12px;margin-top:28px}
+    .section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:26px;max-width:760px}
+    .section p{font-size:15px;color:var(--ink2);line-height:1.78;margin-bottom:16px}
+    .algo{background:var(--white);border:1px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:44px}
+    .algo-head{padding:28px 32px 22px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+    .algo-idx{font-size:58px;font-weight:800;color:var(--bg3);line-height:1;letter-spacing:-.04em}
+    .algo-name{font-size:21px;font-weight:700;letter-spacing:-.02em;margin-bottom:9px}
+    .algo-desc{font-family:var(--serif);font-size:14.5px;color:var(--ink2);line-height:1.72;max-width:580px}
+    .algo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+    .algo-body{padding:28px 32px}
+    .cx-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+    .cx{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:10px 16px;min-width:110px}
+    .cx-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
+    .cx-v{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+    .steps{margin-bottom:26px}
+    .step{display:flex}
+    .step-left{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0}
+    .step-num{width:28px;height:28px;border-radius:50%;background:var(--acc-l);border:1.5px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0}
+    .step-vline{width:1.5px;flex:1;background:var(--rule);margin:4px 0}
+    .step:last-child .step-vline{display:none}
+    .step-body{padding:3px 0 22px 14px;font-size:14px;color:var(--ink2);line-height:1.68}
+    .step-body strong{color:var(--ink);font-weight:600}
+    code.il{font-family:var(--mono);font-size:12px;background:var(--bg2);padding:1px 7px;border-radius:4px;color:var(--acc)}
+    .code-block{background:#1a1916;border-radius:12px;overflow:hidden;margin:0 0 26px}
+    .code-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .code-lang{font-family:var(--mono);font-size:11px;color:#8a8680;letter-spacing:.07em;text-transform:uppercase}
+    .copy-btn{font-size:11px;color:#6a6660;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color .15s;padding:0}
+    .copy-btn:hover{color:#d4d0c8}
+    pre{padding:20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:#d4d0c8}
+    .kw{color:#e8946a}.fn{color:#79b8f7}.ty{color:#56d364}.str{color:#a8d8a8}.cm{color:#6b6760;font-style:italic}.num{color:#f0b96e}.prop{color:#c8a6f5}.va{color:#ffd085}
+    .callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:0 0 22px;font-size:14px;line-height:1.7}
+    .callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+    .callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+    .callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+    .callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+    .callout.info{background:var(--blue-l);border:1px solid var(--blue-b);color:#10325a}
+    .callout strong{color:inherit;font-weight:600}
+    .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+    .b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+    .b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+    .b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+    .b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+    .b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+    .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+    .proof-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px 22px}
+    .proof-title{font-size:15px;font-weight:700;margin-bottom:8px}
+    .proof-body{font-size:13.5px;color:var(--ink2);line-height:1.7}
+    .proof-note{margin-top:12px;font-size:12px;color:var(--ink3)}
+    .tips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
+    .tip-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+    .tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc)}
+    .tip-card.g::before{background:var(--green)}.tip-card.b::before{background:var(--blue)}.tip-card.a::before{background:var(--amber)}
+    .tip-n{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-bottom:8px}
+    .tip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+    .tip-body{font-size:13px;color:var(--ink2);line-height:1.65}
+    footer{margin-top:100px;padding:40px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+    .footer-inner{max-width:960px;margin:0 auto;padding:0 2rem}
+    footer p{font-size:13px;color:var(--ink3)}
+    footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+    .fade{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .fade.in{opacity:1;transform:none}
+    @media(max-width:700px){
+      .algo-head{grid-template-columns:1fr}.algo-idx{display:none}
+      .proof-grid,.tips{grid-template-columns:1fr}
+      .toc-grid{grid-template-columns:1fr}
+      .stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid var(--rule)}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      FAANG <span class="pill">9</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="cat09-greedy-backtracking.html">Ch. 9</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Chapter 9</div>
+    </div>
+    <h1><em>Greedy</em> & <em>Backtracking</em></h1>
+    <p class="hero-sub">Master decision-making under uncertainty: techniques for proving correctness, template patterns, and 12 classic problems from real interviews. Learn when to commit to a choice and when to explore all possibilities.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-n">12</div>
+        <div class="stat-l">Problems</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">1400+</div>
+        <div class="stat-l">Lines C#</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">8</div>
+        <div class="stat-l">Companies</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="toc">
+  <div class="toc-head">On this page</div>
+  <div class="toc-grid">
+    <a href="#intro"><span class="toc-n">0.</span> Introduction</a>
+    <a href="#p1"><span class="toc-n">1.</span> Jump Game</a>
+    <a href="#p2"><span class="toc-n">2.</span> Jump Game II</a>
+    <a href="#p3"><span class="toc-n">3.</span> Gas Station</a>
+    <a href="#p4"><span class="toc-n">4.</span> Task Scheduler</a>
+    <a href="#p5"><span class="toc-n">5.</span> Hand of Straights</a>
+    <a href="#p6"><span class="toc-n">6.</span> Subsets</a>
+    <a href="#p7"><span class="toc-n">7.</span> Combination Sum</a>
+    <a href="#p8"><span class="toc-n">8.</span> Permutations</a>
+    <a href="#p9"><span class="toc-n">9.</span> Word Search</a>
+    <a href="#p10"><span class="toc-n">10.</span> N-Queens</a>
+    <a href="#p11"><span class="toc-n">11.</span> Sudoku Solver</a>
+    <a href="#p12"><span class="toc-n">12.</span> Palindrome Partitioning</a>
+  </div>
+</div>
+
+<!-- INTRODUCTION SECTION -->
+<div class="section" id="intro">
+  <div class="sec-tag">
+    <span class="sec-num">0</span>
+    <div class="sec-line"></div>
+  </div>
+  <h2>Foundation & Techniques</h2>
+  <p class="lead">Greedy algorithms make locally optimal choices, hoping for a global optimum. Backtracking explores all possibilities systematically, pruning branches that cannot lead to a solution. Both require strong proof intuition and pattern recognition.</p>
+
+  <h3>Greedy Proof Techniques</h3>
+  <p>Not every greedy approach works. Two classical proof methods ensure correctness:</p>
+
+  <div class="proof-grid">
+    <div class="proof-card">
+      <div class="proof-title">Exchange Argument</div>
+      <div class="proof-body">Assume an optimal solution exists that differs from the greedy choice. Show you can swap part of it with the greedy choice without losing optimality, contradicting the assumption.</div>
+      <div class="proof-note"><strong>Example:</strong> Activity Selection. If an optimal solution picks a different first activity, swap it with the greedy pick (earliest end); the swapped solution is still valid.</div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-title">Stays-Ahead Argument</div>
+      <div class="proof-body">Prove the greedy solution always stays "ahead" of any other solution. After each step, show the greedy choice achieves a better objective value than any alternative.</div>
+      <div class="proof-note"><strong>Example:</strong> Jump Game. The greedy furthest reachable position is always ≥ any other strategy at each step.</div>
+    </div>
+  </div>
+
+  <h3>Backtracking Template</h3>
+  <p>All backtracking problems follow this pattern: explore candidates, commit to a choice, recurse, then undo the choice.</p>
+
+  <div class="code-block">
+    <div class="code-bar">
+      <span class="code-lang">C#</span>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <pre><span class="kw">void</span> <span class="fn">Backtrack</span>(<span class="kw">int</span> idx, <span class="ty">List</span>&lt;<span class="ty">int</span>&gt; path) {
+    <span class="cm">// Base case: found a valid combination</span>
+    <span class="kw">if</span> (idx == candidates.Count) {
+        <span class="kw">if</span> (IsValid(path)) result.Add(<span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;(path));
+        <span class="kw">return</span>;
+    }
+
+    <span class="cm">// Pruning: early exit if impossible to meet goal</span>
+    <span class="kw">if</span> (!CanProceed(path)) <span class="kw">return</span>;
+
+    <span class="cm">// Choice: try each candidate</span>
+    <span class="kw">for</span> (<span class="kw">int</span> i = idx; i &lt; candidates.Count; i++) {
+        path.Add(candidates[i]);           <span class="cm">// Choose</span>
+        Backtrack(i + 1, path);            <span class="cm">// Explore</span>
+        path.RemoveAt(path.Count - 1);     <span class="cm">// Unchoose</span>
+    }
+}</pre>
+  </div>
+
+  <h3>Pruning Strategies</h3>
+  <p>Backtracking becomes exponential without pruning. Key strategies:</p>
+
+  <div class="tips">
+    <div class="tip-card g">
+      <div class="tip-n">PRUNING</div>
+      <div class="tip-title">Constraint-Based</div>
+      <div class="tip-body">Skip candidates that immediately violate a constraint (e.g., sum exceeds target in Combination Sum).</div>
+    </div>
+    <div class="tip-card b">
+      <div class="tip-n">PRUNING</div>
+      <div class="tip-title">Feasibility Check</div>
+      <div class="tip-body">Use bounds (e.g., max remaining sum in Combination Sum) to detect infeasible branches early.</div>
+    </div>
+    <div class="tip-card a">
+      <div class="tip-n">PRUNING</div>
+      <div class="tip-title">Memoization</div>
+      <div class="tip-body">Cache subproblems (Palindrome Partitioning uses DP to pre-compute palindromes).</div>
+    </div>
+  </div>
+
+  <h3>Greedy vs. DP vs. Backtracking</h3>
+  <p><strong>Greedy:</strong> Make a locally optimal choice once. Use when you can prove optimality (Jump Game, Gas Station). O(n) or O(n log n).</p>
+  <p><strong>Dynamic Programming:</strong> Optimal substructure with overlapping subproblems. Trade off space and time for correctness (Coin Change, Edit Distance).</p>
+  <p><strong>Backtracking:</strong> Explore all possibilities with pruning. Use when all solutions matter or proof is hard (N-Queens, Sudoku, Permutations). Exponential time but manageable with strong pruning.</p>
+</div>
+
+<!-- Problem 1: Jump Game -->
+<div class="section" id="p1">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Jump Game</div>
+        <div class="algo-desc">Given an array of non-negative integers, return True if you can reach the last index starting from index 0. Each element is the max jump length from that position.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-green">Amazon</span>
+          <span class="badge b-green">Apple</span>
+          <span class="badge b-green">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">1</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(1)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Greedy (Stays Ahead)</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Track the furthest index reachable. If it ever becomes less than the current index, we're stuck. Proof: at each index, pick the jump that reaches the furthest position ahead (greedy). This maximizes our forward progress, so if any strategy reaches the end, so does ours.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public bool</span> <span class="fn">CanJump</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">int</span> maxReach = 0;
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; nums.Length; i++) {
+            <span class="cm">// If current index is beyond reach, impossible</span>
+            <span class="kw">if</span> (i &gt; maxReach) <span class="kw">return false</span>;
+            <span class="cm">// Update furthest reachable index</span>
+            maxReach = <span class="ty">Math</span>.<span class="fn">Max</span>(maxReach, i + nums[i]);
+            <span class="cm">// Early termination</span>
+            <span class="kw">if</span> (maxReach &gt;= nums.Length - 1) <span class="kw">return true</span>;
+        }
+        <span class="kw">return true</span>;
+    }
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Edge Cases:</strong> Single element always True. All zeros except last index: False if length > 1. Large jumps: early termination saves time.</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Interviewers often ask: "Can you jump to ANY index ≤ max_jump?" (yes) vs. "EXACTLY max_jump?" (hard, use BFS). Clarify the problem statement.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 2: Jump Game II -->
+<div class="section" id="p2">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Jump Game II</div>
+        <div class="algo-desc">Return the minimum number of jumps needed to reach the last index. Guaranteed reachable.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-blue">Google</span>
+          <span class="badge b-blue">Meta</span>
+          <span class="badge b-blue">ByteDance</span>
+        </div>
+      </div>
+      <div class="algo-idx">2</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(1)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">BFS / Greedy Levels</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Think of it as BFS: each level in the BFS represents one jump. Track the furthest index reachable in the current level, and the furthest reachable in the next level. When current position exits the current level, increment jumps and move to the next level.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">Jump</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">if</span> (nums.Length &lt;= 1) <span class="kw">return</span> 0;
+
+        <span class="kw">int</span> jumps = 0, currentMaxReach = 0, nextMaxReach = 0;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; nums.Length - 1; i++) {
+            <span class="cm">// Expand next level's reach</span>
+            nextMaxReach = <span class="ty">Math</span>.<span class="fn">Max</span>(nextMaxReach, i + nums[i]);
+
+            <span class="cm">// Exiting current level, move to next</span>
+            <span class="kw">if</span> (i == currentMaxReach) {
+                jumps++;
+                currentMaxReach = nextMaxReach;
+            }
+        }
+
+        <span class="kw">return</span> jumps;
+    }
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Key Insight:</strong> Don't need to explore all jumps from a position. Just track when we exhaust the current level and move to the next. This is "BFS without explicit queue."</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Mention the BFS connection during explanation. Greedy optimization is a sign of deep algorithm thinking.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 3: Gas Station -->
+<div class="section" id="p3">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Gas Station</div>
+        <div class="algo-desc">Given gas and cost arrays, find the starting gas station index from which you can complete a circular route. Return -1 if impossible.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-green">Amazon</span>
+          <span class="badge b-green">Microsoft</span>
+        </div>
+      </div>
+      <div class="algo-idx">3</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(1)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Greedy (Exchange)</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Key observations: (1) If total gas < total cost, no solution exists. (2) If a greedy start position fails, no earlier position will work (exchange argument). Start at index 0; if balance goes negative, jump to the next unvisited position.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">CanCompleteCircuit</span>(<span class="kw">int</span>[] gas, <span class="kw">int</span>[] cost) {
+        <span class="kw">int</span> totalGas = 0, totalCost = 0, currentGas = 0, startIdx = 0;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; gas.Length; i++) {
+            totalGas += gas[i];
+            totalCost += cost[i];
+            currentGas += gas[i] - cost[i];
+
+            <span class="cm">// If balance negative, can't start from 0..i; try next</span>
+            <span class="kw">if</span> (currentGas &lt; 0) {
+                startIdx = i + 1;
+                currentGas = 0;
+            }
+        }
+
+        <span class="cm">// If total is negative, no solution exists</span>
+        <span class="kw">return</span> (totalGas &lt; totalCost) ? -1 : startIdx;
+    }
+}</pre>
+      </div>
+
+      <div class="callout warn">
+        <span class="callout-icon">⚠</span>
+        <div><strong>Proof:</strong> If we fail at station i, then no station j ≤ i can be a valid start. Because if j worked for 0..i-1, then j also works for 0..i (contradiction). So we reset to i+1.</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Explain the exchange argument clearly. Interviewers love to see proof intuition, not just code.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 4: Task Scheduler -->
+<div class="section" id="p4">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Task Scheduler</div>
+        <div class="algo-desc">Schedule tasks with cooldown. Given task list and cooldown interval n, find the minimum time to complete all tasks (or return -1 if impossible).</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-green">Google</span>
+          <span class="badge b-blue">Bloomberg</span>
+        </div>
+      </div>
+      <div class="algo-idx">4</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(m + n log n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(m)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Greedy + Heap</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Always execute the task with the highest remaining count (greedy: minimize idle time). Use a max heap to track task counts. Simulate the schedule: in each cycle, pop the n+1 most frequent tasks, decrement counts, and push back if > 0. Total time = max(schedule time, total tasks).</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public int</span> <span class="fn">LeastInterval</span>(<span class="kw">char</span>[] tasks, <span class="kw">int</span> n) {
+        <span class="kw">var</span> counts = <span class="kw">new</span> <span class="ty">Dictionary</span>&lt;<span class="kw">char</span>, <span class="kw">int</span>&gt;();
+        <span class="kw">foreach</span> (<span class="kw">var</span> t <span class="kw">in</span> tasks) {
+            <span class="kw">if</span> (!counts.<span class="fn">ContainsKey</span>(t)) counts[t] = 0;
+            counts[t]++;
+        }
+
+        <span class="kw">var</span> heap = <span class="kw">new</span> <span class="ty">PriorityQueue</span>&lt;<span class="kw">int</span>, <span class="kw">int</span>&gt;();
+        <span class="kw">foreach</span> (<span class="kw">var</span> cnt <span class="kw">in</span> counts.<span class="fn">Values</span>) {
+            heap.<span class="fn">Enqueue</span>(cnt, -cnt);
+        }
+
+        <span class="kw">int</span> time = 0;
+        <span class="kw">while</span> (heap.<span class="fn">Count</span> &gt; 0) {
+            <span class="kw">var</span> temp = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">int</span>&gt;();
+            <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt;= n && heap.<span class="fn">Count</span> &gt; 0; i++) {
+                <span class="kw">var</span> cnt = heap.<span class="fn">Dequeue</span>();
+                <span class="kw">if</span> (cnt - 1 &gt; 0) temp.<span class="fn">Add</span>(cnt - 1);
+            }
+            <span class="kw">foreach</span> (<span class="kw">var</span> cnt <span class="kw">in</span> temp) {
+                heap.<span class="fn">Enqueue</span>(cnt, -cnt);
+            }
+            time += temp.<span class="fn">Count</span> &gt; 0 ? n + 1 : heap.<span class="fn">Count</span> == 0 ? 0 : n + 1;
+        }
+
+        <span class="kw">return</span> time + tasks.Length - 1;
+    }
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Math Shortcut:</strong> (maxFreq - 1) * (n + 1) + numMaxFreq. Minimum slots needed: the most frequent task requires maxFreq-1 gaps + n+1 slots each, plus the last execution.</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Mention the mathematical formula as a cleaner alternative. Shows deep understanding of the structure.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 5: Hand of Straights -->
+<div class="section" id="p5">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Hand of Straights</div>
+        <div class="algo-desc">Divide cards into groups such that each group is a consecutive sequence. Return True if possible, False otherwise.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-blue">Meta</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">5</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n log n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Greedy + Sorted Map</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Greedy: always start a new sequence with the smallest available card. If the next card doesn't exist, it's impossible. Count cards, then repeatedly form sequences starting from the minimum available card.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public bool</span> <span class="fn">IsStrightHand</span>(<span class="kw">int</span>[] hand, <span class="kw">int</span> groupSize) {
+        <span class="kw">if</span> (hand.Length % groupSize != 0) <span class="kw">return false</span>;
+
+        <span class="kw">var</span> counts = <span class="kw">new</span> <span class="ty">SortedDictionary</span>&lt;<span class="kw">int</span>, <span class="kw">int</span>&gt;();
+        <span class="kw">foreach</span> (<span class="kw">var</span> card <span class="kw">in</span> hand) {
+            <span class="kw">if</span> (!counts.<span class="fn">ContainsKey</span>(card)) counts[card] = 0;
+            counts[card]++;
+        }
+
+        <span class="kw">while</span> (counts.<span class="fn">Count</span> &gt; 0) {
+            <span class="kw">int</span> firstCard = counts.<span class="fn">Keys</span>.<span class="fn">Min</span>();
+
+            <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; groupSize; i++) {
+                <span class="kw">int</span> card = firstCard + i;
+                <span class="kw">if</span> (!counts.<span class="fn">ContainsKey</span>(card)) <span class="kw">return false</span>;
+
+                counts[card]--;
+                <span class="kw">if</span> (counts[card] == 0) counts.<span class="fn">Remove</span>(card);
+            }
+        }
+
+        <span class="kw">return true</span>;
+    }
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Greedy Proof:</strong> Any valid solution can be transformed to use the minimum card in a group. By induction, our greedy approach is optimal.</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Mention SortedDictionary (C#) / TreeMap (Java) for efficient min extraction. Or sort once and use a pointer.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 6: Subsets -->
+<div class="section" id="p6">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Subsets</div>
+        <div class="algo-desc">Generate all subsets of a given array (no duplicates). Return list of all subsets.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-green">Amazon</span>
+          <span class="badge b-green">Apple</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">6</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n·2^n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(2^n)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Backtracking</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>For each element, decide: include it or skip it. Backtrack explores both choices. No pruning needed; explore all 2^n subsets. Alternative: iterative approach (build subsets incrementally).</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public</span> <span class="ty">IList</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">int</span>&gt;&gt; <span class="fn">Subsets</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">int</span>&gt;&gt;();
+        <span class="fn">Backtrack</span>(0, nums, <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">int</span>&gt;(), result);
+        <span class="kw">return</span> result;
+    }
+
+    <span class="kw">private void</span> <span class="fn">Backtrack</span>(<span class="kw">int</span> idx, <span class="kw">int</span>[] nums, <span class="ty">List</span>&lt;<span class="kw">int</span>&gt; curr, <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">int</span>&gt;&gt; result) {
+        <span class="cm">// Every subset is valid</span>
+        result.<span class="fn">Add</span>(<span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">int</span>&gt;(curr));
+
+        <span class="cm">// Try including each remaining element</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = idx; i &lt; nums.Length; i++) {
+            curr.<span class="fn">Add</span>(nums[i]);
+            <span class="fn">Backtrack</span>(i + 1, nums, curr, result);
+            curr.<span class="fn">RemoveAt</span>(curr.<span class="ty">Count</span> - 1);
+        }
+    }
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Iterative Alternative:</strong> Start with [[]]. For each number, duplicate all current subsets and add the number to each copy. This builds 2^n subsets bottom-up.</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Show both recursive (backtracking) and iterative approaches. Demonstrates flexibility and deep understanding.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 7: Combination Sum -->
+<div class="section" id="p7">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Combination Sum</div>
+        <div class="algo-desc">Find all unique combinations that sum to target. Elements can be reused. Return all combinations.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-green">Amazon</span>
+          <span class="badge b-green">Google</span>
+          <span class="badge b-blue">Meta</span>
+        </div>
+      </div>
+      <div class="algo-idx">7</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(N^(T/M))</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(T/M)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Backtracking + Pruning</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Backtrack with pruning: for each candidate, decide how many times to use it (0, 1, 2, ...). Prune if current sum > target. Early termination when sum == target (found valid combo).</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public</span> <span class="ty">IList</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">int</span>&gt;&gt; <span class="fn">CombinationSum</span>(<span class="kw">int</span>[] candidates, <span class="kw">int</span> target) {
+        <span class="kw">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">int</span>&gt;&gt;();
+        <span class="ty">Array</span>.<span class="fn">Sort</span>(candidates);
+        <span class="fn">Backtrack</span>(0, candidates, target, <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">int</span>&gt;(), result);
+        <span class="kw">return</span> result;
+    }
+
+    <span class="kw">private void</span> <span class="fn">Backtrack</span>(<span class="kw">int</span> idx, <span class="kw">int</span>[] candidates, <span class="kw">int</span> remaining,
+                                <span class="ty">List</span>&lt;<span class="kw">int</span>&gt; curr, <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">int</span>&gt;&gt; result) {
+        <span class="cm">// Pruning: if remaining is negative, backtrack</span>
+        <span class="kw">if</span> (remaining &lt; 0) <span class="kw">return</span>;
+
+        <span class="cm">// Found a valid combination</span>
+        <span class="kw">if</span> (remaining == 0) {
+            result.<span class="fn">Add</span>(<span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">int</span>&gt;(curr));
+            <span class="kw">return</span>;
+        }
+
+        <span class="cm">// Try each candidate (can reuse)</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = idx; i &lt; candidates.Length; i++) {
+            <span class="cm">// Pruning: candidates are sorted</span>
+            <span class="kw">if</span> (candidates[i] &gt; remaining) <span class="kw">break</span>;
+
+            curr.<span class="fn">Add</span>(candidates[i]);
+            <span class="cm">// Reuse same element: pass i, not i+1</span>
+            <span class="fn">Backtrack</span>(i, candidates, remaining - candidates[i], curr, result);
+            curr.<span class="fn">RemoveAt</span>(curr.<span class="ty">Count</span> - 1);
+        }
+    }
+}</pre>
+      </div>
+
+      <div class="callout danger">
+        <span class="callout-icon">❌</span>
+        <div><strong>Common Mistake:</strong> Passing i+1 instead of i. Elements CAN be reused, so pass i to allow re-selection of the same element.</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Ask clarifying questions: "Can elements repeat?" and "Can each element be used once or multiple times?" Candidates with duplicates require different handling.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 8: Permutations -->
+<div class="section" id="p8">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Permutations</div>
+        <div class="algo-desc">Generate all permutations of a list of distinct integers. Return list of all permutations.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-green">Amazon</span>
+          <span class="badge b-green">Apple</span>
+          <span class="badge b-green">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">8</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(n·n!)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(n!)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Backtracking + Used Set</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Use a "used" set to track which elements are in the current permutation. For each position, try all unused elements. Once we've placed n elements, record the permutation.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public</span> <span class="ty">IList</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">int</span>&gt;&gt; <span class="fn">Permute</span>(<span class="kw">int</span>[] nums) {
+        <span class="kw">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">int</span>&gt;&gt;();
+        <span class="fn">Backtrack</span>(nums, <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">int</span>&gt;(), <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">int</span>&gt;(), result);
+        <span class="kw">return</span> result;
+    }
+
+    <span class="kw">private void</span> <span class="fn">Backtrack</span>(<span class="kw">int</span>[] nums, <span class="ty">List</span>&lt;<span class="kw">int</span>&gt; curr, <span class="ty">HashSet</span>&lt;<span class="kw">int</span>&gt; used,
+                                <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">int</span>&gt;&gt; result) {
+        <span class="cm">// All elements placed</span>
+        <span class="kw">if</span> (curr.<span class="ty">Count</span> == nums.Length) {
+            result.<span class="fn">Add</span>(<span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">int</span>&gt;(curr));
+            <span class="kw">return</span>;
+        }
+
+        <span class="cm">// Try each unused element</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; nums.Length; i++) {
+            <span class="kw">if</span> (used.<span class="fn">Contains</span>(nums[i])) <span class="kw">continue</span>;
+
+            curr.<span class="fn">Add</span>(nums[i]);
+            used.<span class="fn">Add</span>(nums[i]);
+            <span class="fn">Backtrack</span>(nums, curr, used, result);
+            curr.<span class="fn">RemoveAt</span>(curr.<span class="ty">Count</span> - 1);
+            used.<span class="fn">Remove</span>(nums[i]);
+        }
+    }
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Swap Alternative:</strong> Swap element at idx with each subsequent position (in-place). Avoids HashSet overhead. Less intuitive but faster.</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Mention both approaches: HashSet-based (clear logic) and swap-based (optimal). Interviewers appreciate knowing trade-offs.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 9: Word Search -->
+<div class="section" id="p9">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Word Search</div>
+        <div class="algo-desc">Search for a word in a 2D grid. Word is formed by adjacent cells (up, down, left, right). Return True if found, False otherwise.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-green">Amazon</span>
+          <span class="badge b-green">Microsoft</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">9</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(m·n·4^L)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(L)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">DFS Backtracking on Grid</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>For each cell, start a DFS search. Mark visited cells to avoid revisiting in the same path. Backtrack by unmarking. If we match all characters of the word, return True. Prune early if character doesn't match.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public bool</span> <span class="fn">Exist</span>(<span class="kw">char</span>[][] board, <span class="kw">string</span> word) {
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; board.Length; i++) {
+            <span class="kw">for</span> (<span class="kw">int</span> j = 0; j &lt; board[0].Length; j++) {
+                <span class="kw">if</span> (board[i][j] == word[0] && <span class="fn">DFS</span>(board, word, i, j, 0))
+                    <span class="kw">return true</span>;
+            }
+        }
+        <span class="kw">return false</span>;
+    }
+
+    <span class="kw">private bool</span> <span class="fn">DFS</span>(<span class="kw">char</span>[][] board, <span class="kw">string</span> word, <span class="kw">int</span> r, <span class="kw">int</span> c, <span class="kw">int</span> idx) {
+        <span class="cm">// Matched entire word</span>
+        <span class="kw">if</span> (idx == word.Length) <span class="kw">return true</span>;
+
+        <span class="cm">// Out of bounds or wrong character</span>
+        <span class="kw">if</span> (r &lt; 0 || r >= board.Length || c &lt; 0 || c >= board[0].Length) <span class="kw">return false</span>;
+        <span class="kw">if</span> (board[r][c] != word[idx]) <span class="kw">return false</span>;
+        <span class="kw">if</span> (board[r][c] == <span class="str">'#'</span>) <span class="kw">return false</span>; <span class="cm">// Already visited</span>
+
+        <span class="cm">// Mark as visited</span>
+        <span class="kw">char</span> orig = board[r][c];
+        board[r][c] = <span class="str">'#'</span>;
+
+        <span class="cm">// Explore 4 directions</span>
+        <span class="kw">bool</span> found =
+            <span class="fn">DFS</span>(board, word, r + 1, c, idx + 1) ||
+            <span class="fn">DFS</span>(board, word, r - 1, c, idx + 1) ||
+            <span class="fn">DFS</span>(board, word, r, c + 1, idx + 1) ||
+            <span class="fn">DFS</span>(board, word, r, c - 1, idx + 1);
+
+        <span class="cm">// Backtrack: restore cell</span>
+        board[r][c] = orig;
+
+        <span class="kw">return</span> found;
+    }
+}</pre>
+      </div>
+
+      <div class="callout warn">
+        <span class="callout-icon">⚠</span>
+        <div><strong>Key Detail:</strong> Mark visited during recursion, then restore on backtrack. This prevents revisiting the same cell in the same path but allows sharing cells across different search paths.</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Mention pruning: check if the cell is the starting position OR matches the word[idx] before exploring neighbors. This reduces unnecessary recursive calls.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 10: N-Queens -->
+<div class="section" id="p10">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">N-Queens</div>
+        <div class="algo-desc">Place n queens on an n×n chessboard such that no two queens attack each other. Return all distinct solutions.</div>
+        <div class="algo-tags">
+          <span class="badge b-red">Hard</span>
+          <span class="badge b-green">Amazon</span>
+          <span class="badge b-green">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">10</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(N!)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(N^2)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Backtracking + Constraint Tracking</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Place queens row-by-row. For each row, try each column. Use sets to track occupied columns, diagonals (r - c), and anti-diagonals (r + c). Prune branches where a queen conflicts. When all rows are filled, record the solution.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public</span> <span class="ty">IList</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">string</span>&gt;&gt; <span class="fn">SolveNQueens</span>(<span class="kw">int</span> n) {
+        <span class="kw">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">string</span>&gt;&gt;();
+        <span class="kw">var</span> cols = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">int</span>&gt;();
+        <span class="kw">var</span> diag1 = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">int</span>&gt;(); <span class="cm">// r - c</span>
+        <span class="kw">var</span> diag2 = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">int</span>&gt;(); <span class="cm">// r + c</span>
+        <span class="fn">Backtrack</span>(0, n, <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">string</span>&gt;(), result, cols, diag1, diag2);
+        <span class="kw">return</span> result;
+    }
+
+    <span class="kw">private void</span> <span class="fn">Backtrack</span>(<span class="kw">int</span> row, <span class="kw">int</span> n, <span class="ty">List</span>&lt;<span class="kw">string</span>&gt; board,
+                                <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">string</span>&gt;&gt; result, <span class="ty">HashSet</span>&lt;<span class="kw">int</span>&gt; cols,
+                                <span class="ty">HashSet</span>&lt;<span class="kw">int</span>&gt; diag1, <span class="ty">HashSet</span>&lt;<span class="kw">int</span>&gt; diag2) {
+        <span class="kw">if</span> (row == n) {
+            result.<span class="fn">Add</span>(<span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">string</span>&gt;(board));
+            <span class="kw">return</span>;
+        }
+
+        <span class="cm">// Try each column in this row</span>
+        <span class="kw">for</span> (<span class="kw">int</span> col = 0; col &lt; n; col++) {
+            <span class="cm">// Pruning: check if column or diagonals are occupied</span>
+            <span class="kw">if</span> (cols.<span class="fn">Contains</span>(col) || diag1.<span class="fn">Contains</span>(row - col) ||
+                diag2.<span class="fn">Contains</span>(row + col)) <span class="kw">continue</span>;
+
+            <span class="cm">// Place queen</span>
+            <span class="kw">var</span> rowStr = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
+            <span class="kw">for</span> (<span class="kw">int</span> c = 0; c &lt; n; c++)
+                rowStr.<span class="fn">Append</span>(c == col ? <span class="str">'Q'</span> : <span class="str">'.'</span>);
+
+            board.<span class="fn">Add</span>(rowStr.<span class="fn">ToString</span>());
+            cols.<span class="fn">Add</span>(col);
+            diag1.<span class="fn">Add</span>(row - col);
+            diag2.<span class="fn">Add</span>(row + col);
+
+            <span class="fn">Backtrack</span>(row + 1, n, board, result, cols, diag1, diag2);
+
+            <span class="cm">// Backtrack</span>
+            board.<span class="fn">RemoveAt</span>(board.<span class="ty">Count</span> - 1);
+            cols.<span class="fn">Remove</span>(col);
+            diag1.<span class="fn">Remove</span>(row - col);
+            diag2.<span class="fn">Remove</span>(row + col);
+        }
+    }
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>Diagonal Encoding:</strong> Top-left to bottom-right diagonal has constant (r - c). Top-right to bottom-left has constant (r + c). These encode all cells on each diagonal uniquely.</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> This is a classic backtracking problem. Emphasize the pruning strategy (tracking constraints with sets). Mention complexity: N! solutions, each board takes O(N^2) to construct.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 11: Sudoku Solver -->
+<div class="section" id="p11">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Sudoku Solver</div>
+        <div class="algo-desc">Fill a 9×9 Sudoku grid such that each row, column, and 3×3 box contains digits 1–9 exactly once.</div>
+        <div class="algo-tags">
+          <span class="badge b-red">Hard</span>
+          <span class="badge b-green">Amazon</span>
+          <span class="badge b-blue">Google</span>
+        </div>
+      </div>
+      <div class="algo-idx">11</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(9^N)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(N)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Backtracking + Constraint Sets</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Fill cells one by one (left-to-right, top-to-bottom). For each empty cell, try digits 1–9. Check if the digit is valid (not in row, column, or 3×3 box). Prune invalid choices early. Use constraint sets to track used digits in each row, column, and box.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public void</span> <span class="fn">SolveSudoku</span>(<span class="kw">char</span>[][] board) {
+        <span class="kw">var</span> rows = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">char</span>&gt;[9];
+        <span class="kw">var</span> cols = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">char</span>&gt;[9];
+        <span class="kw">var</span> boxes = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">char</span>&gt;[9];
+
+        <span class="cm">// Initialize constraint sets</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; 9; i++) {
+            rows[i] = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">char</span>&gt;();
+            cols[i] = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">char</span>&gt;();
+            boxes[i] = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;<span class="kw">char</span>&gt;();
+        }
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; 9; i++) {
+            <span class="kw">for</span> (<span class="kw">int</span> j = 0; j &lt; 9; j++) {
+                <span class="kw">if</span> (board[i][j] != <span class="str">'.'</span>) {
+                    <span class="kw">char</span> c = board[i][j];
+                    rows[i].<span class="fn">Add</span>(c);
+                    cols[j].<span class="fn">Add</span>(c);
+                    boxes[(i / 3) * 3 + j / 3].<span class="fn">Add</span>(c);
+                }
+            }
+        }
+
+        <span class="fn">Backtrack</span>(board, rows, cols, boxes);
+    }
+
+    <span class="kw">private bool</span> <span class="fn">Backtrack</span>(<span class="kw">char</span>[][] board, <span class="ty">HashSet</span>&lt;<span class="kw">char</span>&gt;[] rows,
+                                 <span class="ty">HashSet</span>&lt;<span class="kw">char</span>&gt;[] cols, <span class="ty">HashSet</span>&lt;<span class="kw">char</span>&gt;[] boxes) {
+        <span class="cm">// Find next empty cell</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; 9; i++) {
+            <span class="kw">for</span> (<span class="kw">int</span> j = 0; j &lt; 9; j++) {
+                <span class="kw">if</span> (board[i][j] != <span class="str">'.'</span>) <span class="kw">continue</span>;
+
+                <span class="cm">// Try digits 1-9</span>
+                <span class="kw">for</span> (<span class="kw">char</span> c = <span class="str">'1'</span>; c &lt;= <span class="str">'9'</span>; c++) {
+                    <span class="kw">int</span> boxIdx = (i / 3) * 3 + j / 3;
+
+                    <span class="cm">// Pruning: check if digit is valid</span>
+                    <span class="kw">if</span> (rows[i].<span class="fn">Contains</span>(c) || cols[j].<span class="fn">Contains</span>(c) ||
+                        boxes[boxIdx].<span class="fn">Contains</span>(c)) <span class="kw">continue</span>;
+
+                    <span class="cm">// Place digit</span>
+                    board[i][j] = c;
+                    rows[i].<span class="fn">Add</span>(c);
+                    cols[j].<span class="fn">Add</span>(c);
+                    boxes[boxIdx].<span class="fn">Add</span>(c);
+
+                    <span class="kw">if</span> (<span class="fn">Backtrack</span>(board, rows, cols, boxes)) <span class="kw">return true</span>;
+
+                    <span class="cm">// Backtrack</span>
+                    board[i][j] = <span class="str">'.'</span>;
+                    rows[i].<span class="fn">Remove</span>(c);
+                    cols[j].<span class="fn">Remove</span>(c);
+                    boxes[boxIdx].<span class="fn">Remove</span>(c);
+                }
+
+                <span class="kw">return false</span>; <span class="cm">// No valid digit found for this cell</span>
+            }
+        }
+
+        <span class="kw">return true</span>; <span class="cm">// All cells filled</span>
+    }
+}</pre>
+      </div>
+
+      <div class="callout warn">
+        <span class="callout-icon">⚠</span>
+        <div><strong>Box Index:</strong> The 3×3 box containing (i, j) is at index (i / 3) * 3 + j / 3. This maps each cell to one of 9 boxes (0–8).</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Mention optimization: maintain a list of empty cells and always pick the cell with the fewest valid candidates (minimum remaining values heuristic). This prunes exponentially faster.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Problem 12: Palindrome Partitioning -->
+<div class="section" id="p12">
+  <div class="algo">
+    <div class="algo-head">
+      <div>
+        <div class="algo-name">Palindrome Partitioning</div>
+        <div class="algo-desc">Partition a string into palindromic substrings. Return all possible partitions.</div>
+        <div class="algo-tags">
+          <span class="badge b-orange">Medium</span>
+          <span class="badge b-green">Amazon</span>
+          <span class="badge b-blue">Google</span>
+          <span class="badge b-blue">Meta</span>
+        </div>
+      </div>
+      <div class="algo-idx">12</div>
+    </div>
+    <div class="algo-body">
+      <div class="cx-row">
+        <div class="cx">
+          <div class="cx-l">Time</div>
+          <div class="cx-v">O(N·2^N)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Space</div>
+          <div class="cx-v">O(N^2)</div>
+        </div>
+        <div class="cx">
+          <div class="cx-l">Approach</div>
+          <div class="cx-v">Backtracking + DP Memoization</div>
+        </div>
+      </div>
+
+      <h3>Approach</h3>
+      <p>Backtrack through all partition points. For each starting position, try all ending positions. Prune if substring is not a palindrome. Use a 2D DP table to memoize palindrome checks (O(N^2) preprocessing), avoiding O(N) checks during backtracking.</p>
+
+      <div class="code-block">
+        <div class="code-bar">
+          <span class="code-lang">C#</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">public class</span> <span class="ty">Solution</span> {
+    <span class="kw">public</span> <span class="ty">IList</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">string</span>&gt;&gt; <span class="fn">Partition</span>(<span class="kw">string</span> s) {
+        <span class="cm">// Precompute palindromes using DP</span>
+        <span class="kw">bool</span>[][] isPalin = <span class="kw">new</span> <span class="kw">bool</span>[s.Length][];
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; s.Length; i++)
+            isPalin[i] = <span class="kw">new</span> <span class="kw">bool</span>[s.Length];
+
+        <span class="cm">// Every single character is a palindrome</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; s.Length; i++)
+            isPalin[i][i] = <span class="kw">true</span>;
+
+        <span class="cm">// Check all substrings of length > 1</span>
+        <span class="kw">for</span> (<span class="kw">int</span> len = 2; len &lt;= s.Length; len++) {
+            <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt;= s.Length - len; i++) {
+                <span class="kw">int</span> j = i + len - 1;
+                <span class="kw">if</span> (s[i] == s[j] && (len == 2 || isPalin[i + 1][j - 1]))
+                    isPalin[i][j] = <span class="kw">true</span>;
+            }
+        }
+
+        <span class="kw">var</span> result = <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">string</span>&gt;&gt;();
+        <span class="fn">Backtrack</span>(0, s, isPalin, <span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">string</span>&gt;(), result);
+        <span class="kw">return</span> result;
+    }
+
+    <span class="kw">private void</span> <span class="fn">Backtrack</span>(<span class="kw">int</span> idx, <span class="kw">string</span> s, <span class="kw">bool</span>[][] isPalin,
+                                <span class="ty">List</span>&lt;<span class="kw">string</span>&gt; curr, <span class="ty">List</span>&lt;<span class="ty">IList</span>&lt;<span class="kw">string</span>&gt;&gt; result) {
+        <span class="kw">if</span> (idx == s.Length) {
+            result.<span class="fn">Add</span>(<span class="kw">new</span> <span class="ty">List</span>&lt;<span class="kw">string</span>&gt;(curr));
+            <span class="kw">return</span>;
+        }
+
+        <span class="cm">// Try all palindromic substrings starting at idx</span>
+        <span class="kw">for</span> (<span class="kw">int</span> end = idx; end &lt; s.Length; end++) {
+            <span class="cm">// Pruning: skip if not a palindrome</span>
+            <span class="kw">if</span> (!isPalin[idx][end]) <span class="kw">continue</span>;
+
+            curr.<span class="fn">Add</span>(s.<span class="fn">Substring</span>(idx, end - idx + 1));
+            <span class="fn">Backtrack</span>(end + 1, s, isPalin, curr, result);
+            curr.<span class="fn">RemoveAt</span>(curr.<span class="ty">Count</span> - 1);
+        }
+    }
+}</pre>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div><strong>DP Optimization:</strong> Preprocessing palindromes in O(N^2) time saves O(N) per check during backtracking. Without it, checking if a substring is a palindrome costs O(N), making backtracking O(N^2 · 2^N). With memoization, it's O(N · 2^N).</div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">🎯</span>
+        <div><strong>FAANG Tip:</strong> Emphasize the DP + backtracking combination. This pattern appears in many hard problems. Show understanding of when to use memoization to optimize backtracking.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>FAANG Interview Book — Chapter 9: Greedy & Backtracking</p>
+    <p>All code examples in C#. Last updated March 2026.</p>
+  </div>
+</footer>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const orig = btn.innerText;
+    btn.innerText = 'Copied!';
+    setTimeout(() => { btn.innerText = orig; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

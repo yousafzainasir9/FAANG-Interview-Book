@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Master FAANG technical interviews with C# — covers coding patterns, system design, behavioral interviews, and 200+ practice problems for Google, Amazon, Meta, Apple, and Microsoft.">
+  <meta name="keywords" content="FAANG interview, coding interview, Google interview, Amazon interview, Meta interview, Apple interview, Microsoft interview, C#, system design, LeetCode, technical interview, software engineer interview">
+  <meta name="author" content="yousafzainasir9">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yousafzainasir9.github.io/FAANG-Interview-Book/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/">
+  <meta property="og:title" content="FAANG Interview Book — Master the FAANG Interview with C#">
+  <meta property="og:description" content="Master FAANG technical interviews with C# — covers coding patterns, system design, behavioral interviews, and 200+ practice problems for Google, Amazon, Meta, Apple, and Microsoft.">
+  <meta property="og:site_name" content="FAANG Interview Book">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yousafzainasir9.github.io/FAANG-Interview-Book/">
+  <meta name="twitter:title" content="FAANG Interview Book — Master the FAANG Interview with C#">
+  <meta name="twitter:description" content="Master FAANG technical interviews with C# — covers coding patterns, system design, behavioral interviews, and 200+ practice problems for Google, Amazon, Meta, Apple, and Microsoft.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "FAANG Interview Book \u2014 Master the FAANG Interview with C#",
+  "description": "Master FAANG technical interviews with C# \u2014 covers coding patterns, system design, behavioral interviews, and 200+ practice problems for Google, Amazon, Meta, Apple, and Microsoft.",
+  "url": "https://yousafzainasir9.github.io/FAANG-Interview-Book/",
+  "author": {
+    "@type": "Person",
+    "name": "yousafzainasir9",
+    "url": "https://github.com/yousafzainasir9"
+  },
+  "inLanguage": "en",
+  "datePublished": "2026-03-24"
+}</script>
+<title>FAANG Interview Book — Master the FAANG Interview with C#</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#f8f7f3;--bg2:#f0ede6;--bg3:#e8e4db;--white:#ffffff;
+  --ink:#1c1a17;--ink2:#3d3a34;--ink3:#6b6760;--ink4:#a8a49e;--rule:#dedad3;
+  --acc:#c96b1e;--acc-l:#fdf3eb;--acc-b:#f5c99a;
+  --green:#1d6b45;--green-l:#edf8f2;--green-b:#9fd9bc;
+  --blue:#1a4f8a;--blue-l:#edf2fb;--blue-b:#afc8ef;
+  --red:#9b2020;--red-l:#fdf0f0;--red-b:#efb8b8;
+  --amber:#7a5200;--amber-l:#fdf8ec;--amber-b:#e8d08a;
+  --sans:'Outfit',sans-serif;--serif:'Source Serif 4',serif;--mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:0 2rem}
+.nav-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;height:54px}
+.nav-brand{font-size:14px;font-weight:700;color:var(--acc);margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav-brand .pill{background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase}
+.wrap{max-width:1040px;margin:0 auto;padding:0 2rem}
+.hero{padding:72px 0 52px;border-bottom:1px solid var(--rule)}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--acc)}
+.eyebrow-text{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.hero h1{font-size:clamp(36px,5vw,58px);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:18px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero-sub{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--ink2);line-height:1.78;max-width:700px;margin-bottom:36px}
+.stats{display:flex;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--white);width:fit-content;flex-wrap:wrap}
+.stat{padding:14px 24px;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:none}
+.stat-n{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+.stat-l{font-size:10px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.section{padding-top:64px}
+.sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.sec-num{font-family:var(--mono);font-size:11px;color:var(--ink4);flex-shrink:0}
+.sec-line{flex:1;height:1px;background:var(--rule)}
+.section h2{font-size:26px;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
+.section .lead{font-family:var(--serif);font-size:16px;color:var(--ink2);line-height:1.78;margin-bottom:24px;max-width:760px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:28px 0}
+.card{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:22px 24px;position:relative;overflow:hidden;transition:all .25s;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.07)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.card.c-orange::before{background:var(--acc)}.card.c-green::before{background:var(--green)}.card.c-blue::before{background:var(--blue)}.card.c-amber::before{background:var(--amber)}.card.c-red::before{background:var(--red)}
+.card-tag{font-family:var(--mono);font-size:11px;color:var(--ink4);margin-bottom:6px;font-weight:600}
+.card-title{font-size:17px;font-weight:700;margin-bottom:8px}
+.card-desc{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:12px;flex-grow:1}
+.card-meta{font-size:12px;color:var(--ink3);padding-top:10px;border-top:1px solid var(--rule);display:flex;gap:12px;flex-wrap:wrap}
+.card-meta span{display:flex;align-items:center;gap:4px}
+.badge{display:inline-flex;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid}
+.b-green{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+.b-red{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+.b-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+.b-blue{background:var(--blue-l);color:var(--blue);border-color:var(--blue-b)}
+.b-orange{background:var(--acc-l);color:var(--acc);border-color:var(--acc-b)}
+.path{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:28px 32px;margin:28px 0}
+.path-phase{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.path-items{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.path-items:last-child{margin-bottom:0}
+.path-item{font-size:13px;color:var(--ink2);background:var(--bg);padding:6px 12px;border-radius:6px;text-decoration:none;transition:background .15s}
+a.path-item:hover{background:var(--acc-l);color:var(--acc)}
+.callout{display:flex;gap:14px;padding:16px 20px;border-radius:10px;margin:20px 0;font-size:14px;line-height:1.7}
+.callout-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+.callout.tip{background:var(--green-l);border:1px solid var(--green-b);color:#164d32}
+.callout.warn{background:var(--amber-l);border:1px solid var(--amber-b);color:#5a3c00}
+.callout.danger{background:var(--red-l);border:1px solid var(--red-b);color:#6e1616}
+.callout strong{color:inherit;font-weight:600}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:28px 0}
+.quick-card{background:var(--white);border:2px solid;border-radius:12px;padding:24px;text-align:center;text-decoration:none;color:inherit;transition:all .2s}
+.quick-card:hover{transform:scale(1.02)}
+.quick-card.start{border-color:var(--green)}.quick-card.mid{border-color:var(--blue)}.quick-card.adv{border-color:var(--acc)}
+.quick-title{font-size:15px;font-weight:700;margin-bottom:8px}
+.quick-desc{font-size:12px;color:var(--ink2);margin-bottom:14px}
+.quick-cta{display:inline-block;padding:7px 14px;border-radius:6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#fff}
+.quick-card.start .quick-cta{background:var(--green)}.quick-card.mid .quick-cta{background:var(--blue)}.quick-card.adv .quick-cta{background:var(--acc)}
+footer{margin-top:80px;padding:36px 0;border-top:1px solid var(--rule);text-align:center;background:var(--bg2)}
+.footer-inner{max-width:1040px;margin:0 auto;padding:0 2rem}
+footer p{font-size:13px;color:var(--ink3)}footer p+p{font-size:12px;color:var(--ink4);margin-top:4px}
+@media(max-width:700px){.grid,.quick-grid{grid-template-columns:1fr}.stats{flex-direction:column}.stat{border-right:none;border-bottom:1px solid var(--rule)}.stat:last-child{border-bottom:none}}
+</style>
+</head>
+<body>
+<nav><div class="nav-inner"><a href="#" class="nav-brand">FAANG Interview Book <span class="pill">C# Edition</span></a></div></nav>
+
+<div class="wrap">
+<div class="hero">
+  <div class="eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Complete Interview Preparation</div></div>
+  <h1>Master the <em>FAANG</em> Interview</h1>
+  <p class="hero-sub">200+ coding problems, system design fundamentals, behavioral prep, and a structured 90-day study plan covering Meta, Amazon, Apple, Netflix, and Google. All solutions in C#. 300 total hours of guided practice to master the interview process.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Problems</div></div>
+    <div class="stat"><div class="stat-n">14</div><div class="stat-l">Categories</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">System Design</div></div>
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">Companies</div></div>
+    <div class="stat"><div class="stat-n">5</div><div class="stat-l">Mock Tests</div></div>
+  </div>
+</div>
+</div>
+
+<div class="wrap">
+
+<!-- Quick Start -->
+<div class="section">
+  <div class="sec-tag"><div class="sec-num">01</div><div class="sec-line"></div></div>
+  <h2>Quick Start</h2>
+  <p class="lead">Choose your learning path based on your experience level.</p>
+  <div class="quick-grid">
+    <a href="cat01-arrays-hashing.html" class="quick-card start">
+      <div class="quick-title">New to DSA?</div>
+      <div class="quick-desc">Start with arrays and hashing. Master the fundamentals before moving to advanced patterns.</div>
+      <div class="quick-cta">Begin Now</div>
+    </a>
+    <a href="cat06-trees-bst.html" class="quick-card mid">
+      <div class="quick-title">Know Basics?</div>
+      <div class="quick-desc">Jump to trees and graphs. You've got the foundation — time for structured problems.</div>
+      <div class="quick-cta">Intermediate</div>
+    </a>
+    <a href="sd01-system-design-fundamentals.html" class="quick-card adv">
+      <div class="quick-title">System Design?</div>
+      <div class="quick-desc">Learn scaling, databases, caching. Essential for senior-level FAANG rounds.</div>
+      <div class="quick-cta">Advanced</div>
+    </a>
+  </div>
+</div>
+
+<!-- 90-Day Study Plan -->
+<div class="section">
+  <div class="sec-tag"><div class="sec-num">02</div><div class="sec-line"></div></div>
+  <h2>90-Day Study Plan</h2>
+  <p class="lead">Structured 5-phase approach. 2-3 hours weekdays, 4-5 hours weekends. ~300 total hours. Follow this roadmap to be interview-ready.</p>
+  <div class="path">
+    <div class="path-phase">Phase 1 (Days 1–14): Foundation & Easy</div>
+    <div class="path-items">
+      <a href="cat01-arrays-hashing.html" class="path-item">Arrays & Hashing</a>
+      <a href="cat05-linked-lists.html" class="path-item">Linked Lists</a>
+      <a href="cat06-trees-bst.html" class="path-item">Trees & BST Basics</a>
+    </div>
+    <div class="path-phase">Phase 2 (Days 15–35): Core Patterns</div>
+    <div class="path-items">
+      <a href="cat02-two-pointers-sliding-window.html" class="path-item">Two Pointers & Sliding Window</a>
+      <a href="cat03-binary-search.html" class="path-item">Binary Search</a>
+      <a href="cat04-stacks-queues.html" class="path-item">Stacks & Queues</a>
+      <a href="cat07-graphs-bfs-dfs.html" class="path-item">BFS/DFS Intro</a>
+      <a href="cat10-heap-priority-queue.html" class="path-item">Heaps & Priority Queues</a>
+    </div>
+    <div class="path-phase">Phase 3 (Days 36–55): Advanced Algorithms</div>
+    <div class="path-items">
+      <a href="cat08-dynamic-programming.html" class="path-item">Dynamic Programming</a>
+      <a href="cat07-graphs-bfs-dfs.html" class="path-item">Advanced Graphs</a>
+      <a href="cat09-greedy-backtracking.html" class="path-item">Greedy & Backtracking</a>
+      <a href="cat11-trie-union-find.html" class="path-item">Trie & Union-Find</a>
+      <a href="cat14-bit-manipulation-math.html" class="path-item">Bit Manipulation & Math</a>
+    </div>
+    <div class="path-phase">Phase 4 (Days 56–75): System Design</div>
+    <div class="path-items">
+      <a href="sd01-system-design-fundamentals.html" class="path-item">Fundamentals & CAP</a>
+      <a href="sd02-common-system-designs.html" class="path-item">10 Common Designs</a>
+      <a href="sd03-object-oriented-design.html" class="path-item">OOD & Design Patterns</a>
+    </div>
+    <div class="path-phase">Phase 5 (Days 76–90): Mock & Review</div>
+    <div class="path-items">
+      <a href="mock-interviews.html" class="path-item">5 Full Mock Interviews</a>
+      <a href="01-behavioral-interviews.html" class="path-item">Behavioral Prep</a>
+      <a href="pattern-cheatsheet.html" class="path-item">Pattern Cheatsheet</a>
+    </div>
+  </div>
+  <div class="callout warn"><div class="callout-icon">&#9888;</div><div><strong>Daily Commitment:</strong> Weekdays 2-3 hrs, weekends 4-5 hrs. Total: ~300 hours across 90 days. Consistency beats intensity.</div></div>
+</div>
+
+<!-- General & Behavioral -->
+<div class="section">
+  <div class="sec-tag"><div class="sec-num">03</div><div class="sec-line"></div></div>
+  <h2>Start Here</h2>
+  <p class="lead">Company-specific interview processes, behavioral prep, and strategic overview.</p>
+  <div class="grid">
+    <a href="00-faang-overview.html" class="card c-orange">
+      <div class="card-tag">Overview</div>
+      <div class="card-title">FAANG Company Guide</div>
+      <div class="card-desc">Meta, Amazon, Apple, Netflix, Google, Microsoft — interview timelines, rounds, evaluation criteria, and company-specific tips.</div>
+      <div class="card-meta"><span>6 companies</span><span><span class="badge b-orange">Critical</span></span></div>
+    </a>
+    <a href="01-behavioral-interviews.html" class="card c-green">
+      <div class="card-tag">Behavioral</div>
+      <div class="card-title">Behavioral Interview Prep</div>
+      <div class="card-desc">STAR method, Amazon Leadership Principles, Google Googliness, Meta values. 50+ realistic questions with answers.</div>
+      <div class="card-meta"><span>50+ questions</span><span><span class="badge b-green">Essential</span></span></div>
+    </a>
+  </div>
+</div>
+
+<!-- Problem Categories (14 total) -->
+<div class="section">
+  <div class="sec-tag"><div class="sec-num">04</div><div class="sec-line"></div></div>
+  <h2>14 Problem Categories</h2>
+  <p class="lead">200+ problems organized by technique. Full C# solutions, complexity analysis, step-by-step traces, and edge case handling.</p>
+  <div class="grid">
+    <a href="cat01-arrays-hashing.html" class="card c-orange">
+      <div class="card-tag">Category 1</div>
+      <div class="card-title">Arrays & Hashing</div>
+      <div class="card-desc">Two Sum, Subarray Sum, Group Anagrams, Top K Frequent, Product of Array Except Self.</div>
+      <div class="card-meta"><span>15 problems</span><span><span class="badge b-orange">Most Tested</span></span></div>
+    </a>
+    <a href="cat02-two-pointers-sliding-window.html" class="card c-green">
+      <div class="card-tag">Category 2</div>
+      <div class="card-title">Two Pointers & Sliding Window</div>
+      <div class="card-desc">Container With Most Water, 3Sum, Longest Substring, Min Window Substring, Trapping Rain Water.</div>
+      <div class="card-meta"><span>15 problems</span><span><span class="badge b-green">High Frequency</span></span></div>
+    </a>
+    <a href="cat03-binary-search.html" class="card c-blue">
+      <div class="card-tag">Category 3</div>
+      <div class="card-title">Binary Search</div>
+      <div class="card-desc">Search Rotated Array, Find Peak Element, Median of Two Arrays, Koko Eating Bananas.</div>
+      <div class="card-meta"><span>12 problems</span><span><span class="badge b-blue">Essential</span></span></div>
+    </a>
+    <a href="cat04-stacks-queues.html" class="card c-amber">
+      <div class="card-tag">Category 4</div>
+      <div class="card-title">Stacks & Queues</div>
+      <div class="card-desc">Valid Parentheses, Min Stack, Largest Rectangle, Sliding Window Maximum, Daily Temperatures.</div>
+      <div class="card-meta"><span>12 problems</span></div>
+    </a>
+    <a href="cat05-linked-lists.html" class="card c-orange">
+      <div class="card-tag">Category 5</div>
+      <div class="card-title">Linked Lists</div>
+      <div class="card-desc">Reverse Linked List, Merge K Lists, LRU Cache, Copy List with Random Pointer.</div>
+      <div class="card-meta"><span>12 problems</span></div>
+    </a>
+    <a href="cat06-trees-bst.html" class="card c-green">
+      <div class="card-tag">Category 6</div>
+      <div class="card-title">Trees & BST</div>
+      <div class="card-desc">Invert Tree, Validate BST, Serialize/Deserialize, Lowest Common Ancestor, Binary Tree Maximum Path Sum.</div>
+      <div class="card-meta"><span>15 problems</span><span><span class="badge b-green">Core</span></span></div>
+    </a>
+    <a href="cat07-graphs-bfs-dfs.html" class="card c-blue">
+      <div class="card-tag">Category 7</div>
+      <div class="card-title">Graphs & BFS/DFS</div>
+      <div class="card-desc">Number of Islands, Course Schedule, Word Ladder, Alien Dictionary, Graph Valid Tree.</div>
+      <div class="card-meta"><span>15 problems</span><span><span class="badge b-blue">Advanced</span></span></div>
+    </a>
+    <a href="cat08-dynamic-programming.html" class="card c-amber">
+      <div class="card-tag">Category 8</div>
+      <div class="card-title">Dynamic Programming</div>
+      <div class="card-desc">Climbing Stairs, Coin Change, Longest Increasing Subsequence, Edit Distance, Burst Balloons.</div>
+      <div class="card-meta"><span>15 problems</span><span><span class="badge b-red">Hardest</span></span></div>
+    </a>
+    <a href="cat09-greedy-backtracking.html" class="card c-orange">
+      <div class="card-tag">Category 9</div>
+      <div class="card-title">Greedy & Backtracking</div>
+      <div class="card-desc">Jump Game, Task Scheduler, N-Queens, Combination Sum, Sudoku Solver.</div>
+      <div class="card-meta"><span>12 problems</span></div>
+    </a>
+    <a href="cat10-heap-priority-queue.html" class="card c-green">
+      <div class="card-tag">Category 10</div>
+      <div class="card-title">Heap & Priority Queue</div>
+      <div class="card-desc">Merge K Lists, Find Median Stream, Top K Elements, Meeting Rooms II.</div>
+      <div class="card-meta"><span>12 problems</span></div>
+    </a>
+    <a href="cat11-trie-union-find.html" class="card c-blue">
+      <div class="card-tag">Category 11</div>
+      <div class="card-title">Trie & Union-Find</div>
+      <div class="card-desc">Implement Trie, Word Search II, Number of Provinces, Redundant Connection.</div>
+      <div class="card-meta"><span>10 problems</span></div>
+    </a>
+    <a href="cat12-intervals-sorting.html" class="card c-amber">
+      <div class="card-tag">Category 12</div>
+      <div class="card-title">Intervals & Sorting</div>
+      <div class="card-desc">Merge Intervals, Insert Interval, Meeting Rooms, Non-Overlapping Intervals.</div>
+      <div class="card-meta"><span>12 problems</span></div>
+    </a>
+    <a href="cat13-strings-pattern.html" class="card c-orange">
+      <div class="card-tag">Category 13</div>
+      <div class="card-title">Strings & Pattern Matching</div>
+      <div class="card-desc">Longest Palindrome, Decode Ways, Word Break, Regular Expression Matching.</div>
+      <div class="card-meta"><span>12 problems</span></div>
+    </a>
+    <a href="cat14-bit-manipulation-math.html" class="card c-green">
+      <div class="card-tag">Category 14</div>
+      <div class="card-title">Bit Manipulation & Math</div>
+      <div class="card-desc">Single Number, Counting Bits, Power of Two, Missing Number, Integer Reversal.</div>
+      <div class="card-meta"><span>10 problems</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- System Design -->
+<div class="section">
+  <div class="sec-tag"><div class="sec-num">05</div><div class="sec-line"></div></div>
+  <h2>System Design</h2>
+  <p class="lead">Master the system design round. Scale from zero to millions of users.</p>
+  <div class="grid">
+    <a href="sd01-system-design-fundamentals.html" class="card c-red">
+      <div class="card-tag">Foundations</div>
+      <div class="card-title">System Design Fundamentals</div>
+      <div class="card-desc">Scaling, load balancing, caching strategies, database design, message queues, CAP theorem, distributed systems.</div>
+      <div class="card-meta"><span><span class="badge b-red">Critical Foundation</span></span></div>
+    </a>
+    <a href="sd02-common-system-designs.html" class="card c-blue">
+      <div class="card-tag">Real-World</div>
+      <div class="card-title">10 Common System Designs</div>
+      <div class="card-desc">URL Shortener, Twitter Feed, Uber, Netflix, WhatsApp, Dropbox, YouTube, Notification System, E-commerce, Chat App.</div>
+      <div class="card-meta"><span>10 designs</span><span><span class="badge b-blue">Practice</span></span></div>
+    </a>
+    <a href="sd03-object-oriented-design.html" class="card c-green">
+      <div class="card-tag">OOD</div>
+      <div class="card-title">Object-Oriented Design</div>
+      <div class="card-desc">Design patterns, SOLID principles, 8 OOD problems: Parking Lot, Vending Machine, Deck of Cards, Airline Ticket Reservation.</div>
+      <div class="card-meta"><span>8 problems</span><span><span class="badge b-green">SOLID</span></span></div>
+    </a>
+  </div>
+</div>
+
+<!-- Resources -->
+<div class="section">
+  <div class="sec-tag"><div class="sec-num">06</div><div class="sec-line"></div></div>
+  <h2>Practice & Resources</h2>
+  <p class="lead">Mock interviews, pattern recognition, and last-minute prep.</p>
+  <div class="grid">
+    <a href="mock-interviews.html" class="card c-amber">
+      <div class="card-tag">Practice</div>
+      <div class="card-title">5 Full Mock Interviews</div>
+      <div class="card-desc">Timed simulations of each FAANG company's format. Mixed Easy/Medium/Hard. Detailed solutions and feedback.</div>
+      <div class="card-meta"><span>5 mocks</span><span>4-5 hrs each</span></div>
+    </a>
+    <a href="pattern-cheatsheet.html" class="card c-orange">
+      <div class="card-tag">Reference</div>
+      <div class="card-title">Pattern Recognition Cheatsheet</div>
+      <div class="card-desc">40+ algorithm patterns with signal detection. C# templates, complexity lookup, edge cases, and test-day checklist.</div>
+      <div class="card-meta"><span>40+ patterns</span><span>10 templates</span></div>
+    </a>
+  </div>
+</div>
+
+<div class="callout tip" style="margin-top:40px"><div class="callout-icon">&#9989;</div><div><strong>You've got this:</strong> 90 days, 300 hours, 200+ problems. Follow the phases, solve consistently, and master the patterns. By day 90, you'll be ready.</div></div>
+
+</div>
+
+<footer>
+<div class="footer-inner">
+  <p><strong>FAANG Interview Book — Master the FAANG Interview with C#</strong></p>
+  <p>200+ problems across 14 categories, system design, 5 mock interviews, behavioral prep for 6 companies.</p>
+  <p style="margin-top:14px;font-size:12px">Start your 90-day journey today.</p>
+</div>
+</footer>
+</body>
+</html>
